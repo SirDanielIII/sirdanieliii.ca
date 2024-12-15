@@ -7,7 +7,7 @@ export const GlobalStyles = createGlobalStyle`
         padding: 0;
     }
 
-    html, body, #root {
+    html, body {
         height: 100%;
         background: ${({theme}) => theme.colors.primaryBg};
         color: ${({theme}) => theme.colors.textLight};
