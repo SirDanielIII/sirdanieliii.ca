@@ -23,7 +23,7 @@ const HeaderContent = styled.div`
 const LogoLink = styled(Link)`
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 16px;
 
     @media (max-width: 600px) {
         gap: 0; /* On mobile, just show the image */
@@ -40,10 +40,10 @@ const LogoImg = styled.img`
 const LogoText = styled.div`
     font-size: 32px;
     font-weight: 400;
-    letter-spacing: 4.8px;
+    letter-spacing: 5px;
     color: ${({theme}) => theme.colors.textHighlight};
 
-    @media (max-width: 600px) {
+    @media (max-width: 1000px) {
         display: none; /* Hide text on small screens */
     }
 `;
@@ -52,8 +52,8 @@ const Nav = styled.nav`
     display: flex;
     gap: 2rem;
 
-    @media (max-width: 600px) {
-        display: none; /* Hide on mobile */
+    @media (max-width: 720px) {
+        display: none; /* Hide text on small screens */
     }
 `;
 
@@ -90,7 +90,7 @@ const ToggleButton = styled.button`
 const HamburgerButton = styled.button`
   display: none;
   width: 40px;
-  height: 40px;
+  height: 50px;
   background: ${({theme}) => theme.colors.textLight};
   color: ${({theme}) => theme.colors.headerBg};
   border-radius: 8px;
@@ -99,7 +99,7 @@ const HamburgerButton = styled.button`
   justify-content: center;
   border: none;
 
-  @media (max-width: 600px) {
+  @media (max-width: 720px) {
     display: flex;
   }
 `;
@@ -150,8 +150,8 @@ const Header: React.FC<HeaderProps> = ({ toggleTheme, isDarkMode, profileImage }
                     <NavLink to="/articles" color="#E9C683">ARTICLES</NavLink>
                 </Nav>
                 <div style={{display: 'flex', gap: '10px'}}>
-                    <ToggleButton onClick={toggleTheme} title="Toggle theme">
-                        {isDarkMode ? '🌒' : '🌞'}
+                    <ToggleButton onClick={toggleTheme} title="Toggle Theme">
+                        {isDarkMode ? '🌛' : '🌞'}
                     </ToggleButton>
                     <HamburgerButton onClick={() => setMenuOpen(!menuOpen)}>
                         ☰

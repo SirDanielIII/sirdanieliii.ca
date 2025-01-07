@@ -13,7 +13,7 @@ import PortfolioPage from './pages/PortfolioPage';
 import MerchPage from './pages/MerchPage';
 import ArticlesPage from './pages/ArticlesPage';
 
-import profileImage from './assets/images/profile.png';
+import profileImage from './assets/images/profile.webp';
 
 const App: React.FC = () => {
     const [isDarkMode, setIsDarkMode] = useState(true);
