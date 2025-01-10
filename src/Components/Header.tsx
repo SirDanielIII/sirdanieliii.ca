@@ -8,6 +8,7 @@ const HeaderContainer = styled.header`
     width: 100%;
     background: ${({theme}) => theme.colors.headerBg};
     z-index: 1000;
+    filter: drop-shadow(0px 0px 10px black);
 `;
 
 const HeaderContent = styled.div`
@@ -73,7 +74,7 @@ const ToggleButton = styled.button`
     height: 50px;
     border: none;
     border-radius: 50%;
-    background: ${({theme}) => theme.colors.textLight};
+    background: ${({theme}) => theme.colors.themeButton};
     color: ${({theme}) => theme.colors.headerBg};
     display: flex;
     align-items: center;
@@ -151,7 +152,7 @@ const Header: React.FC<HeaderProps> = ({ toggleTheme, isDarkMode, profileImage }
                 </Nav>
                 <div style={{display: 'flex', gap: '10px'}}>
                     <ToggleButton onClick={toggleTheme} title="Toggle Theme">
-                        {isDarkMode ? '🌛' : '🌞'}
+                        {isDarkMode ? '🌞' : '🌛'}
                     </ToggleButton>
                     <HamburgerButton onClick={() => setMenuOpen(!menuOpen)}>
                         ☰
