@@ -7,16 +7,15 @@ interface CardProps {
 }
 
 const CardLink = styled(Link)<CardProps>`
-    background: ${({backgroundImage, theme}) => backgroundImage
-            ? `url(${backgroundImage}) center/cover no-repeat`
-            : theme.colors.cardBg};
+    position: relative;
+    overflow: hidden;
     border-radius: 23px;
     display: flex;
     align-items: center;
     justify-content: center;
     height: 300px;
     text-align: center;
-    color: ${({theme}) => theme.colors.textLight};
+    color: ${({theme}) => theme.colors.text};
     transition: transform 0.2s ease;
 
     &:hover {
@@ -24,21 +23,56 @@ const CardLink = styled(Link)<CardProps>`
     }
 `;
 
-const Title = styled.h2`
+const Background = styled.div<{ backgroundImage?: string }>`
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: ${({backgroundImage, theme}) =>
+            backgroundImage
+                    ? `url(${backgroundImage}) center/cover no-repeat`
+                    : theme.colors.sectionCard};
+    filter: blur(2px);
+    z-index: 0;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.3); /* Dark overlay */
+    }
+`;
+
+interface TitleProps {
+    textColor?: string;
+}
+
+const Title = styled.h2<TitleProps>`
     font-size: 30px;
     letter-spacing: 3px;
-    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.7);
+    /* Drop shadow added to text */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    /* Use the provided textColor, or fallback to theme color */
+    color: ${({textColor, theme}) => textColor || theme.colors.text};
+    position: relative;
+    z-index: 1;
 `;
 
 interface SectionCardProps {
     title: string;
     to: string;
     backgroundImage?: string;
+    textColor?: string;
 }
 
-const SectionCard: React.FC<SectionCardProps> = ({title, to, backgroundImage}) => (
+const SectionCard: React.FC<SectionCardProps> = ({title, to, backgroundImage, textColor}) => (
     <CardLink to={to} backgroundImage={backgroundImage}>
-        <Title>{title}</Title>
+        <Background backgroundImage={backgroundImage}/>
+        <Title textColor={textColor}>{title}</Title>
     </CardLink>
 );
 

@@ -23,16 +23,18 @@ const App: React.FC = () => {
 
     return (
         <ThemeProvider theme={currentTheme}>
-            <GlobalStyles/>
-            <Header toggleTheme={toggleTheme} isDarkMode={isDarkMode} profileImage={profileImage}/>
-            <Routes>
-                <Route path="/" element={<HomePage/>}/>
-                <Route path="/projects" element={<ProjectsPage/>}/>
-                <Route path="/portfolio" element={<PortfolioPage/>}/>
-                <Route path="/merch" element={<MerchPage/>}/>
-                <Route path="/articles" element={<ArticlesPage/>}/>
-            </Routes>
-            <Footer profileImage={profileImage}/>
+            <>
+                <GlobalStyles/>
+                <Header toggleTheme={toggleTheme} isDarkMode={isDarkMode} profileImage={profileImage}/>
+                <Routes>
+                    <Route path="/" element={<HomePage/>}/>
+                    <Route path="/projects" element={<ProjectsPage/>}/>
+                    <Route path="/portfolio" element={<PortfolioPage/>}/>
+                    <Route path="/merch" element={<MerchPage/>}/>
+                    <Route path="/articles" element={<ArticlesPage/>}/>
+                </Routes>
+                <Footer profileImage={profileImage}/>
+            </>
         </ThemeProvider>
     );
 };

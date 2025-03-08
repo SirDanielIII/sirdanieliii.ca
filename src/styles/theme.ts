@@ -1,33 +1,43 @@
 export const lightTheme = {
     colors: {
-        primaryBg: '#F7F7F7',
-        secondaryBg: '#FFFFFF',
-        headerBg: '#FFFFFF',
-        textLight: '#000000',
-        textHighlight: '#38C4E7',
-        cardBg: '#FFFFFF',
-        footerBg: '#FFFFFF',
+        background1: '#F7F7F7',
+        background2: '#FFFFFF',
+        text: '#000000',
+        highlight1: '#f50057',
+        highlight2: '#38C4E7',
+        highlight3: '#AA9EEA',
+        highlight4: '#3FD49A',
+        highlight5: '#E9C683',
+        sectionCard: '#FFFFFF',
+        header: '#FFFFFF',
+        footer: '#FFFFFF',
         themeButton: '#282828',
-        FULLSEND: '#FFFFFF'
     },
     fonts: {
-        primary: "'Berlin Sans FB', sans-serif",
+        regular: "'BRLNSR', sans-serif",
+        demi: "'BRLNSD', sans-serif",
+        bold: "'BRLNSB', sans-serif",
     }
 };
 
 export const darkTheme = {
     colors: {
-        primaryBg: '#121212',
-        secondaryBg: '#3f3f3f',
-        headerBg: '#121212',
-        textLight: '#D9D9D9',
-        textHighlight: '#f50057',
-        cardBg: '#2F334D',
-        footerBg: '#000000',
+        background1: '#121212',
+        background2: '#141414',
+        text: '#D9D9D9',
+        highlight1: '#f50057',
+        highlight2: '#38C4E7',
+        highlight3: '#AA9EEA',
+        highlight4: '#3FD49A',
+        highlight5: '#E9C683',
+        sectionCard: '#2F334D',
+        header: '#121212',
+        footer: '#000000',
         themeButton: '#FFFFFF',
-        FULLSEND: '#000000'
     },
     fonts: {
-        primary: "'Berlin Sans FB', sans-serif",
+        regular: "'BRLNSR', sans-serif",
+        demi: "'BRLNSD', sans-serif",
+        bold: "'BRLNSB', sans-serif",
     }
 };

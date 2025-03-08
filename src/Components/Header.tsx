@@ -6,7 +6,7 @@ const HeaderContainer = styled.header`
     position: fixed;
     top: 0;
     width: 100%;
-    background: ${({theme}) => theme.colors.headerBg};
+    background: ${({theme}) => theme.colors.header};
     z-index: 1000;
     filter: drop-shadow(0px 0px 10px black);
 `;
@@ -42,7 +42,7 @@ const LogoText = styled.div`
     font-size: 32px;
     font-weight: 400;
     letter-spacing: 5px;
-    color: ${({theme}) => theme.colors.textHighlight};
+    color: ${({theme}) => theme.colors.highlight1};
 
     @media (max-width: 1000px) {
         display: none; /* Hide text on small screens */
@@ -75,7 +75,7 @@ const ToggleButton = styled.button`
     border: none;
     border-radius: 50%;
     background: ${({theme}) => theme.colors.themeButton};
-    color: ${({theme}) => theme.colors.headerBg};
+    color: ${({theme}) => theme.colors.header};
     display: flex;
     align-items: center;
     justify-content: center;
@@ -92,8 +92,8 @@ const HamburgerButton = styled.button`
   display: none;
   width: 40px;
   height: 50px;
-  background: ${({theme}) => theme.colors.textLight};
-  color: ${({theme}) => theme.colors.headerBg};
+  background: ${({theme}) => theme.colors.text};
+  color: ${({theme}) => theme.colors.header};
   border-radius: 8px;
   font-size: 24px;
   align-items: center;
@@ -110,7 +110,7 @@ const MobileMenuContainer = styled.div<{open: boolean}>`
   position: absolute;
   top: 80px;
   right: 20px;
-  background: ${({theme}) => theme.colors.headerBg};
+  background: ${({theme}) => theme.colors.header};
   border-radius: 8px;
   padding: 10px;
 `;
