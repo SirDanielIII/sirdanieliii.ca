@@ -97,6 +97,11 @@ const Footer: React.FC = () => {
                                 I Have A Question
                             </a>
                         </ColItem>
+                        <ColItem>
+                            <a href="https://sirdanieliii.ca/cisc322/">
+                                CISC 322 (2024F)
+                            </a>
+                        </ColItem>
                     </Col>
                     <Col>
                         <ColTitle>Portfolio</ColTitle>
