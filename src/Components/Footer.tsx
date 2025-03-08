@@ -1,9 +1,16 @@
 import React from 'react';
 import styled from 'styled-components';
+import pkg from '../../package.json';
 
 const FooterContainer = styled.footer`
-    background: ${({theme}) => theme.colors.footer};
-    padding: 40px 20px;
+    background: linear-gradient(
+            135deg,
+            ${({ theme }) => theme.colors.footer} 0%,
+            ${({ theme }) => theme.colors.background2} 100%
+    );
+    padding: 60px 20px;
+    border-top: 3px solid ${({ theme }) => theme.colors.highlight1};
+    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 `;
 
 const FooterContent = styled.div`
@@ -11,6 +18,7 @@ const FooterContent = styled.div`
     margin: 0 auto;
     display: flex;
     gap: 40px;
+    align-items: center;
 
     @media (max-width: 600px) {
         flex-direction: column;
@@ -18,15 +26,15 @@ const FooterContent = styled.div`
     }
 `;
 
-const ProfileImage = styled.img`
-    width: 253px;
-    height: 253px;
-    border-radius: 41px;
-    object-fit: cover;
+const VersionText = styled.div`
+    font-size: 64px;
+    font-weight: bold;
+    color: ${({ theme }) => theme.colors.highlight4 || '#fff'};
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    text-align: center;
 
     @media (max-width: 600px) {
-        width: 150px;
-        height: 150px;
+        font-size: 48px;
     }
 `;
 
@@ -53,59 +61,53 @@ const Col = styled.div`
 `;
 
 const ColTitle = styled.h3`
-    color: #9BA9D4;
-    font-size: 36px;
-    margin-bottom: 20px;
-
-    @media (max-width: 600px) {
-        font-size: 28px;
-    }
+    color: ${({ theme }) => theme.colors.text};
+    font-size: 24px;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 `;
 
 const ColItem = styled.p`
-    color: #9BA9D4;
-    font-size: 20px;
-    margin: 10px 0;
+    color: ${({ theme }) => theme.colors.text};
+    font-size: 18px;
+    margin: 8px 0;
 
-    @media (max-width: 600px) {
-        font-size: 16px;
+    a {
+        color: ${({ theme }) => theme.colors.highlight2};
+        text-decoration: none;
+        transition: color 0.2s;
+        &:hover {
+            color: ${({ theme }) => theme.colors.highlight1};
+        }
     }
 `;
 
-interface FooterProps {
-    profileImage: string;
-}
-
-const Footer: React.FC<FooterProps> = ({ profileImage }) => {
+const Footer: React.FC = () => {
     return (
         <FooterContainer>
             <FooterContent>
-                <ProfileImage src={profileImage} alt="Footer Profile" />
+                <VersionText>v{pkg.version}</VersionText>
                 <Columns>
                     <Col>
-                        <ColTitle>PROJECTS</ColTitle>
-                        <ColItem>link</ColItem>
-                        <ColItem>link</ColItem>
-                        <ColItem>link</ColItem>
-                        <ColItem>link</ColItem>
+                        <ColTitle>Projects</ColTitle>
+                        <ColItem>
+                            <a href="https://sirdanieliii.ca/projects/ihaveaquestion/">
+                                I Have A Question
+                            </a>
+                        </ColItem>
                     </Col>
                     <Col>
-                        <ColTitle>PORTFOLIO</ColTitle>
-                        <ColItem>Photo</ColItem>
-                        <ColItem>Video</ColItem>
-                        <ColItem>link</ColItem>
-                        <ColItem>link</ColItem>
+                        <ColTitle>Portfolio</ColTitle>
+                        <ColItem>[WIP]</ColItem>
                     </Col>
                     <Col>
-                        <ColTitle>MERCH</ColTitle>
-                        <ColItem>Store</ColItem>
+                        <ColTitle>Merch</ColTitle>
+                        <ColItem>[WIP]</ColItem>
                     </Col>
                     <Col>
-                        <ColTitle>ARTICLES</ColTitle>
-                        <ColItem>Recipes</ColItem>
-                        <ColItem>link</ColItem>
-                        <ColItem>link</ColItem>
-                        <ColItem>link</ColItem>
+                        <ColTitle>Articles</ColTitle>
+                        <ColItem>[WIP]</ColItem>
                     </Col>
                 </Columns>
             </FooterContent>

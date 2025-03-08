@@ -22,3 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+/src/assets/images/section_card/Archive/
+/src/assets/images/section_card/[BATCH] image to webp.bat
