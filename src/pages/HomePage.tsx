@@ -132,7 +132,7 @@ const HomePage: React.FC = () => {
             </Sections>
 
             {/* About Server Section with Photo on Left */}
-            <AboutServerSection align="left" photo={ServerPhoto} metadata={SD_NAS_1_Metadata} alt="Server"/>
+            <AboutServerSection align="left" photo={ServerPhoto} metadata={SD_NAS_1_Metadata}/>
 
         </MainContent>
     );

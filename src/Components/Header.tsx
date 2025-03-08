@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, {useState} from 'react';
+import {Link} from 'react-router-dom';
 import styled from 'styled-components';
 
 const HeaderContainer = styled.header`
@@ -58,7 +58,7 @@ const Nav = styled.nav`
     }
 `;
 
-const NavLink = styled(Link)<{color: string}>`
+const NavLink = styled(Link)<{ color: string }>`
     font-size: 20px;
     font-weight: 400;
     letter-spacing: 3px;
@@ -105,7 +105,7 @@ const HamburgerButton = styled.button`
   }
 `;
 
-const MobileMenuContainer = styled.div<{open: boolean}>`
+const MobileMenuContainer = styled.div<{ open: boolean }>`
   display: ${({open}) => (open ? 'block' : 'none')};
   position: absolute;
   top: 80px;
@@ -134,14 +134,14 @@ interface HeaderProps {
     profileImage: string;
 }
 
-const Header: React.FC<HeaderProps> = ({ toggleTheme, isDarkMode, profileImage }) => {
+const Header: React.FC<HeaderProps> = ({toggleTheme, isDarkMode, profileImage}) => {
     const [menuOpen, setMenuOpen] = useState(false);
 
     return (
         <HeaderContainer>
             <HeaderContent>
                 <LogoLink to="/">
-                    <LogoImg src={profileImage} alt="Profile" />
+                    <LogoImg src={profileImage} alt="Profile"/>
                     <LogoText>SIR DANIEL III</LogoText>
                 </LogoLink>
                 <Nav>

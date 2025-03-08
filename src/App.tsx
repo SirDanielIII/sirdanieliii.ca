@@ -33,7 +33,7 @@ const App: React.FC = () => {
                     <Route path="/merch" element={<MerchPage/>}/>
                     <Route path="/articles" element={<ArticlesPage/>}/>
                 </Routes>
-                <Footer profileImage={profileImage}/>
+                <Footer/>
             </>
         </ThemeProvider>
     );

@@ -80,7 +80,7 @@ const AboutServerSection: React.FC<AboutServerSectionProps> = ({
         <SectionWrapper>
             {align === 'left' && (
                 <PhotoContainer align={align}>
-                    <PhotoItem photo={photo} alt="Server" metadata={metadata}/>
+                    <PhotoItem photo={photo} metadata={metadata}/>
                 </PhotoContainer>
             )}
             <TextContainer>
@@ -97,7 +97,7 @@ const AboutServerSection: React.FC<AboutServerSectionProps> = ({
             </TextContainer>
             {align === 'right' && (
                 <PhotoContainer align={align}>
-                    <PhotoItem photo={photo} alt="Server" metadata={metadata}/>
+                    <PhotoItem photo={photo} metadata={metadata}/>
                 </PhotoContainer>
             )}
         </SectionWrapper>

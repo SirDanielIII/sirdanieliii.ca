@@ -30,9 +30,9 @@ const Background = styled.div<{ backgroundImage?: string }>`
     width: 100%;
     height: 100%;
     background: ${({backgroundImage, theme}) =>
-            backgroundImage
-                    ? `url(${backgroundImage}) center/cover no-repeat`
-                    : theme.colors.sectionCard};
+    backgroundImage
+        ? `url(${backgroundImage}) center/cover no-repeat`
+        : theme.colors.sectionCard};
     filter: blur(2px);
     z-index: 0;
 

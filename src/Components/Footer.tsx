@@ -5,11 +5,11 @@ import pkg from '../../package.json';
 const FooterContainer = styled.footer`
     background: linear-gradient(
             135deg,
-            ${({ theme }) => theme.colors.footer} 0%,
-            ${({ theme }) => theme.colors.background2} 100%
+            ${({theme}) => theme.colors.footer} 0%,
+            ${({theme}) => theme.colors.background2} 100%
     );
     padding: 60px 20px;
-    border-top: 3px solid ${({ theme }) => theme.colors.highlight1};
+    border-top: 3px solid ${({theme}) => theme.colors.highlight1};
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
 `;
 
@@ -29,7 +29,7 @@ const FooterContent = styled.div`
 const VersionText = styled.div`
     font-size: 64px;
     font-weight: bold;
-    color: ${({ theme }) => theme.colors.highlight4 || '#fff'};
+    color: ${({theme}) => theme.colors.highlight4 || '#fff'};
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     text-align: center;
 
@@ -61,7 +61,7 @@ const Col = styled.div`
 `;
 
 const ColTitle = styled.h3`
-    color: ${({ theme }) => theme.colors.text};
+    color: ${({theme}) => theme.colors.text};
     font-size: 24px;
     margin-bottom: 10px;
     text-transform: uppercase;
@@ -69,16 +69,17 @@ const ColTitle = styled.h3`
 `;
 
 const ColItem = styled.p`
-    color: ${({ theme }) => theme.colors.text};
+    color: ${({theme}) => theme.colors.text};
     font-size: 18px;
     margin: 8px 0;
 
     a {
-        color: ${({ theme }) => theme.colors.highlight2};
+        color: ${({theme}) => theme.colors.highlight2};
         text-decoration: none;
         transition: color 0.2s;
+
         &:hover {
-            color: ${({ theme }) => theme.colors.highlight1};
+            color: ${({theme}) => theme.colors.highlight1};
         }
     }
 `;
