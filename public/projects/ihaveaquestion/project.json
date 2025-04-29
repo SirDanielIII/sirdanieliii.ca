@@ -1,0 +1,29 @@
+{
+  "title": "I Have A Question",
+  "description": "Will you be my Valentine? 👉👈",
+  "tags": [
+    "HTML",
+    "CSS",
+    "JavaScript",
+    "Responsive",
+    "Animation"
+  ],
+  "type": "link",
+  "link": "https://sirdanieliii.ca/projects/ihaveaquestion/",
+  "github": "https://github.com/SirDanielIII/IHaveAQuestion",
+  "thumbnail": "icon.jpg",
+  "version": "1.0.0",
+  "lastUpdated": "2025-04-29",
+  "colors": {
+    "light": {
+      "title": "#D61C4E",
+      "background": "#FFF0F5",
+      "description": "#333333"
+    },
+    "dark": {
+      "title": "#FFB6C1",
+      "background": "#2B1A1F",
+      "description": "#DDDDDD"
+    }
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "title": "Chan Wars",
+  "description": "A modular memory-fighting game built with Pygame, featuring customizable arenas and AI opponents.",
+  "tags": [
+    "Python",
+    "Pygame",
+    "GameDev"
+  ],
+  "type": "download",
+  "download": "chanwars.zip",
+  "github": "https://github.com/yourusername/chan-wars",
+  "thumbnail": "icon.png",
+  "version": "1.0.0",
+  "lastUpdated": "2025-04-29",
+  "colors": {
+    "light": {
+      "title": "#8A2BE2",
+      "background": "#F5F5FF",
+      "description": "#333333"
+    },
+    "dark": {
+      "title": "#BA55D3",
+      "background": "#1E0A3C",
+      "description": "#CCCCCC"
+    }
+  }
+}

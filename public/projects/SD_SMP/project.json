@@ -1,0 +1,27 @@
+{
+  "title": "SD_SMP",
+  "description": "A Minecraft SMP plugin",
+  "tags": [
+    "Minecraft",
+    "Plugin",
+    "Java"
+  ],
+  "type": "download",
+  "download": "SD_SMP.jar",
+  "github": "https://github.com/SirDanielIII/SD_SMP",
+  "thumbnail": "icon.png",
+  "version": "1.2.0",
+  "lastUpdated": "2025-04-29",
+  "colors": {
+    "light": {
+      "title": "#2E8B57",
+      "background": "#F0FFF0",
+      "description": "#333333"
+    },
+    "dark": {
+      "title": "#90EE90",
+      "background": "#0C2F13",
+      "description": "#DDDDDD"
+    }
+  }
+}

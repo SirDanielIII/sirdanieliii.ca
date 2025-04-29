@@ -1,4 +1,4 @@
-// src/Components/AboutServerSection.tsx
+// src/components/AboutServerSection.tsx
 import React from 'react';
 import styled from 'styled-components';
 import PhotoItem, {PhotoMetadata} from './PhotoItem';
@@ -87,7 +87,7 @@ const AboutServerSection: React.FC<AboutServerSectionProps> = ({
                 <Title>About My Server</Title>
                 <Desc>
                     SD_NAS is my Network-Attached Storage (NAS) that I built during November 2021.
-                    It currently runs Ubuntu 24.04 (Kernel 6.12) and hosts various services such as
+                    It currently runs Ubuntu 24.04 (Kernel 6.13.9) and hosts various services such as
                     websites (like this one) and my Minecraft servers!
                 </Desc>
                 <Desc>

@@ -1,12 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import SocialIcons from '../Components/SocialIcons';
-import SectionCard from '../Components/SectionCard';
+import SocialIcons from '../components/SocialIcons';
+import SectionCard from '../components/SectionCard';
 import SectionArticles from '../assets/images/section_card/section_articles.webp'
 import SectionMerch from '../assets/images/section_card/section_merch.webp'
 import SectionPortfolio from '../assets/images/section_card/section_portfolio.webp'
 import SectionProjects from '../assets/images/section_card/section_projects.webp'
-import AboutServerSection from "../Components/AboutServerSection.tsx";
+import AboutServerSection from "../components/AboutServerSection.tsx";
 import ServerPhoto from "../assets/images/homepage/SD_NAS_1.JPG"
 
 const SD_NAS_1_Metadata = {

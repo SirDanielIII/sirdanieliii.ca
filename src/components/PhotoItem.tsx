@@ -1,4 +1,4 @@
-// src/Components/PhotoItem.tsx
+// src/components/PhotoItem.tsx
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 

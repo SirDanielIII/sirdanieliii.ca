@@ -4,8 +4,8 @@ import {ThemeProvider} from 'styled-components';
 import {GlobalStyles} from './styles/GlobalStyles';
 import {darkTheme, lightTheme} from './styles/theme';
 
-import Header from './Components/Header';
-import Footer from './Components/Footer';
+import Header from './components/Header';
+import Footer from './components/Footer';
 
 import HomePage from './pages/HomePage';
 import ProjectsPage from './pages/ProjectsPage';
@@ -28,7 +28,10 @@ const App: React.FC = () => {
                 <Header toggleTheme={toggleTheme} isDarkMode={isDarkMode} profileImage={profileImage}/>
                 <Routes>
                     <Route path="/" element={<HomePage/>}/>
-                    <Route path="/projects" element={<ProjectsPage/>}/>
+                    <Route
+                        path="/projects"
+                        element={<ProjectsPage isDarkMode={isDarkMode} />}
+                    />
                     <Route path="/portfolio" element={<PortfolioPage/>}/>
                     <Route path="/merch" element={<MerchPage/>}/>
                     <Route path="/articles" element={<ArticlesPage/>}/>
