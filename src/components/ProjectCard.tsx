@@ -25,7 +25,7 @@ interface ProjectCardProps {
     imageFlex?: number;
 }
 
-/* ─────────── Styled Components ─────────── */
+/* ─── Layout ─────────────────────────────────────────────────────────────── */
 const Card = styled.div<{ bg: string }>`
     display: flex;
     background: ${({ bg }) => bg};
@@ -33,37 +33,61 @@ const Card = styled.div<{ bg: string }>`
     overflow: hidden;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     transition: transform 0.2s;
+    //max-width: 725px;
 
     &:hover { transform: translateY(-4px); }
 
-    @media (max-width: 600px) { flex-direction: column; }
+    @media (max-width: 750px) {
+        flex-direction: column;
+        align-items: center; /* centre both panes */
+        padding-bottom: 20px;
+    }
+    
+    @media (max-width: 500px) {
+        flex-direction: column;
+        align-items: center; /* centre both panes */
+        max-width: 450px;
+        padding-bottom: 20px;
+    }
 `;
 
 const Info = styled.div<{ flex: number }>`
     flex: ${({ flex }) => flex};
+    min-width: 250px;
     padding: 2rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    max-width: 450px;          /* always narrower than image */
     overflow: hidden;
+
+    @media (max-width: 750px) {
+        align-items: center;
+        text-align: center;
+    }
 `;
 
-/* Square image that touches card edges */
 const ImageOuter = styled.div<{ flex: number }>`
     flex: ${({ flex }) => flex};
     display: flex;
-    max-width: 600px;
+    justify-content: flex-end;
+
+    @media (max-width: 750px) {
+        justify-content: center;
+        width: 100%;
+    }
 `;
 
+/* square that shrinks on small screens */
 const ImageBox = styled.div`
     position: relative;
-    /*  - never larger than 350 px
-        - scales down with the viewport (≈ 30 vw)
-        - never smaller than 200 px so it’s still readable         */
-    width: clamp(200px, 30vw, 350px);
-    aspect-ratio: 1 / 1;   /* perfect square */
+    width: clamp(140px, 45vw, 350px);
+    aspect-ratio: 1 / 1;
     overflow: hidden;
+
+    @media (max-width: 750px) {
+        margin-top: 1rem;
+        width: clamp(140px, 80vw, 300px);
+    }
 `;
 
 const Thumbnail = styled.img`
@@ -74,14 +98,13 @@ const Thumbnail = styled.img`
     object-fit: cover;
 `;
 
-/* Title includes version inline, so they never separate */
+/* ─── Typography ─────────────────────────────────────────────────────────── */
 const Title = styled.h3<{ color: string }>`
     margin: 0;
     font-size: 2rem;
     color: ${({ color }) => color};
 `;
 
-/* clamp description to 3 lines */
 const Description = styled.p<{ color: string }>`
     margin: 0;
     color: ${({ color }) => color};
@@ -92,10 +115,15 @@ const Description = styled.p<{ color: string }>`
     overflow: hidden;
 `;
 
+/* ─── Tags & Buttons ─────────────────────────────────────────────────────── */
 const Tags = styled.div`
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+
+    @media (max-width: 750px) {
+        justify-content: center;
+    }
 `;
 
 const Tag = styled.span`
@@ -110,6 +138,10 @@ const Actions = styled.div`
     margin-top: auto;
     display: flex;
     gap: 1rem;
+
+    @media (max-width: 750px) {
+        justify-content: center;
+    }
 `;
 
 const Button = styled.a`
@@ -125,7 +157,7 @@ const Button = styled.a`
     &:hover { background: ${({ theme }) => theme.colors.highlight2}; }
 `;
 
-/* ─────────── Component ─────────── */
+/* ─── Component ─────────────────────────────────────────────────────────── */
 const ProjectCard: React.FC<ProjectCardProps> = ({ project, isDarkMode, infoFlex = 2, imageFlex = 3 }) => {
     const mode = isDarkMode ? 'dark' : 'light';
     const { title, version, description, tags, thumbnail, type, link, download, github, colors } = project;
@@ -138,29 +170,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isDarkMode, infoFlex
         <Card bg={bgColor}>
             <Info flex={infoFlex}>
                 <Title color={titleColor}>{`${title} v${version}`}</Title>
-
                 <Description color={descColor}>{description}</Description>
-
                 <Tags>{tags.map(t => <Tag key={t}>{t}</Tag>)}</Tags>
-
                 <Actions>
-                    {type === 'link' && link && (
-                        <Button href={link} target="_blank" rel="noreferrer">Visit</Button>
-                    )}
-                    {type === 'download' && download && (
-                        <Button href={`/projects/${project.folder}/${download}`} download>Download</Button>
-                    )}
-                    {github && (
-                        <Button href={github} target="_blank" rel="noreferrer">GitHub</Button>
-                    )}
+                    {type === 'link' && link && <Button href={link} target="_blank" rel="noreferrer">Visit</Button>}
+                    {type === 'download' && download && <Button href={`/projects/${project.folder}/${download}`} download>Download</Button>}
+                    {github && <Button href={github} target="_blank" rel="noreferrer">GitHub</Button>}
                 </Actions>
             </Info>
 
             <ImageOuter flex={imageFlex}>
                 <ImageBox>
-                    {thumbnail && (
-                        <Thumbnail src={`/projects/${project.folder}/${thumbnail}`} alt={title} />
-                    )}
+                    {thumbnail && <Thumbnail src={`/projects/${project.folder}/${thumbnail}`} alt={title} />}
                 </ImageBox>
             </ImageOuter>
         </Card>

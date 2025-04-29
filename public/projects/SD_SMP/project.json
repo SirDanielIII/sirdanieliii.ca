@@ -7,10 +7,10 @@
     "Java"
   ],
   "type": "download",
-  "download": "SD_SMP.jar",
+  "download": "SD_SMP-2.0.0-ALPHA-03.jar",
   "github": "https://github.com/SirDanielIII/SD_SMP",
   "thumbnail": "icon.png",
-  "version": "1.2.0",
+  "version": "2.0.0-ALPHA-03",
   "lastUpdated": "2025-04-29",
   "colors": {
     "light": {

@@ -25,7 +25,6 @@ const InputAlt = styled.input`
     border: none;
     border-bottom: 2px solid ${({ theme }) => theme.colors.text};
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-
     &:focus { outline: none; }
 `;
 
@@ -40,15 +39,14 @@ const InputBorderAlt = styled.span`
     ${({ theme }) => theme.colors.highlight2} 65%,
     ${({ theme }) => theme.colors.highlight3} 100%);
     transition: width 0.4s cubic-bezier(0.42, 0, 0.58, 1);
-
     ${InputAlt}:focus + & { width: 100%; }
 `;
 
-/* allow two cards as soon as 500‑px columns fit */
+/* Two cards share a row once 500‑px columns fit. */
 const Grid = styled.div`
     display: grid;
     gap: 2rem;
-    grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(650px, 1fr));
 `;
 
 const Message = styled.p<{ color?: string }>`
@@ -85,13 +83,7 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({ isDarkMode }) => {
     return (
         <PageContainer>
             <FormControl>
-                <InputAlt
-                    type="text"
-                    placeholder="Search projects..."
-                    value={query}
-                    onChange={(e: ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)}
-                    required
-                />
+                <InputAlt type="text" placeholder="Search projects..." value={query} onChange={(e: ChangeEvent<HTMLInputElement>) => setQuery(e.target.value)} required />
                 <InputBorderAlt />
             </FormControl>
 
