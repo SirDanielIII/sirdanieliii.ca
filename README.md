@@ -1,53 +1,41 @@
-# React + TypeScript + Vite
+# SirDanielIII.ca
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> 🍓 My personal website & resource hub— featuring a dynamic projects page, guides, portfolio, and merch. 😏
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🛠️ Tech Stack
 
-## Expanding the ESLint configuration
+| Layer    | Tech                                                    |
+|----------|---------------------------------------------------------|
+| Frontend | React + Typescript + Vite                               |
+| Styling  | styled‑components 6, vanilla CSS                        |
+| Backend  | PHP 8 (CLI for dev, Apache2 + PHP module in production) |
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+---
 
-- Configure the top-level `parserOptions` property like this:
+## 🚀 Getting Started
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+### 1. Clone & install packages
+
+```bash
+git clone https://github.com/SirDanielIII/sirdanieliii.ca.git
+cd sirdanieliii.ca
+npm install
 ```
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+### 2. Commands to run during development
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+| Script              | What it does                                                                                                                  |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------|
+| `npm run serve:php` | Starts PHP built‑in server on **http://localhost:8000** serving `public/`                                                     |
+| `npm run dev`       | Runs **both** `serve:php` and Vite dev‑server (via `concurrently`) on **http://localhost:5173** & proxies `/scripts/*` to PHP |
+| `npm run build`     | Type‑checks (`tsc -b`) then builds optimized production bundle into `dist/`                                                   |
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### 3. How to Deploy (Apache2)
 
-npm install react-router-dom styled-components
-npm install --save-dev @types/styled-components
+1. Run `npm run build`.
+2. Copy everything in /dist into DocumentRoot.
+3. That's it! (Apache2 will handle the PHP files).
+
+---
