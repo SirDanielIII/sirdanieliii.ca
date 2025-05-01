@@ -9,7 +9,7 @@ export interface ProjectData {
     tags: string[];
     colors: {
         light: { title: string; background: string; description: string };
-        dark:  { title: string; background: string; description: string };
+        dark: { title: string; background: string; description: string };
     };
     thumbnail?: string;
     type: 'link' | 'download';
@@ -28,21 +28,23 @@ interface ProjectCardProps {
 /* ─── Layout ─────────────────────────────────────────────────────────────── */
 const Card = styled.div<{ bg: string }>`
     display: flex;
-    background: ${({ bg }) => bg};
+    background: ${({bg}) => bg};
     border-radius: 12px;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
     //max-width: 725px;
 
-    &:hover { transform: translateY(-4px); }
+    &:hover {
+        transform: translateY(-4px);
+    }
 
     @media (max-width: 750px) {
         flex-direction: column;
         align-items: center; /* centre both panes */
         padding-bottom: 20px;
     }
-    
+
     @media (max-width: 500px) {
         flex-direction: column;
         align-items: center; /* centre both panes */
@@ -52,7 +54,7 @@ const Card = styled.div<{ bg: string }>`
 `;
 
 const Info = styled.div<{ flex: number }>`
-    flex: ${({ flex }) => flex};
+    flex: ${({flex}) => flex};
     min-width: 250px;
     padding: 2rem;
     display: flex;
@@ -67,7 +69,7 @@ const Info = styled.div<{ flex: number }>`
 `;
 
 const ImageOuter = styled.div<{ flex: number }>`
-    flex: ${({ flex }) => flex};
+    flex: ${({flex}) => flex};
     display: flex;
     justify-content: flex-end;
 
@@ -102,12 +104,12 @@ const Thumbnail = styled.img`
 const Title = styled.h3<{ color: string }>`
     margin: 0;
     font-size: 2rem;
-    color: ${({ color }) => color};
+    color: ${({color}) => color};
 `;
 
 const Description = styled.p<{ color: string }>`
     margin: 0;
-    color: ${({ color }) => color};
+    color: ${({color}) => color};
     line-height: 1.4;
     display: -webkit-box;
     -webkit-line-clamp: 3;
@@ -127,7 +129,7 @@ const Tags = styled.div`
 `;
 
 const Tag = styled.span`
-    background: ${({ theme }) => theme.colors.highlight5};
+    background: ${({theme}) => theme.colors.highlight5};
     color: #fff;
     padding: 0.4rem 0.8rem;
     border-radius: 4px;
@@ -146,7 +148,7 @@ const Actions = styled.div`
 
 const Button = styled.a`
     padding: 0.75rem 1.5rem;
-    background: ${({ theme }) => theme.colors.highlight1};
+    background: ${({theme}) => theme.colors.highlight1};
     color: #fff;
     text-decoration: none;
     font-weight: 600;
@@ -154,17 +156,19 @@ const Button = styled.a`
     font-size: 1rem;
     transition: background 0.2s;
 
-    &:hover { background: ${({ theme }) => theme.colors.highlight2}; }
+    &:hover {
+        background: ${({theme}) => theme.colors.highlight2};
+    }
 `;
 
 /* ─── Component ─────────────────────────────────────────────────────────── */
-const ProjectCard: React.FC<ProjectCardProps> = ({ project, isDarkMode, infoFlex = 2, imageFlex = 3 }) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({project, isDarkMode, infoFlex = 2, imageFlex = 3}) => {
     const mode = isDarkMode ? 'dark' : 'light';
-    const { title, version, description, tags, thumbnail, type, link, download, github, colors } = project;
+    const {title, version, description, tags, thumbnail, type, link, download, github, colors} = project;
 
     const titleColor = mode === 'dark' ? colors.dark.title : colors.light.title;
-    const bgColor    = mode === 'dark' ? colors.dark.background : colors.light.background;
-    const descColor  = mode === 'dark' ? colors.dark.description : colors.light.description;
+    const bgColor = mode === 'dark' ? colors.dark.background : colors.light.background;
+    const descColor = mode === 'dark' ? colors.dark.description : colors.light.description;
 
     return (
         <Card bg={bgColor}>
@@ -181,7 +185,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, isDarkMode, infoFlex
 
             <ImageOuter flex={imageFlex}>
                 <ImageBox>
-                    {thumbnail && <Thumbnail src={`/projects/${project.folder}/${thumbnail}`} alt={title} />}
+                    {thumbnail && <Thumbnail src={`/projects/${project.folder}/${thumbnail}`} alt={title}/>}
                 </ImageBox>
             </ImageOuter>
         </Card>

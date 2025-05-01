@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import SocialIcons from '../components/SocialIcons';
 import SectionCard from '../components/SectionCard';
-import SectionArticles from '../assets/images/section_card/section_articles.webp'
+import SectionGuides from '../assets/images/section_card/section_guides.webp'
 import SectionMerch from '../assets/images/section_card/section_merch.webp'
 import SectionPortfolio from '../assets/images/section_card/section_portfolio.webp'
 import SectionProjects from '../assets/images/section_card/section_projects.webp'
@@ -127,7 +127,7 @@ const HomePage: React.FC = () => {
                     <SectionCard title="PROJECTS" to="/projects" backgroundImage={SectionProjects}/>
                     <SectionCard title="PORTFOLIO" to="/portfolio" backgroundImage={SectionPortfolio}/>
                     <SectionCard title="MERCH" to="/merch" backgroundImage={SectionMerch}/>
-                    <SectionCard title="ARTICLES" to="/articles" backgroundImage={SectionArticles}/>
+                    <SectionCard title="GUIDES" to="/guides" backgroundImage={SectionGuides}/>
                 </SectionsGrid>
             </Sections>
 

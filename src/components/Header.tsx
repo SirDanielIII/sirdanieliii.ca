@@ -89,43 +89,43 @@ const ToggleButton = styled.button`
 
 /* Hamburger and Mobile Menu */
 const HamburgerButton = styled.button`
-  display: none;
-  width: 40px;
-  height: 50px;
-  background: ${({theme}) => theme.colors.text};
-  color: ${({theme}) => theme.colors.header};
-  border-radius: 8px;
-  font-size: 24px;
-  align-items: center;
-  justify-content: center;
-  border: none;
+    display: none;
+    width: 40px;
+    height: 50px;
+    background: ${({theme}) => theme.colors.text};
+    color: ${({theme}) => theme.colors.header};
+    border-radius: 8px;
+    font-size: 24px;
+    align-items: center;
+    justify-content: center;
+    border: none;
 
-  @media (max-width: 720px) {
-    display: flex;
-  }
+    @media (max-width: 720px) {
+        display: flex;
+    }
 `;
 
 const MobileMenuContainer = styled.div<{ open: boolean }>`
-  display: ${({open}) => (open ? 'block' : 'none')};
-  position: absolute;
-  top: 80px;
-  right: 20px;
-  background: ${({theme}) => theme.colors.header};
-  border-radius: 8px;
-  padding: 10px;
+    display: ${({open}) => (open ? 'block' : 'none')};
+    position: absolute;
+    top: 80px;
+    right: 20px;
+    background: ${({theme}) => theme.colors.header};
+    border-radius: 8px;
+    padding: 10px;
 `;
 
 const MobileMenuList = styled.div`
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
 
-  a {
-    font-size: 20px;
-    font-weight: 400;
-    letter-spacing: 3px;
-    text-align: right;
-  }
+    a {
+        font-size: 20px;
+        font-weight: 400;
+        letter-spacing: 3px;
+        text-align: right;
+    }
 `;
 
 interface HeaderProps {
@@ -148,7 +148,7 @@ const Header: React.FC<HeaderProps> = ({toggleTheme, isDarkMode, profileImage}) 
                     <NavLink to="/projects" color="#38C4E7">PROJECTS</NavLink>
                     <NavLink to="/portfolio" color="#AA9EEA">PORTFOLIO</NavLink>
                     <NavLink to="/merch" color="#3FD49A">MERCH</NavLink>
-                    <NavLink to="/articles" color="#E9C683">ARTICLES</NavLink>
+                    <NavLink to="/guides" color="#E9C683">GUIDES</NavLink>
                 </Nav>
                 <div style={{display: 'flex', gap: '10px'}}>
                     <ToggleButton onClick={toggleTheme} title="Toggle Theme">
