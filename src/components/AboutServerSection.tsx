@@ -86,14 +86,13 @@ const AboutServerSection: React.FC<AboutServerSectionProps> = ({
             <TextContainer>
                 <Title>About My Server</Title>
                 <Desc>
-                    SD_NAS is my Network-Attached Storage (NAS) that I built during November 2021.
-                    It currently runs Ubuntu 24.04 (Kernel 6.13.9) and hosts various services such as
-                    websites (like this one) and my Minecraft servers!
+                    SD_NAS is a custom-built Network-Attached Storage (NAS) server I assembled in November 2021. It currently runs Ubuntu 24.10 (Kernel 6.13.9) and serves as the
+                    backbone for my self-hosted infrastructure—including this website, personal tools, game services, and various Dockerized services like Nextcloud & Jellyfin.
                 </Desc>
                 <Desc>
-                    If my house were on fire and I could choose only one thing to save, it would be
-                    this computer lol.
+                    If my house were on fire and I could choose only one thing to save, it would be this computer lol.
                 </Desc>
+
             </TextContainer>
             {align === 'right' && (
                 <PhotoContainer align={align}>
