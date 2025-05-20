@@ -2,9 +2,9 @@
   "title": "Chan Wars",
   "description": "A modular memory-fighting game built with Pygame, featuring customizable arenas and AI opponents.",
   "tags": [
+    "Video Game",
     "Python",
-    "Pygame",
-    "GameDev"
+    "Pygame"
   ],
   "type": "download",
   "download": "Chan_Wars-1.0.0.zip",
