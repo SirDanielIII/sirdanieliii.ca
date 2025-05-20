@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useEffect, useState} from 'react';
 import styled from 'styled-components';
-import ProjectCard, {ProjectData} from '../components/ProjectCard';
+import ProjectCard, {ProjectData} from '../components/pages/ProjectCard.tsx';
 
 const PageContainer = styled.div`
     max-width: 1500px;
@@ -25,7 +25,10 @@ const InputAlt = styled.input`
     border: none;
     border-bottom: 2px solid ${({theme}) => theme.colors.text};
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    &:focus { outline: none; }
+
+    &:focus {
+        outline: none;
+    }
 `;
 
 const InputBorderAlt = styled.span`
@@ -39,7 +42,10 @@ const InputBorderAlt = styled.span`
     ${({theme}) => theme.colors.highlight2} 65%,
     ${({theme}) => theme.colors.highlight3} 100%);
     transition: width 0.4s cubic-bezier(0.42, 0, 0.58, 1);
-    ${InputAlt}:focus + & { width: 100%; }
+
+    ${InputAlt}:focus + & {
+        width: 100%;
+    }
 `;
 
 /* Two cards share a row once 500‑px columns fit. */
@@ -104,7 +110,7 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({isDarkMode}) => {
             {!loading && !error && filtered.length > 0 && (
                 <Grid>
                     {filtered.map(p => (
-                        <ProjectCard key={p.folder} project={p} isDarkMode={isDarkMode} infoFlex={2} imageFlex={3}/>
+                        <ProjectCard key={p.folder} project={p} isDarkMode={isDarkMode} thumbRatio={0.4}/>
                     ))}
                 </Grid>
             )}

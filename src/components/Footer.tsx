@@ -8,9 +8,13 @@ const FooterContainer = styled.footer`
             ${({theme}) => theme.colors.footer} 0%,
             ${({theme}) => theme.colors.background2} 100%
     );
-    padding: 60px 20px;
+    padding: 30px 30px;
     border-top: 3px solid ${({theme}) => theme.colors.highlight1};
     box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.1);
+`;
+
+const FooterContainerExtra = styled.footer`
+    border-top: 3px solid ${({theme}) => theme.colors.highlight1};
 `;
 
 const FooterContent = styled.div`
@@ -19,8 +23,9 @@ const FooterContent = styled.div`
     display: flex;
     gap: 40px;
     align-items: center;
+    padding-bottom: 30px;
 
-    @media (max-width: 600px) {
+    @media (max-width: 1000px) {
         flex-direction: column;
         align-items: center;
     }
@@ -33,7 +38,7 @@ const VersionText = styled.div`
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
     text-align: center;
 
-    @media (max-width: 600px) {
+    @media (max-width: 1000px) {
         font-size: 48px;
     }
 `;
@@ -43,7 +48,7 @@ const Columns = styled.div`
     flex: 1;
     justify-content: space-around;
 
-    @media (max-width: 600px) {
+    @media (max-width: 1000px) {
         flex-direction: column;
         gap: 20px;
         align-items: center;
@@ -55,7 +60,7 @@ const Col = styled.div`
     flex-direction: column;
     align-items: flex-start;
 
-    @media (max-width: 600px) {
+    @media (max-width: 1000px) {
         align-items: center;
     }
 `;
@@ -82,6 +87,15 @@ const ColItem = styled.p`
             color: ${({theme}) => theme.colors.highlight1};
         }
     }
+`;
+
+
+const NoticeText = styled.p`
+    font-size: 0.9rem;
+    color: ${({theme}) => theme.colors.text};
+    opacity: 0.7;
+    text-align: center;
+    padding-top: 30px;
 `;
 
 const Footer: React.FC = () => {
@@ -112,11 +126,16 @@ const Footer: React.FC = () => {
                         <ColItem>[WIP]</ColItem>
                     </Col>
                     <Col>
-                        <ColTitle>Articles</ColTitle>
+                        <ColTitle>Guides</ColTitle>
                         <ColItem>[WIP]</ColItem>
                     </Col>
                 </Columns>
             </FooterContent>
+            <FooterContainerExtra>
+                <NoticeText>
+                    This website still currently in the works as I continue to develop it in my free time 😁
+                </NoticeText>
+            </FooterContainerExtra>
         </FooterContainer>
     );
 };

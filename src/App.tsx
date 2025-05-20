@@ -12,21 +12,12 @@ import PortfolioPage from './pages/PortfolioPage';
 import MerchPage from './pages/MerchPage';
 import GuidesPage from './pages/GuidesPage';
 import profileImage from './assets/images/profile.webp';
+import TestPage from "./pages/TestPage.tsx";
 
-// 1) Make your app a column flex container
 const AppWrapper = styled.div`
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-`;
-
-// 2) Let the content area grow
-const MainContent = styled.main`
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
 `;
 
 const App: React.FC = () => {
@@ -40,15 +31,15 @@ const App: React.FC = () => {
             <GlobalStyles/>
             <AppWrapper>
                 <Header toggleTheme={toggleTheme} isDarkMode={isDarkMode} profileImage={profileImage}/>
-                <MainContent>
-                    <Routes>
-                        <Route path="/" element={<HomePage/>}/>
-                        <Route path="/projects" element={<ProjectsPage isDarkMode={isDarkMode}/>}/>
-                        <Route path="/portfolio" element={<PortfolioPage/>}/>
-                        <Route path="/merch" element={<MerchPage/>}/>
-                        <Route path="/guides" element={<GuidesPage/>}/>
-                    </Routes>
-                </MainContent>
+
+                <Routes>
+                    <Route path="/" element={<HomePage/> }/>
+                    <Route path="/projects/" element={<ProjectsPage isDarkMode={isDarkMode}/>}/>
+                    <Route path="/portfolio/" element={<PortfolioPage/>}/>
+                    <Route path="/merch/" element={<MerchPage/>}/>
+                    <Route path="/guides/" element={<GuidesPage/>}/>
+                    <Route path="/test/" element={<TestPage/>}/>
+                </Routes>
                 <Footer/>
             </AppWrapper>
         </ThemeProvider>

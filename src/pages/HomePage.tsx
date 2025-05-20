@@ -1,29 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import SocialIcons from '../components/SocialIcons';
-import SectionCard from '../components/SectionCard';
+import SectionCard from '../components/pages/SectionCard.tsx';
 import SectionGuides from '../assets/images/section_card/section_guides.webp'
 import SectionMerch from '../assets/images/section_card/section_merch.webp'
 import SectionPortfolio from '../assets/images/section_card/section_portfolio.webp'
 import SectionProjects from '../assets/images/section_card/section_projects.webp'
-import AboutServerSection from "../components/AboutServerSection.tsx";
+import AboutServerSection from "../components/pages/AboutServerSection.tsx";
 import ServerPhoto from "../assets/images/homepage/SD_NAS_1.JPG"
-
-const SD_NAS_1_Metadata = {
-    type: 'JPG',
-    size: '12.3 MB',
-    dimensions: '6240x4160',
-    cameraModel: 'FUJIFILM X-T4',
-    fStop: 'f/1.4',
-    exposureTime: '8sec.',
-    isoSpeed: '1250',
-    exposureBias: '0 step',
-    focalLength: '33mm',
-    maxAperture: '1',
-    meteringMode: 'Pattern',
-    flashMode: 'No flash',
-    focal35: '50'
-};
+import youtubeIcon from "../assets/icons/youtube.svg";
+import githubIcon from "../assets/icons/github.svg";
+import instagramIcon from "../assets/icons/instagram.svg";
+import tiktokIcon from "../assets/icons/tiktok.svg";
+import linkedinIcon from "../assets/icons/linkedin.svg";
+import emailIcon from "../assets/icons/gmail.svg";
 
 const MainContent = styled.main`
     margin-top: 80px; /* Space for fixed header */
@@ -60,6 +49,51 @@ const AboutMeDesc = styled.p`
     }
 `;
 
+const IconsWrapper = styled.div`
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+`;
+
+const IconLink = styled.a`
+    display: inline-flex;
+        //background: ${({theme}) => theme.colors.highlight2};
+    border-radius: 50%;
+    width: 70px;
+    height: 70px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    transition: transform 0.2s ease;
+    filter: invert(1);
+
+    img {
+        width: 60%;
+        height: 60%;
+        object-fit: contain;
+        transition: filter .18s ease;
+    }
+
+    &:hover {
+        transform: translateY(-3px);
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transform: scale(.8);
+        transition: opacity .25s ease, transform .25s ease;
+        pointer-events: none;
+    }
+
+    &:hover::after {
+        opacity: 1;
+        transform: scale(1);
+    }
+`;
+
 const Sections = styled.section`
     width: 100%;
     background: ${({theme}) => theme.colors.background2};
@@ -71,41 +105,14 @@ const SectionsGrid = styled.section`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 40px;
-    max-width: 1200px;
+    max-width: 1500px;
     margin: 40px auto;
+    padding-left: 20px;
+    padding-right: 20px;
 
     @media (max-width: 600px) {
         grid-template-columns: 1fr;
         gap: 20px;
-    }
-`;
-
-
-const Temp = styled.p`
-    font-size: 24px;
-    line-height: 1.5;
-    margin-bottom: 10px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    color: red;
-
-    @media (max-width: 600px) {
-        font-size: 18px;
-    }
-`;
-
-const Temp2 = styled.p`
-    font-size: 16px;
-    line-height: 1.5;
-    margin-bottom: 40px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
-    color: white;
-
-    @media (max-width: 600px) {
-        font-size: 18px;
     }
 `;
 
@@ -117,9 +124,26 @@ const HomePage: React.FC = () => {
                 <AboutMeDesc>
                     I am a person who has no clue what they're doing at all times.
                 </AboutMeDesc>
-                <Temp>WEBSITE CURRENTLY UNDER CONSTRUCTION 🔨</Temp>
-                <Temp2>All images, icons & logos used right now are currently placeholders!</Temp2>
-                <SocialIcons/>
+                <IconsWrapper>
+                    <IconLink href="https://www.youtube.ca/@SirDanielIII?sub_confirmation=1" target="_blank" rel="noopener noreferrer">
+                        <img src={youtubeIcon} alt="YouTube"/>
+                    </IconLink>
+                    <IconLink href="https://github.com/SirDanielIII/" target="_blank" rel="noopener noreferrer">
+                        <img src={githubIcon} alt="GitHub"/>
+                    </IconLink>
+                    <IconLink href="https://www.instagram.com/sirdaniel_dathird/" target="_blank" rel="noopener noreferrer">
+                        <img src={instagramIcon} alt="Instagram"/>
+                    </IconLink>
+                    <IconLink href="https://www.tiktok.com/@sirdaniel_dathird/" target="_blank" rel="noopener noreferrer">
+                        <img src={tiktokIcon} alt="TikTok"/>
+                    </IconLink>
+                    <IconLink href="https://www.linkedin.com/in/danielzhuo-sd/" target="_blank" rel="noopener noreferrer">
+                        <img src={linkedinIcon} alt="LinkedIn"/>
+                    </IconLink>
+                    <IconLink href="mailto:sirdanieldathird@gmail.com">
+                        <img src={emailIcon} alt="Email"/>
+                    </IconLink>
+                </IconsWrapper>
             </AboutMeSection>
 
             <Sections>
@@ -131,8 +155,7 @@ const HomePage: React.FC = () => {
                 </SectionsGrid>
             </Sections>
 
-            {/* About Server Section with Photo on Left */}
-            <AboutServerSection align="left" photo={ServerPhoto} metadata={SD_NAS_1_Metadata}/>
+            <AboutServerSection align="left" src={ServerPhoto}/>
 
         </MainContent>
     );

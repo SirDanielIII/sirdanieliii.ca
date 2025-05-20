@@ -15,7 +15,6 @@ const CardLink = styled(Link)<CardProps>`
     justify-content: center;
     height: 300px;
     text-align: center;
-    color: ${({theme}) => theme.colors.text};
     transition: transform 0.2s ease;
 
     &:hover {
@@ -30,9 +29,9 @@ const Background = styled.div<{ backgroundImage?: string }>`
     width: 100%;
     height: 100%;
     background: ${({backgroundImage, theme}) =>
-    backgroundImage
-        ? `url(${backgroundImage}) center/cover no-repeat`
-        : theme.colors.sectionCard};
+            backgroundImage
+                    ? `url(${backgroundImage}) center/cover no-repeat`
+                    : theme.colors.sectionCard};
     filter: blur(2px);
     z-index: 0;
 
@@ -57,7 +56,7 @@ const Title = styled.h2<TitleProps>`
     /* Drop shadow added to text */
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
     /* Use the provided textColor, or fallback to theme color */
-    color: ${({textColor, theme}) => textColor || theme.colors.text};
+    color: #FFFFFF;
     position: relative;
     z-index: 1;
 `;

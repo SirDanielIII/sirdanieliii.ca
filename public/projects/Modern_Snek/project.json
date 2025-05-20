@@ -1,0 +1,28 @@
+{
+  "title": "Modern Snek",
+  "description": "A Google Snake game rip-off built with Pygame, featuring customizable grid sizes and different themes.",
+  "tags": [
+    "Games",
+    "Python",
+    "Pygame",
+    "Windows"
+  ],
+  "type": "download",
+  "download": "Modern_Snek v1.03.exe",
+  "github": "https://github.com/SirDanielIII/Modern_Snek",
+  "thumbnail": "icon.png",
+  "version": "1.0.3",
+  "lastUpdated": "2020-12-07",
+  "colors": {
+    "light": {
+      "title": "#a1d750",
+      "background": "#233917",
+      "description": "#CCCCCC"
+    },
+    "dark": {
+      "title": "#a1d750",
+      "background": "#233917",
+      "description": "#CCCCCC"
+    }
+  }
+}
