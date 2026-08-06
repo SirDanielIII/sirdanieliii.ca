@@ -58,11 +58,11 @@ const Nav = styled.nav`
     }
 `;
 
-const NavLink = styled(Link)<{ color: string }>`
+const NavLink = styled(Link)<{ $color: string }>`
     font-size: 20px;
     font-weight: 400;
     letter-spacing: 3px;
-    color: ${({color}) => color};
+    color: ${({$color}) => $color};
 
     &:hover {
         opacity: 0.8;
@@ -105,8 +105,8 @@ const HamburgerButton = styled.button`
     }
 `;
 
-const MobileMenuContainer = styled.div<{ open: boolean }>`
-    display: ${({open}) => (open ? 'block' : 'none')};
+const MobileMenuContainer = styled.div<{ $open: boolean }>`
+    display: ${({$open}) => ($open ? 'block' : 'none')};
     position: absolute;
     top: 80px;
     right: 20px;
@@ -146,10 +146,10 @@ const Header: React.FC<HeaderProps> = ({toggleTheme, profileImage}) => {
                     <LogoText>SIR DANIEL III</LogoText>
                 </LogoLink>
                 <Nav>
-                    <NavLink to="/projects" color="#38C4E7">PROJECTS</NavLink>
-                    <NavLink to="/portfolio" color="#AA9EEA">PORTFOLIO</NavLink>
-                    <NavLink to="/merch" color="#3FD49A">MERCH</NavLink>
-                    <NavLink to="/guides" color="#E9C683">GUIDES</NavLink>
+                    <NavLink to="/projects" $color="#38C4E7">PROJECTS</NavLink>
+                    <NavLink to="/portfolio" $color="#AA9EEA">PORTFOLIO</NavLink>
+                    <NavLink to="/merch" $color="#3FD49A">MERCH</NavLink>
+                    <NavLink to="/guides" $color="#E9C683">GUIDES</NavLink>
                 </Nav>
                 <div style={{display: 'flex', gap: '10px'}}>
                     <ToggleButton onClick={toggleTheme} title="Toggle Theme">
@@ -160,12 +160,12 @@ const Header: React.FC<HeaderProps> = ({toggleTheme, profileImage}) => {
                     </HamburgerButton>
                 </div>
 
-                <MobileMenuContainer open={menuOpen}>
+                <MobileMenuContainer $open={menuOpen}>
                     <MobileMenuList>
-                        <NavLink to="/projects" color="#38C4E7" onClick={() => setMenuOpen(false)}>PROJECTS</NavLink>
-                        <NavLink to="/portfolio" color="#AA9EEA" onClick={() => setMenuOpen(false)}>PORTFOLIO</NavLink>
-                        <NavLink to="/merch" color="#3FD49A" onClick={() => setMenuOpen(false)}>MERCH</NavLink>
-                        <NavLink to="/articles" color="#E9C683" onClick={() => setMenuOpen(false)}>ARTICLES</NavLink>
+                        <NavLink to="/projects" $color="#38C4E7" onClick={() => setMenuOpen(false)}>PROJECTS</NavLink>
+                        <NavLink to="/portfolio" $color="#AA9EEA" onClick={() => setMenuOpen(false)}>PORTFOLIO</NavLink>
+                        <NavLink to="/merch" $color="#3FD49A" onClick={() => setMenuOpen(false)}>MERCH</NavLink>
+                        <NavLink to="/articles" $color="#E9C683" onClick={() => setMenuOpen(false)}>ARTICLES</NavLink>
                     </MobileMenuList>
                 </MobileMenuContainer>
             </HeaderContent>
