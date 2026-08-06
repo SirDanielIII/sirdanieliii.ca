@@ -11,6 +11,7 @@ import ProjectsPage from './pages/ProjectsPage';
 import PortfolioPage from './pages/PortfolioPage';
 import MerchPage from './pages/MerchPage';
 import GuidesPage from './pages/GuidesPage';
+import NotFoundPage from './pages/NotFoundPage';
 import profileImage from './assets/images/profile.webp';
 import TestPage from "./pages/TestPage.tsx";
 
@@ -39,6 +40,7 @@ const App: React.FC = () => {
                     <Route path="/merch/" element={<MerchPage/>}/>
                     <Route path="/guides/" element={<GuidesPage/>}/>
                     <Route path="/test/" element={<TestPage/>}/>
+                    <Route path="*" element={<NotFoundPage/>}/>
                 </Routes>
                 <Footer/>
             </AppWrapper>

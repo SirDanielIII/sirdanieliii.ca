@@ -7,22 +7,31 @@
     "Pygame",
     "Windows"
   ],
-  "type": "download",
-  "download": "Modern_Snek v1.03.exe",
-  "github": "https://github.com/SirDanielIII/Modern_Snek",
+  "actions": {
+    "download": "Modern_Snek v1.03.exe",
+    "github": "https://github.com/SirDanielIII/Modern_Snek"
+  },
   "thumbnail": "icon.png",
   "version": "1.0.3",
   "lastUpdated": "2020-12-07",
   "colors": {
     "light": {
-      "title": "#a1d750",
-      "background": "#233917",
-      "description": "#CCCCCC"
+      "title": "#4F7E20",
+      "background": "#F4F8EA",
+      "description": "#26331B",
+      "accent": "#668E35",
+      "border": "#B8D780",
+      "tagBackground": "#D8E8BB",
+      "tagText": "#26331B"
     },
     "dark": {
-      "title": "#a1d750",
+      "title": "#A1D750",
       "background": "#233917",
-      "description": "#CCCCCC"
+      "description": "#DCE9C6",
+      "accent": "#759B3C",
+      "border": "#456527",
+      "tagBackground": "#819766",
+      "tagText": "#12200A"
     }
   }
 }
