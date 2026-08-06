@@ -331,7 +331,7 @@ const ProjectsPage: React.FC = () => {
                 if (!response.ok) {
                     const serverMessage = typeof data === 'object' && data !== null && 'error' in data
                         ? String(data.error)
-                        : `The project server returned status ${response.status}.`;
+                        : `The project server returned status ${String(response.status)}.`;
                     throw new Error(serverMessage);
                 }
 
@@ -354,7 +354,9 @@ const ProjectsPage: React.FC = () => {
         };
 
         void loadProjects();
-        return () => controller.abort();
+        return () => {
+            controller.abort();
+        };
     }, [requestNumber]);
 
     const filteredProjects = useMemo(() => {
@@ -366,7 +368,7 @@ const ProjectsPage: React.FC = () => {
         return projects.filter(project => [
             project.title,
             project.description,
-            ...(project.tags ?? []),
+            ...project.tags,
         ].some(value => value.toLocaleLowerCase().includes(normalizedQuery)));
     }, [projects, query]);
 
@@ -378,7 +380,9 @@ const ProjectsPage: React.FC = () => {
                     type="search"
                     placeholder="Search projects..."
                     value={query}
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => setQuery(event.target.value)}
+                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
+                        setQuery(event.target.value);
+                    }}
                 />
                 <InputBorder/>
             </FormControl>
@@ -404,7 +408,9 @@ const ProjectsPage: React.FC = () => {
                 <MessagePanel role="alert">
                     <MessageTitle>THE PROJECTS GOT LOST.</MessageTitle>
                     <MessageCopy>{error}</MessageCopy>
-                    <RetryButton type="button" onClick={() => setRequestNumber(value => value + 1)}>
+                    <RetryButton type="button" onClick={() => {
+                        setRequestNumber(value => value + 1);
+                    }}>
                         TRY AGAIN
                     </RetryButton>
                 </MessagePanel>

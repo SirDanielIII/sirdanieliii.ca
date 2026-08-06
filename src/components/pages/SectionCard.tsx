@@ -20,10 +20,7 @@ const CardLink = styled(Link)`
 
 const Background = styled.div<{ $backgroundImage?: string }>`
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    inset: 0;
     background: ${({$backgroundImage, theme}) =>
             $backgroundImage
                     ? `url(${$backgroundImage}) center/cover no-repeat`
@@ -34,10 +31,7 @@ const Background = styled.div<{ $backgroundImage?: string }>`
     &::after {
         content: "";
         position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
+        inset: 0;
         background: rgba(0, 0, 0, 0.3); /* Dark overlay */
     }
 `;

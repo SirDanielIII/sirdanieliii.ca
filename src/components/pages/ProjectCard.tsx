@@ -321,7 +321,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({project}) => {
         : {download: downloadBlack, github: githubBlack, visit: linkBlack};
     const updatedDate = formatDate(project.lastUpdated);
     const actions = project.actions ?? {};
-    const hasActions = Boolean(actions.download || actions.github || actions.visit);
+    const hasActions = [actions.download, actions.github, actions.visit].some(Boolean);
 
     return (
         <Card $palette={palette}>
@@ -350,7 +350,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({project}) => {
                     <Tags aria-label="Project tags">
                         {project.tags.map((tag, index) => (
                             <Tag
-                                key={`${tag}-${index}`}
+                                key={`${tag}-${String(index)}`}
                                 $background={palette.tagBackground}
                                 $color={palette.tagText}
                             >

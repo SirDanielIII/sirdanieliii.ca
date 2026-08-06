@@ -8,7 +8,7 @@ const HeaderContainer = styled.header`
     width: 100%;
     background: ${({theme}) => theme.colors.header};
     z-index: 1000;
-    filter: drop-shadow(0px 0px 10px black);
+    box-shadow: 0 0 10px #000;
 `;
 
 const HeaderContent = styled.div`
@@ -87,6 +87,11 @@ const ToggleButton = styled.button`
     }
 `;
 
+const HeaderActions = styled.div`
+    display: flex;
+    gap: 10px;
+`;
+
 /* Hamburger and Mobile Menu */
 const HamburgerButton = styled.button`
     display: none;
@@ -151,21 +156,31 @@ const Header: React.FC<HeaderProps> = ({toggleTheme, profileImage}) => {
                     <NavLink to="/merch" $color="#3FD49A">MERCH</NavLink>
                     <NavLink to="/guides" $color="#E9C683">GUIDES</NavLink>
                 </Nav>
-                <div style={{display: 'flex', gap: '10px'}}>
+                <HeaderActions>
                     <ToggleButton onClick={toggleTheme} title="Toggle Theme">
                         {isDarkMode ? '🌞' : '🌛'}
                     </ToggleButton>
-                    <HamburgerButton onClick={() => setMenuOpen(!menuOpen)}>
+                    <HamburgerButton onClick={() => {
+                        setMenuOpen(previousValue => !previousValue);
+                    }}>
                         ☰
                     </HamburgerButton>
-                </div>
+                </HeaderActions>
 
                 <MobileMenuContainer $open={menuOpen}>
                     <MobileMenuList>
-                        <NavLink to="/projects" $color="#38C4E7" onClick={() => setMenuOpen(false)}>PROJECTS</NavLink>
-                        <NavLink to="/portfolio" $color="#AA9EEA" onClick={() => setMenuOpen(false)}>PORTFOLIO</NavLink>
-                        <NavLink to="/merch" $color="#3FD49A" onClick={() => setMenuOpen(false)}>MERCH</NavLink>
-                        <NavLink to="/articles" $color="#E9C683" onClick={() => setMenuOpen(false)}>ARTICLES</NavLink>
+                        <NavLink to="/projects" $color="#38C4E7" onClick={() => {
+                            setMenuOpen(false);
+                        }}>PROJECTS</NavLink>
+                        <NavLink to="/portfolio" $color="#AA9EEA" onClick={() => {
+                            setMenuOpen(false);
+                        }}>PORTFOLIO</NavLink>
+                        <NavLink to="/merch" $color="#3FD49A" onClick={() => {
+                            setMenuOpen(false);
+                        }}>MERCH</NavLink>
+                        <NavLink to="/articles" $color="#E9C683" onClick={() => {
+                            setMenuOpen(false);
+                        }}>ARTICLES</NavLink>
                     </MobileMenuList>
                 </MobileMenuContainer>
             </HeaderContent>

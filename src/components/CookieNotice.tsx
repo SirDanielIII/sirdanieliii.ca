@@ -6,7 +6,8 @@ const Notice = styled.aside`
     right: 1rem;
     bottom: 1rem;
     z-index: 2000;
-    width: min(24rem, calc(100vw - 2rem));
+    width: 24rem;
+    max-width: calc(100% - 2rem);
     padding: 1rem;
     display: flex;
     align-items: center;

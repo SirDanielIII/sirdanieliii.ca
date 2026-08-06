@@ -27,7 +27,7 @@ const setCookie = (name: string, value: string, maxAgeDays: number): void => {
     }
     const maxAge = Math.round(maxAgeDays * 24 * 60 * 60);
     const secure = window.location.protocol === 'https:' ? '; Secure' : '';
-    document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; Path=/; Max-Age=${maxAge}; SameSite=Lax${secure}`;
+    document.cookie = `${encodeURIComponent(name)}=${encodeURIComponent(value)}; Path=/; Max-Age=${String(maxAge)}; SameSite=Lax${secure}`;
 };
 
 export const getSavedTheme = (): SavedTheme | null => {

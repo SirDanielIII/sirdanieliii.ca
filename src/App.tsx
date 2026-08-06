@@ -15,6 +15,7 @@ import NotFoundPage from './pages/NotFoundPage';
 import profileImage from './assets/images/profile.webp';
 import TestPage from "./pages/TestPage.tsx";
 import CookieNotice from './components/CookieNotice';
+import ScrollToTop from './components/ScrollToTop';
 import {getSavedTheme, hasVisitedBefore, markAsVisited, saveTheme, type SavedTheme} from './utils/cookies';
 
 const AppWrapper = styled.div`
@@ -38,13 +39,14 @@ const App: React.FC = () => {
         }
     }, [showCookieNotice]);
 
-    const toggleTheme = () => setColourMode(previousMode => (
-        previousMode === 'dark' ? 'light' : 'dark'
-    ));
+    const toggleTheme = () => {
+        setColourMode(previousMode => previousMode === 'dark' ? 'light' : 'dark');
+    };
 
     return (
         <ThemeProvider theme={currentTheme}>
             <GlobalStyles/>
+            <ScrollToTop/>
             <AppWrapper>
                 <Header toggleTheme={toggleTheme} profileImage={profileImage}/>
 
@@ -60,7 +62,9 @@ const App: React.FC = () => {
                 <Footer/>
             </AppWrapper>
             {showCookieNotice && (
-                <CookieNotice onDismiss={() => setShowCookieNotice(false)}/>
+                <CookieNotice onDismiss={() => {
+                    setShowCookieNotice(false);
+                }}/>
             )}
         </ThemeProvider>
     );

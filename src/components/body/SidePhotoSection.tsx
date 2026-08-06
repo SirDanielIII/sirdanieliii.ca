@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import PhotoItem from '../body/PhotoItem'; // adjust path if needed
+import PhotoItem from './PhotoItem';
 
 /* ---------- props ---------- */
 export interface SidePhotoSectionProps {
@@ -32,21 +32,14 @@ const Section = styled.section<{ $bg?: string; $pad: string }>`
     }
 `;
 
-const PhotoCol = styled.div<{ $align: 'left' | 'right'; $max: string; $aspectRatio: string }>`
+const PhotoCol = styled.div<{ $max: string; $aspectRatio: string }>`
     flex: 0 0 ${({$max}) => $max};
     width: 100%;
     max-width: ${({$max}) => $max};
     aspect-ratio: ${({$aspectRatio}) => $aspectRatio};
 
-    display: flex;
-    justify-content: ${({$align}) =>
-            $align === 'left' ? 'flex-start' : 'flex-end'};
-    align-items: center;
-
     @media (max-width: 1100px) {
         flex: 0 1 auto;
-        width: 100%;
-        justify-content: center;
     }
 `;
 
@@ -70,20 +63,21 @@ const TextCol = styled.div`
 
 /* ---------- component ---------- */
 const SidePhotoSection: React.FC<SidePhotoSectionProps> = ({
-                                                               imgSrc,
-                                                               imgAlt = '',
-                                                               align = 'left',
-                                                               photoMaxWidth = 400,
-                                                               photoAspectRatio = 'auto',
-                                                               background,
-                                                               padding = '30px',
-                                                               children,
-                                                           }) => {
-    const maxW =
-        `${photoMaxWidth}px`;
+    imgSrc,
+    imgAlt = '',
+    align = 'left',
+    photoMaxWidth = 400,
+    photoAspectRatio = 'auto',
+    background,
+    padding = '30px',
+    children,
+}) => {
+    const maxWidth = typeof photoMaxWidth === 'number'
+        ? `${String(photoMaxWidth)}px`
+        : photoMaxWidth;
 
     const Photo = (
-        <PhotoCol $align={align} $max={maxW} $aspectRatio={photoAspectRatio}>
+        <PhotoCol $max={maxWidth} $aspectRatio={photoAspectRatio}>
             <PhotoItem src={imgSrc} alt={imgAlt}/>
         </PhotoCol>
     );

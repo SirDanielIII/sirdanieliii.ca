@@ -37,12 +37,10 @@ const AboutMeTitle = styled.h1`
 `;
 
 const AboutMeDesc = styled.p`
+    max-width: 800px;
+    margin: 0 auto 40px;
     font-size: 24px;
     line-height: 1.5;
-    margin-bottom: 40px;
-    max-width: 800px;
-    margin-left: auto;
-    margin-right: auto;
 
     @media (max-width: 600px) {
         font-size: 18px;
@@ -51,18 +49,18 @@ const AboutMeDesc = styled.p`
 
 const IconsWrapper = styled.div`
     display: flex;
+    flex-wrap: wrap;
     justify-content: center;
     gap: 20px;
 `;
 
 const IconLink = styled.a`
     display: inline-flex;
-        //background: ${({theme}) => theme.colors.highlight2};
-    border-radius: 50%;
     width: 70px;
     height: 70px;
     align-items: center;
     justify-content: center;
+    border-radius: 50%;
     overflow: hidden;
     transition: transform 0.2s ease;
 
@@ -77,25 +75,12 @@ const IconLink = styled.a`
     &:hover {
         transform: translateY(-3px);
     }
-
-    &::after {
-        content: '';
-        position: absolute;
-        inset: 0;
-        opacity: 0;
-        transition: opacity .25s ease;
-        pointer-events: none;
-    }
-
-    &:hover::after {
-        opacity: 1;
-    }
 `;
 
 const Sections = styled.section`
     width: 100%;
     background: ${({theme}) => theme.colors.background2};
-    padding: 10px 10px;
+    padding: 10px;
     text-align: center;
 `;
 
@@ -105,8 +90,7 @@ const SectionsGrid = styled.section`
     gap: 40px;
     max-width: 1500px;
     margin: 40px auto;
-    padding-left: 20px;
-    padding-right: 20px;
+    padding-inline: 20px;
 
     @media (max-width: 600px) {
         grid-template-columns: 1fr;
