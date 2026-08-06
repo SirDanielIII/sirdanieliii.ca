@@ -1,6 +1,6 @@
 // src/App.tsx
 import React, {useEffect, useState} from 'react';
-import {Route, Routes} from 'react-router-dom';
+import {Route, Routes} from 'react-router';
 import styled, {ThemeProvider} from 'styled-components';
 import {GlobalStyles} from './styles/GlobalStyles';
 import {darkTheme, lightTheme} from './styles/theme';

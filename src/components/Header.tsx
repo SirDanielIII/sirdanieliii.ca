@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {Link} from 'react-router-dom';
+import {Link} from 'react-router';
 import styled, {useTheme} from 'styled-components';
 
 const HeaderContainer = styled.header`
