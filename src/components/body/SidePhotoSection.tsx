@@ -8,6 +8,7 @@ export interface SidePhotoSectionProps {
     imgAlt?: string;
     align?: 'left' | 'right';          // photo on which side (default: 'left')
     photoMaxWidth?: number | string;   // default: 400
+    photoAspectRatio?: string;
     background?: string;               // fallback → theme.colors.background1
     padding?: string;                  // default: '30px'
     children: React.ReactNode;         // *your* JSX goes here
@@ -22,7 +23,7 @@ const Section = styled.section<{ $bg?: string; $pad: string }>`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: stretch; /* equal column heights */
+    align-items: center;
     gap: 20px;
 
     @media (max-width: 1100px) {
@@ -31,9 +32,11 @@ const Section = styled.section<{ $bg?: string; $pad: string }>`
     }
 `;
 
-const PhotoCol = styled.div<{ $align: 'left' | 'right'; $max: string }>`
+const PhotoCol = styled.div<{ $align: 'left' | 'right'; $max: string; $aspectRatio: string }>`
     flex: 0 0 ${({$max}) => $max};
+    width: 100%;
     max-width: ${({$max}) => $max};
+    aspect-ratio: ${({$aspectRatio}) => $aspectRatio};
 
     display: flex;
     justify-content: ${({$align}) =>
@@ -71,6 +74,7 @@ const SidePhotoSection: React.FC<SidePhotoSectionProps> = ({
                                                                imgAlt = '',
                                                                align = 'left',
                                                                photoMaxWidth = 400,
+                                                               photoAspectRatio = 'auto',
                                                                background,
                                                                padding = '30px',
                                                                children,
@@ -79,7 +83,7 @@ const SidePhotoSection: React.FC<SidePhotoSectionProps> = ({
         `${photoMaxWidth}px`;
 
     const Photo = (
-        <PhotoCol $align={align} $max={maxW}>
+        <PhotoCol $align={align} $max={maxW} $aspectRatio={photoAspectRatio}>
             <PhotoItem src={imgSrc} alt={imgAlt}/>
         </PhotoCol>
     );

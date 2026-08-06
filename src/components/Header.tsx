@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
-import styled from 'styled-components';
+import styled, {useTheme} from 'styled-components';
 
 const HeaderContainer = styled.header`
     position: fixed;
@@ -80,10 +80,10 @@ const ToggleButton = styled.button`
     align-items: center;
     justify-content: center;
     font-size: 24px;
-    transition: transform 0.2s ease;
+    transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
 
     &:hover {
-        transform: scale(1.05);
+        opacity: 0.8;
     }
 `;
 
@@ -130,12 +130,13 @@ const MobileMenuList = styled.div`
 
 interface HeaderProps {
     toggleTheme: () => void;
-    isDarkMode: boolean;
     profileImage: string;
 }
 
-const Header: React.FC<HeaderProps> = ({toggleTheme, isDarkMode, profileImage}) => {
+const Header: React.FC<HeaderProps> = ({toggleTheme, profileImage}) => {
     const [menuOpen, setMenuOpen] = useState(false);
+    const theme = useTheme();
+    const isDarkMode = theme.mode === 'dark';
 
     return (
         <HeaderContainer>

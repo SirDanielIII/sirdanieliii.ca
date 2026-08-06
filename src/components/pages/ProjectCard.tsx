@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {useTheme} from 'styled-components';
 import downloadBlack from '../../assets/icons/download-black.svg';
 import downloadWhite from '../../assets/icons/download-white.svg';
 import githubBlack from '../../assets/icons/github-black.svg';
@@ -40,7 +40,6 @@ export interface ProjectData {
 
 interface ProjectCardProps {
     project: ProjectData;
-    isDarkMode: boolean;
 }
 
 interface CardPalette {
@@ -73,7 +72,16 @@ const Card = styled.article<{ $palette: CardPalette }>`
     }
 
     @media (max-width: 520px) {
+        max-width: 20rem;
         border-width: 3px;
+    }
+
+    @media (min-width: 521px) and (max-width: 720px) {
+        max-width: 24rem;
+    }
+
+    @media (min-width: 721px) and (max-width: 1120px) {
+        max-width: 26rem;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -178,6 +186,11 @@ const Tag = styled.li<{ $background: string; $color: string }>`
     font-size: 1.05rem;
     line-height: 1.1;
     overflow-wrap: anywhere;
+
+    @media (max-width: 520px) {
+        padding: 0.4rem 0.75rem;
+        font-size: 0.95rem;
+    }
 `;
 
 const CardFooter = styled.footer`
@@ -193,11 +206,19 @@ const Actions = styled.ul`
     justify-content: center;
     gap: 0.75rem;
     list-style: none;
+
+    @media (max-width: 520px) {
+        gap: 0.5rem;
+    }
 `;
 
 const ActionItem = styled.li`
     flex: 1 1 5rem;
     max-width: 7.75rem;
+
+    @media (max-width: 520px) {
+        flex-basis: 4.25rem;
+    }
 `;
 
 const ActionLink = styled.a<{ $background: string; $border: string }>`
@@ -229,12 +250,22 @@ const ActionLink = styled.a<{ $background: string; $border: string }>`
             transform: none;
         }
     }
+
+    @media (max-width: 520px) {
+        min-height: 3.85rem;
+        border-radius: 16px;
+    }
 `;
 
 const ActionIcon = styled.img`
     width: 3.1rem;
     height: 3.1rem;
     object-fit: contain;
+
+    @media (max-width: 520px) {
+        width: 2.55rem;
+        height: 2.55rem;
+    }
 `;
 
 const LastUpdated = styled.p<{ $color: string }>`
@@ -268,7 +299,9 @@ const formatDate = (date?: string) => {
     return isoDate ? `${isoDate[2]}/${isoDate[3]}/${isoDate[1]}` : date;
 };
 
-const ProjectCard: React.FC<ProjectCardProps> = ({project, isDarkMode}) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({project}) => {
+    const theme = useTheme();
+    const isDarkMode = theme.mode === 'dark';
     const scheme = isDarkMode ? project.colors.dark : project.colors.light;
     const palette: CardPalette = {
         title: scheme.title,

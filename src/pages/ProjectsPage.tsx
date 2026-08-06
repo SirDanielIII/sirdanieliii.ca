@@ -284,10 +284,6 @@ const SkeletonAction = styled(SkeletonBlock)`
     border-radius: 20px;
 `;
 
-interface ProjectsPageProps {
-    isDarkMode: boolean;
-}
-
 const ProjectSkeleton: React.FC = () => (
     <SkeletonCard>
         <SkeletonArtwork/>
@@ -311,7 +307,7 @@ const ProjectSkeleton: React.FC = () => (
     </SkeletonCard>
 );
 
-const ProjectsPage: React.FC<ProjectsPageProps> = ({isDarkMode}) => {
+const ProjectsPage: React.FC = () => {
     const [projects, setProjects] = useState<ProjectData[]>([]);
     const [query, setQuery] = useState('');
     const [loading, setLoading] = useState(true);
@@ -424,7 +420,7 @@ const ProjectsPage: React.FC<ProjectsPageProps> = ({isDarkMode}) => {
             {!loading && !error && filteredProjects.length > 0 && (
                 <Grid>
                     {filteredProjects.map(project => (
-                        <ProjectCard key={project.folder} project={project} isDarkMode={isDarkMode}/>
+                        <ProjectCard key={project.folder} project={project}/>
                     ))}
                 </Grid>
             )}

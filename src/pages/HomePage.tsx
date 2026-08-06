@@ -65,13 +65,13 @@ const IconLink = styled.a`
     justify-content: center;
     overflow: hidden;
     transition: transform 0.2s ease;
-    filter: invert(1);
 
     img {
         width: 60%;
         height: 60%;
         object-fit: contain;
         transition: filter .18s ease;
+        filter: ${({theme}) => theme.mode === 'dark' ? 'brightness(0) invert(1)' : 'brightness(0)'};
     }
 
     &:hover {
@@ -83,14 +83,12 @@ const IconLink = styled.a`
         position: absolute;
         inset: 0;
         opacity: 0;
-        transform: scale(.8);
-        transition: opacity .25s ease, transform .25s ease;
+        transition: opacity .25s ease;
         pointer-events: none;
     }
 
     &:hover::after {
         opacity: 1;
-        transform: scale(1);
     }
 `;
 
