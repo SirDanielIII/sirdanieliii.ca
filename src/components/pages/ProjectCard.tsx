@@ -31,6 +31,7 @@ export interface ProjectData {
     tags: string[];
     lastUpdated?: string;
     thumbnail?: string;
+    showThumbnailBackground?: boolean;
     actions?: ProjectActions;
     colors: {
         light: ProjectColorScheme;
@@ -54,14 +55,14 @@ interface CardPalette {
 
 const Card = styled.article<{ $palette: CardPalette }>`
     width: 100%;
-    max-width: 30.25rem;
     min-width: 0;
-    height: 100%;
-    margin-inline: auto;
+    min-height: 0;
+    aspect-ratio: 484 / 920;
+    container-type: inline-size;
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    border: 5px solid ${({$palette}) => $palette.border};
+    border: clamp(3px, 0.3vw, 5px) solid ${({$palette}) => $palette.border};
     background: ${({$palette}) => $palette.background};
     box-shadow: 0 16px 36px rgba(0, 0, 0, 0.18);
     transition: transform 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
@@ -69,19 +70,6 @@ const Card = styled.article<{ $palette: CardPalette }>`
     &:hover {
         transform: translateY(-5px);
         box-shadow: 0 22px 44px rgba(0, 0, 0, 0.24);
-    }
-
-    @media (max-width: 520px) {
-        max-width: 20rem;
-        border-width: 3px;
-    }
-
-    @media (min-width: 521px) and (max-width: 720px) {
-        max-width: 24rem;
-    }
-
-    @media (min-width: 721px) and (max-width: 1120px) {
-        max-width: 26rem;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -93,17 +81,18 @@ const Card = styled.article<{ $palette: CardPalette }>`
     }
 `;
 
-const Artwork = styled.div<{ $placeholder: string }>`
+const Artwork = styled.div<{ $background: string }>`
     position: relative;
-    width: calc(100% - 5.5rem);
-    margin: 2.5rem auto 0;
+    width: 76%;
+    margin: clamp(1.25rem, 8.25cqw, 2.5rem) auto 0;
+    flex: 0 0 auto;
     aspect-ratio: 1;
     overflow: hidden;
-    background: ${({$placeholder}) => $placeholder};
+    background: ${({$background}) => $background};
 
-    @media (max-width: 520px) {
-        width: calc(100% - 3rem);
-        margin-top: 1.5rem;
+    @container (max-width: 19rem) {
+        width: 68%;
+        margin-top: 6cqw;
     }
 `;
 
@@ -121,82 +110,86 @@ const ArtworkPlaceholder = styled.div<{ $color: string }>`
     place-items: center;
     color: ${({$color}) => $color};
     font-family: 'BRLNSD', sans-serif;
-    font-size: clamp(5rem, 18vw, 9rem);
+    font-size: clamp(3.25rem, 18cqw, 9rem);
     opacity: 0.75;
 `;
 
 const Content = styled.div`
     flex: 1;
     min-width: 0;
-    padding: 1.25rem 2.5rem 1rem;
+    min-height: 0;
+    padding: clamp(0.7rem, 4.1cqw, 1.25rem) clamp(1.2rem, 8.25cqw, 2.5rem) clamp(0.65rem, 3.3cqw, 1rem);
     display: flex;
     flex-direction: column;
     align-items: center;
+    overflow: hidden;
     text-align: center;
-
-    @media (max-width: 520px) {
-        padding-inline: 1.25rem;
-    }
 `;
 
 const Title = styled.h2<{ $color: string }>`
     max-width: 100%;
     color: ${({$color}) => $color};
     font-family: 'BRLNSR', sans-serif;
-    font-size: clamp(1.9rem, 7vw, 2.25rem);
+    font-size: clamp(1.35rem, 7.4cqw, 2.25rem);
     font-weight: 400;
     line-height: 1.1;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+    overflow: hidden;
     overflow-wrap: anywhere;
     text-transform: uppercase;
 `;
 
 const Version = styled.p<{ $color: string }>`
-    margin-top: 0.25rem;
+    margin-top: clamp(0.15rem, 0.8cqw, 0.25rem);
     color: ${({$color}) => $color};
     font-family: 'BRLNSD', sans-serif;
-    font-size: 1.55rem;
+    font-size: clamp(1rem, 5.1cqw, 1.55rem);
     line-height: 1.25;
 `;
 
 const Description = styled.p<{ $color: string }>`
     width: 100%;
-    margin-top: 1.25rem;
+    margin-top: clamp(0.65rem, 4.1cqw, 1.25rem);
     color: ${({$color}) => $color};
-    font-size: 1.25rem;
-    line-height: 1.2;
+    font-size: clamp(0.9rem, 4.1cqw, 1.25rem);
+    line-height: 1.25;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    overflow: hidden;
     overflow-wrap: anywhere;
 `;
 
 const Tags = styled.ul`
     width: 100%;
-    margin-top: 1.5rem;
+    max-height: clamp(3.5rem, 17cqw, 5rem);
+    margin-top: clamp(0.75rem, 5cqw, 1.5rem);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.75rem;
+    gap: clamp(0.4rem, 2.5cqw, 0.75rem);
+    overflow: hidden;
     list-style: none;
 `;
 
 const Tag = styled.li<{ $background: string; $color: string }>`
     max-width: 100%;
-    padding: 0.45rem 1rem;
+    padding: clamp(0.3rem, 1.5cqw, 0.45rem) clamp(0.65rem, 3.3cqw, 1rem);
     border-radius: 9px;
     background: ${({$background}) => $background};
     color: ${({$color}) => $color};
-    font-size: 1.05rem;
+    font-size: clamp(0.85rem, 3.5cqw, 1.05rem);
     line-height: 1.1;
     overflow-wrap: anywhere;
-
-    @media (max-width: 520px) {
-        padding: 0.4rem 0.75rem;
-        font-size: 0.95rem;
-    }
 `;
 
 const CardFooter = styled.footer`
     width: 100%;
     margin-top: auto;
-    padding-top: 1.5rem;
+    padding-top: clamp(0.75rem, 5cqw, 1.5rem);
+    flex: 0 0 auto;
 `;
 
 const Actions = styled.ul`
@@ -204,30 +197,22 @@ const Actions = styled.ul`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    gap: 0.75rem;
+    gap: clamp(0.4rem, 2.5cqw, 0.75rem);
     list-style: none;
-
-    @media (max-width: 520px) {
-        gap: 0.5rem;
-    }
 `;
 
 const ActionItem = styled.li`
-    flex: 1 1 5rem;
-    max-width: 7.75rem;
-
-    @media (max-width: 520px) {
-        flex-basis: 4.25rem;
-    }
+    flex: 1 1 clamp(3.75rem, 17cqw, 5rem);
+    max-width: clamp(5.5rem, 25cqw, 7.75rem);
 `;
 
 const ActionLink = styled.a<{ $background: string; $border: string }>`
-    min-height: 4.65rem;
+    min-height: clamp(3rem, 15.4cqw, 4.65rem);
     display: flex;
     align-items: center;
     justify-content: center;
     border: 1px solid ${({$border}) => $border};
-    border-radius: 20px;
+    border-radius: clamp(14px, 4.1cqw, 20px);
     background: ${({$background}) => $background};
     box-shadow: 4px 4px 4px rgba(0, 0, 0, 0.2);
     transition: transform 0.18s ease, filter 0.18s ease, box-shadow 0.18s ease;
@@ -251,28 +236,19 @@ const ActionLink = styled.a<{ $background: string; $border: string }>`
         }
     }
 
-    @media (max-width: 520px) {
-        min-height: 3.85rem;
-        border-radius: 16px;
-    }
 `;
 
 const ActionIcon = styled.img`
-    width: 3.1rem;
-    height: 3.1rem;
+    width: clamp(2rem, 10.25cqw, 3.1rem);
+    height: clamp(2rem, 10.25cqw, 3.1rem);
     object-fit: contain;
-
-    @media (max-width: 520px) {
-        width: 2.55rem;
-        height: 2.55rem;
-    }
 `;
 
 const LastUpdated = styled.p<{ $color: string }>`
-    margin-top: 0.8rem;
+    margin-top: clamp(0.5rem, 2.65cqw, 0.8rem);
     color: ${({$color}) => $color};
     font-family: 'BRLNSD', sans-serif;
-    font-size: 1rem;
+    font-size: clamp(0.75rem, 3.3cqw, 1rem);
     line-height: 1.25;
 `;
 
@@ -322,10 +298,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({project}) => {
     const updatedDate = formatDate(project.lastUpdated);
     const actions = project.actions ?? {};
     const hasActions = [actions.download, actions.github, actions.visit].some(Boolean);
+    const artworkBackground = project.thumbnail && project.showThumbnailBackground === false
+        ? 'transparent'
+        : palette.tagBackground;
 
     return (
         <Card $palette={palette}>
-            <Artwork $placeholder={palette.tagBackground}>
+            <Artwork $background={artworkBackground}>
                 {project.thumbnail ? (
                     <ThumbnailImg
                         src={projectAssetUrl(project.folder, project.thumbnail)}

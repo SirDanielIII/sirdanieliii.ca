@@ -11,6 +11,7 @@
     "github": "https://github.com/SirDanielIII/SD_SMP"
   },
   "thumbnail": "icon.png",
+  "showThumbnailBackground": false,
   "version": "2.0.0-ALPHA-03",
   "lastUpdated": "2024-07-01",
   "colors": {

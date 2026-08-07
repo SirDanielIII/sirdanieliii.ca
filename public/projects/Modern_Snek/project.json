@@ -12,6 +12,7 @@
     "github": "https://github.com/SirDanielIII/Modern_Snek"
   },
   "thumbnail": "icon.png",
+  "showThumbnailBackground": false,
   "version": "1.0.3",
   "lastUpdated": "2020-12-07",
   "colors": {

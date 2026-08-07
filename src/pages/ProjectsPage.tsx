@@ -7,10 +7,10 @@ const PageContainer = styled.main`
     width: 100%;
     max-width: 100rem;
     margin: 0 auto;
-    padding: 7.5rem 1.5rem 6rem;
+    padding: 7.5rem clamp(2rem, 5vw, 5rem) 6rem;
 
     @media (max-width: 720px) {
-        padding: 6.5rem 0.875rem 4rem;
+        padding: 6.5rem clamp(1rem, 5vw, 2rem) 4rem;
     }
 `;
 
@@ -78,18 +78,14 @@ const InputBorder = styled.span`
 `;
 
 const Grid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    align-items: stretch;
-    gap: 2rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    gap: clamp(1.25rem, 1.5vw, 2rem);
 
-    @media (max-width: 1120px) {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    @media (max-width: 720px) {
-        grid-template-columns: minmax(0, 1fr);
-        gap: 1.5rem;
+    & > * {
+        flex: 0 1 clamp(17rem, 18vw, 21rem);
     }
 `;
 
@@ -202,20 +198,15 @@ const LoadingDots = styled.span`
     }
 `;
 
-const SkeletonGrid = styled(Grid)`
-    @media (max-width: 720px) {
-        & > :nth-child(n + 2) {
-            display: none;
-        }
-    }
-`;
+const SkeletonGrid = styled(Grid)``;
 
 const SkeletonCard = styled.div`
     width: 100%;
-    max-width: 30.25rem;
-    min-height: 49rem;
-    margin-inline: auto;
-    border: 5px solid ${({theme}) => theme.colors.sectionCard};
+    min-width: 0;
+    min-height: 0;
+    aspect-ratio: 484 / 920;
+    container-type: inline-size;
+    border: clamp(3px, 0.3vw, 5px) solid ${({theme}) => theme.colors.sectionCard};
     background: ${({theme}) => theme.colors.background2};
     overflow: hidden;
 `;
@@ -231,22 +222,22 @@ const SkeletonBlock = styled.div`
 `;
 
 const SkeletonArtwork = styled(SkeletonBlock)`
-    width: calc(100% - 5.5rem);
-    margin: 2.5rem auto 0;
+    width: 76%;
+    margin: clamp(1.25rem, 8.25cqw, 2.5rem) auto 0;
     aspect-ratio: 1;
 
-    @media (max-width: 520px) {
-        width: calc(100% - 3rem);
-        margin-top: 1.5rem;
+    @container (max-width: 19rem) {
+        width: 68%;
+        margin-top: 6cqw;
     }
 `;
 
 const SkeletonContent = styled.div`
-    padding: 1.5rem 2.5rem;
+    padding: clamp(0.7rem, 4.1cqw, 1.25rem) clamp(1.2rem, 8.25cqw, 2.5rem);
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.8rem;
+    gap: clamp(0.45rem, 2.6cqw, 0.8rem);
 `;
 
 const SkeletonLine = styled(SkeletonBlock)<{ $width: string; $height?: string }>`
@@ -264,8 +255,8 @@ const SkeletonTags = styled.div`
 `;
 
 const SkeletonTag = styled(SkeletonBlock)`
-    width: 5.5rem;
-    height: 2.1rem;
+    width: clamp(4rem, 18cqw, 5.5rem);
+    height: clamp(1.5rem, 7cqw, 2.1rem);
     border-radius: 9px;
 `;
 
@@ -279,8 +270,8 @@ const SkeletonActions = styled.div`
 
 const SkeletonAction = styled(SkeletonBlock)`
     flex: 1;
-    max-width: 7.75rem;
-    height: 4.65rem;
+    max-width: clamp(5.5rem, 25cqw, 7.75rem);
+    height: clamp(3rem, 15.4cqw, 4.65rem);
     border-radius: 20px;
 `;
 
@@ -288,11 +279,12 @@ const ProjectSkeleton: React.FC = () => (
     <SkeletonCard>
         <SkeletonArtwork/>
         <SkeletonContent>
-            <SkeletonLine $width="62%" $height="2.25rem"/>
-            <SkeletonLine $width="25%" $height="1.5rem"/>
+            <SkeletonLine $width="62%" $height="clamp(1.45rem, 7.4cqw, 2.25rem)"/>
+            <SkeletonLine $width="25%" $height="clamp(1rem, 5.1cqw, 1.5rem)"/>
             <SkeletonLine $width="94%"/>
             <SkeletonLine $width="82%"/>
             <SkeletonLine $width="56%"/>
+            <SkeletonLine $width="72%"/>
             <SkeletonTags>
                 <SkeletonTag/>
                 <SkeletonTag/>
@@ -397,6 +389,7 @@ const ProjectsPage: React.FC = () => {
                         <LoadingCopy>This can take a moment while the project files wake up.</LoadingCopy>
                     </LoadingMessage>
                     <SkeletonGrid aria-hidden="true">
+                        <ProjectSkeleton/>
                         <ProjectSkeleton/>
                         <ProjectSkeleton/>
                         <ProjectSkeleton/>

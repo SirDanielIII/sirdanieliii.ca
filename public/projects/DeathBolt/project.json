@@ -1,0 +1,37 @@
+{
+  "title": "DeathBolt",
+  "description": "Lightweight Spigot plugin that strikes lightning upon player death, with configurable options",
+  "tags": [
+    "Spigot Plugin",
+    "Minecraft",
+    "Java"
+  ],
+  "actions": {
+    "download": "DeathBolt-1.0.0.jar",
+    "github": "https://github.com/SirDanielIII/DeathBolt"
+  },
+  "thumbnail": "icon.webp",
+  "showThumbnailBackground": false,
+  "version": "1.0.0",
+  "lastUpdated": "2025-05-25",
+  "colors": {
+    "light": {
+      "title": "#C8402C",
+      "background": "#FFF7F0",
+      "description": "#3A241C",
+      "accent": "#A94B2E",
+      "border": "#F1A36B",
+      "tagBackground": "#FFD3B3",
+      "tagText": "#4A1F10"
+    },
+    "dark": {
+      "title": "#FF8A55",
+      "background": "#25100C",
+      "description": "#F4DDD3",
+      "accent": "#F3A449",
+      "border": "#6F2F22",
+      "tagBackground": "#A64D32",
+      "tagText": "#FFF4EC"
+    }
+  }
+}
