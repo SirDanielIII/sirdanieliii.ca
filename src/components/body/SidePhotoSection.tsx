@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import PhotoItem from '../body/PhotoItem'; // adjust path if needed
+import PhotoItem from './PhotoItem';
 
 /* ---------- props ---------- */
 export interface SidePhotoSectionProps {
@@ -8,6 +8,7 @@ export interface SidePhotoSectionProps {
     imgAlt?: string;
     align?: 'left' | 'right';          // photo on which side (default: 'left')
     photoMaxWidth?: number | string;   // default: 400
+    photoAspectRatio?: string;
     background?: string;               // fallback → theme.colors.background1
     padding?: string;                  // default: '30px'
     children: React.ReactNode;         // *your* JSX goes here
@@ -22,7 +23,7 @@ const Section = styled.section<{ $bg?: string; $pad: string }>`
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: stretch; /* equal column heights */
+    align-items: center;
     gap: 20px;
 
     @media (max-width: 1100px) {
@@ -31,19 +32,14 @@ const Section = styled.section<{ $bg?: string; $pad: string }>`
     }
 `;
 
-const PhotoCol = styled.div<{ $align: 'left' | 'right'; $max: string }>`
+const PhotoCol = styled.div<{ $max: string; $aspectRatio: string }>`
     flex: 0 0 ${({$max}) => $max};
+    width: 100%;
     max-width: ${({$max}) => $max};
-
-    display: flex;
-    justify-content: ${({$align}) =>
-            $align === 'left' ? 'flex-start' : 'flex-end'};
-    align-items: center;
+    aspect-ratio: ${({$aspectRatio}) => $aspectRatio};
 
     @media (max-width: 1100px) {
         flex: 0 1 auto;
-        width: 100%;
-        justify-content: center;
     }
 `;
 
@@ -67,19 +63,21 @@ const TextCol = styled.div`
 
 /* ---------- component ---------- */
 const SidePhotoSection: React.FC<SidePhotoSectionProps> = ({
-                                                               imgSrc,
-                                                               imgAlt = '',
-                                                               align = 'left',
-                                                               photoMaxWidth = 400,
-                                                               background,
-                                                               padding = '30px',
-                                                               children,
-                                                           }) => {
-    const maxW =
-        `${photoMaxWidth}px`;
+    imgSrc,
+    imgAlt = '',
+    align = 'left',
+    photoMaxWidth = 400,
+    photoAspectRatio = 'auto',
+    background,
+    padding = '30px',
+    children,
+}) => {
+    const maxWidth = typeof photoMaxWidth === 'number'
+        ? `${String(photoMaxWidth)}px`
+        : photoMaxWidth;
 
     const Photo = (
-        <PhotoCol $align={align} $max={maxW}>
+        <PhotoCol $max={maxWidth} $aspectRatio={photoAspectRatio}>
             <PhotoItem src={imgSrc} alt={imgAlt}/>
         </PhotoCol>
     );

@@ -39,6 +39,7 @@ const AboutServerSection: React.FC<AboutServerSectionProps> = ({
         imgAlt="SD_NAS server"
         align={align}
         photoMaxWidth={520}
+        photoAspectRatio="3 / 2"
     >
         <Title>About My Server</Title>
 

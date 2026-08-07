@@ -1,6 +1,6 @@
 {
   "title": "I Have A Question",
-  "description": "Will you be my Valentine? 👉👈",
+  "description": "Will you be my Valentine? \uD83D\uDC49\uD83D\uDC48",
   "tags": [
     "Website",
     "Funny",
@@ -8,22 +8,32 @@
     "CSS",
     "JavaScript"
   ],
-  "type": "link",
-  "link": "https://sirdanieliii.ca/projects/ihaveaquestion/",
-  "github": "https://github.com/SirDanielIII/IHaveAQuestion",
+  "actions": {
+    "github": "https://github.com/SirDanielIII/IHaveAQuestion",
+    "visit": "https://sirdanieliii.ca/projects/ihaveaquestion/"
+  },
   "thumbnail": "icon.png",
+  "showThumbnailBackground": false,
   "version": "1.0.0",
   "lastUpdated": "2025-02-14",
   "colors": {
     "light": {
       "title": "#D61C4E",
       "background": "#FFF0F5",
-      "description": "#333333"
+      "description": "#351A23",
+      "accent": "#A83046",
+      "border": "#F3B4C6",
+      "tagBackground": "#F8CCD8",
+      "tagText": "#4C1323"
     },
     "dark": {
       "title": "#FFB6C1",
       "background": "#2B1A1F",
-      "description": "#DDDDDD"
+      "description": "#F0DDE2",
+      "accent": "#C36A83",
+      "border": "#6E3545",
+      "tagBackground": "#8F6874",
+      "tagText": "#1B0B10"
     }
   }
 }

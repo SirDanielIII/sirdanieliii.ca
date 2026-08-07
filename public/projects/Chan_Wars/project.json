@@ -6,22 +6,32 @@
     "Python",
     "Pygame"
   ],
-  "type": "download",
-  "download": "Chan_Wars-1.0.0.zip",
-  "github": "https://github.com/SirDanielIII/Chan_Wars",
+  "actions": {
+    "download": "Chan_Wars-1.0.0.zip",
+    "github": "https://github.com/SirDanielIII/Chan_Wars"
+  },
   "thumbnail": "icon.png",
+  "showThumbnailBackground": false,
   "version": "1.0.0",
   "lastUpdated": "2025-04-29",
   "colors": {
     "light": {
       "title": "#8A2BE2",
-      "background": "#F5F5FF",
-      "description": "#333333"
+      "background": "#F7F2FF",
+      "description": "#2D2338",
+      "accent": "#6C3A85",
+      "border": "#D9B8F2",
+      "tagBackground": "#E6D9F2",
+      "tagText": "#2B1238"
     },
     "dark": {
       "title": "#BA55D3",
       "background": "#1E0A3C",
-      "description": "#CCCCCC"
+      "description": "#D9D9D9",
+      "accent": "#612B7D",
+      "border": "#381966",
+      "tagBackground": "#78819E",
+      "tagText": "#101116"
     }
   }
 }

@@ -1,4 +1,28 @@
+export interface AppTheme {
+    mode: 'light' | 'dark';
+    colors: {
+        background1: string;
+        background2: string;
+        text: string;
+        highlight1: string;
+        highlight2: string;
+        highlight3: string;
+        highlight4: string;
+        highlight5: string;
+        sectionCard: string;
+        header: string;
+        footer: string;
+        themeButton: string;
+    };
+    fonts: {
+        regular: string;
+        demi: string;
+        bold: string;
+    };
+}
+
 export const lightTheme = {
+    mode: 'light' as const,
     colors: {
         background1: '#F7F7F7',
         background2: '#FFFFFF',
@@ -21,6 +45,7 @@ export const lightTheme = {
 };
 
 export const darkTheme = {
+    mode: 'dark' as const,
     colors: {
         background1: '#121212',
         background2: '#141414',
