@@ -2,7 +2,7 @@
 
 Edit `src/data/homeSections.ts` to change the images, labels, descriptions, routes, and accent colours. The four image imports at the top are the only paths you need to replace when changing photos.
 
-The current imports use smaller 1200px-wide copies in `section_card/optimized/`. The original images remain in `section_card/`. When replacing a photo, export a WebP around 1200px wide (quality 80 is a useful starting point) and update its import. Oversized camera images will slow down loading even with preloading.
+When replacing a photo, export a WebP around 1200px wide (quality 80 is a useful starting point) and update its import. Oversized camera images will slow down loading even with preloading.
 
 For example, use the computer-build photo for Projects:
 
