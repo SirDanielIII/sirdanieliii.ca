@@ -1,28 +1,23 @@
-// src/App.tsx
-import React, {useEffect, useState} from 'react';
+import React, {lazy, Suspense, useEffect, useState} from 'react';
 import {Route, Routes} from 'react-router';
-import styled, {ThemeProvider} from 'styled-components';
-import {GlobalStyles} from './styles/GlobalStyles';
-import {darkTheme, lightTheme} from './styles/theme';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import HomePage from './pages/HomePage';
-import ProjectsPage from './pages/ProjectsPage';
-import PortfolioPage from './pages/PortfolioPage';
-import MerchPage from './pages/MerchPage';
-import GuidesPage from './pages/GuidesPage';
-import NotFoundPage from './pages/NotFoundPage';
+import {ThemeProvider} from 'styled-components';
+import {GlobalStyles} from './css/GlobalStyles';
+import {darkTheme, lightTheme} from './css/theme';
+import Header from './shared/layout/Header';
+import Footer from './shared/layout/Footer';
+import HomePage from './pages/home/HomePage';
+import GuidesPage from './pages/guides/GuidesPage';
+import NotFoundPage from './pages/not-found/NotFoundPage';
 import profileImage from './assets/images/profile.webp';
-import TestPage from "./pages/TestPage.tsx";
-import CookieNotice from './components/CookieNotice';
-import ScrollToTop from './components/ScrollToTop';
+import TestPage from './pages/test/TestPage';
+import CookieNotice from './shared/feedback/CookieNotice';
+import ScrollToTop from './shared/navigation/ScrollToTop';
 import {getSavedTheme, hasVisitedBefore, markAsVisited, saveTheme, type SavedTheme} from './utils/cookies';
+import {AppWrapper, RouteLoading} from './css/App.styles';
 
-const AppWrapper = styled.div`
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-`;
+const ProjectsPage = lazy(() => import('./pages/projects/ProjectsPage'));
+const PortfolioPage = lazy(() => import('./pages/portfolio/PortfolioPage'));
+const MerchPage = lazy(() => import('./pages/merch/MerchPage'));
 
 const App: React.FC = () => {
     const [colourMode, setColourMode] = useState<SavedTheme>(() => getSavedTheme() ?? 'dark');
@@ -50,15 +45,17 @@ const App: React.FC = () => {
             <AppWrapper>
                 <Header toggleTheme={toggleTheme} profileImage={profileImage}/>
 
-                <Routes>
-                    <Route path="/" element={<HomePage/>}/>
-                    <Route path="/projects/" element={<ProjectsPage/>}/>
-                    <Route path="/portfolio/" element={<PortfolioPage/>}/>
-                    <Route path="/merch/" element={<MerchPage/>}/>
-                    <Route path="/guides/" element={<GuidesPage/>}/>
-                    <Route path="/test/" element={<TestPage/>}/>
-                    <Route path="*" element={<NotFoundPage/>}/>
-                </Routes>
+                <Suspense fallback={<RouteLoading role="status">Loading page…</RouteLoading>}>
+                    <Routes>
+                        <Route path="/" element={<HomePage/>}/>
+                        <Route path="/projects/" element={<ProjectsPage/>}/>
+                        <Route path="/portfolio/" element={<PortfolioPage/>}/>
+                        <Route path="/merch/" element={<MerchPage/>}/>
+                        <Route path="/guides/" element={<GuidesPage/>}/>
+                        <Route path="/test/" element={<TestPage/>}/>
+                        <Route path="*" element={<NotFoundPage/>}/>
+                    </Routes>
+                </Suspense>
                 <Footer/>
             </AppWrapper>
             {showCookieNotice && (

@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {BrowserRouter} from 'react-router';
 import App from './App';
-import './styles/fonts.css';
+import './css/fonts.css';
 
 const rootElement = document.getElementById('root');
 

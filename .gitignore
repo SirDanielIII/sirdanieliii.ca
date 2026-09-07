@@ -11,6 +11,7 @@ node_modules
 dist
 dist-ssr
 *.local
+*.tsbuildinfo
 
 # Editor directories and files
 .vscode/*
@@ -25,4 +26,6 @@ dist-ssr
 /src/assets/images/section_card/Archive/
 /public/projects/
 /other/
-/public/portfolio/
+/public/portfolio/*
+!/public/portfolio/.htaccess
+/private/portfolio/
