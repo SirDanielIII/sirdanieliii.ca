@@ -35,11 +35,10 @@ npm install
 ### 3. How to Deploy (Apache2)
 
 1. Run `npm run build`.
-2. Copy everything in /dist into DocumentRoot.
-3. Copy `private/` beside DocumentRoot (outside the public website) and set the password in `private/portfolio.php`. Include the PDFs in `private/portfolio/`; they are intentionally excluded from Git and the Vite build.
-4. Remove any previously deployed PDFs from the public `/portfolio/` directory. Deploy its `.htaccess` too, which denies access to leftover public PDF copies on Apache with overrides enabled.
+2. Copy everything in `dist/` into DocumentRoot. The build includes any PDFs placed in `public/portfolio/`.
+3. If updating the password-protected version, remove the old deployed `scripts/portfolio.php`, `private/` folder, and any `portfolio/.htaccess` that denies PDF access.
 
-The portfolio requires PHP 8.1+. Set `'password' => 'your-password'` in `private/portfolio.php`; an empty password keeps access locked. Edit PDF filenames in that same file and collection text in `src/pages/portfolio/portfolio.ts`. For example, if DocumentRoot is `/var/www/site`, the configuration belongs at `/var/www/private/portfolio.php` and the PDFs at `/var/www/private/portfolio/`. Run `npm run dev` locally so PHP handles the password check.
+The portfolio is public and serves PDFs directly without PHP or a password. Put the PDFs in `public/portfolio/` (excluded from Git), then edit their URLs and collection text in `src/pages/portfolio/portfolio.ts`.
 
 ---
 
@@ -52,7 +51,7 @@ Guides are written as MDX files in `src/pages/guides/content/`. See [Writing gui
 - `src/shared/`: shared layout, feedback, and navigation components.
 - `src/utils/`: utilities used across categories.
 - `src/assets/`: bundled images and icons; `public/`: public files and PHP endpoints.
-- `private/`: server-only portfolio configuration and PDFs; never deploy this inside the web root.
+- `public/portfolio/`: publicly accessible portfolio PDFs, included in the build.
 - `build/`: Vite build helpers. `docs/`: editing guides.
 
 Keep category-specific code with its page and styling in the matching CSS folder. Use lowercase folder names and direct imports. Larger category pages load on demand. No new styling library is required; configurable colours and image positions remain data-driven.

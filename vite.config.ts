@@ -13,10 +13,6 @@ export default defineConfig({
         homeImagePreloads(),
     ],
     assetsInclude: ['**/*.JPG'], server: {
-        fs: {
-            // Vite serves source files too; keep server-only configuration and PDFs private.
-            deny: ['.env', '.env.*', '*.{crt,pem}', '**/.git/**', '**/private/**'],
-        },
         proxy: {
             '/scripts': {
                 target: 'http://localhost:8000',

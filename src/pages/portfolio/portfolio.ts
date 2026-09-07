@@ -1,11 +1,11 @@
 
 
-// Set the password and PDF filenames in private/portfolio.php (server-only).
+// Put PDFs in public/portfolio/ and update their URLs below.
 export interface PortfolioDocument {
     id: string;
     title: string;
     description: string;
-    /** Protected endpoint; filenames are configured in private/portfolio.php. */
+    /** Public PDF URL. */
     file: string;
 }
 
@@ -14,18 +14,17 @@ export const portfolio = {
     introduction: 'Pick a collection to take a look 🙂',
 };
 
-// Keep endpoint IDs in sync with the files map in private/portfolio.php.
 export const portfolioDocuments: [PortfolioDocument, ...PortfolioDocument[]] = [
     {
         id: 'photography',
         title: 'Photography 📸',
         description: 'A pick of my favourite photos throughout the years.',
-        file: '/scripts/portfolio.php?action=file&id=photography',
+        file: `/portfolio/${encodeURIComponent("Daniel's Photography Portfolio (2025).pdf")}`,
     },
     {
         id: 'videography',
         title: 'Videography 🎥',
         description: 'My collection of questionable short films and video projects.',
-        file: '/scripts/portfolio.php?action=file&id=videography',
+        file: `/portfolio/${encodeURIComponent("Daniel's Videography Portfolio (2025).pdf")}`,
     },
 ];
