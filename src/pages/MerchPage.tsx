@@ -1,7 +1,8 @@
-import {useEffect, useRef, useState} from 'react';
-import styled from 'styled-components';
+import {useCallback, useEffect, useRef, useState} from 'react';
+import styled, {useTheme} from 'styled-components';
 import MerchCard from '../components/pages/MerchCard';
-import {merchCopy, merchItems, type MerchItem} from '../data/merch';
+import {merch, merchItems, type MerchDialogOptions, type MerchItem} from '../data/merch';
+import {merchColourStyles} from '../utils/merchColours';
 
 const Page = styled.main`
     flex: 1;
@@ -26,7 +27,7 @@ const Intro = styled.div`
 
 const Title = styled.h1`
     color: ${({theme}) => theme.mode === 'dark' ? theme.colors.highlight4 : '#16784f'};
-    font-size: clamp(3rem, 7vw, 4.5rem);
+    font-size: clamp(2rem, 5vw, 3rem);
     font-weight: 400;
     line-height: 1.1;
     letter-spacing: 0.08em;
@@ -83,26 +84,6 @@ const Grid = styled.div`
     }
 `;
 
-const ShopNote = styled.aside`
-    margin-top: 3rem;
-    padding: 1.75rem 1.25rem;
-    border: 1px dashed ${({theme}) => theme.mode === 'dark' ? '#456b59' : '#a2d1bb'};
-    border-radius: 12px;
-    text-align: center;
-
-    h2 {
-        font-size: 1.25rem;
-        font-weight: 400;
-    }
-
-    p {
-        margin-top: 0.5rem;
-        font-size: 0.95rem;
-        line-height: 1.5;
-        opacity: 0.7;
-    }
-`;
-
 const EmptyState = styled.div`
     padding: 3rem 1.25rem;
     text-align: center;
@@ -132,6 +113,7 @@ const PurchaseDialog = styled.dialog`
     background: ${({theme}) => theme.colors.background2};
     color: ${({theme}) => theme.colors.text};
     text-align: center;
+    overflow-wrap: anywhere;
     box-shadow: 0 24px 80px rgba(0, 0, 0, 0.35);
 
     &::backdrop {
@@ -189,10 +171,53 @@ const CloseButton = styled.button`
     }
 `;
 
+// Product data is static; dialog and theme changes do not need to filter it again.
+const visibleItems = merchItems.filter(item => item.visible !== false);
+
 const MerchPage = () => {
+    const theme = useTheme();
     const [selectedItem, setSelectedItem] = useState<MerchItem | null>(null);
     const dialogRef = useRef<HTMLDialogElement>(null);
-    const visibleItems = merchItems.filter(item => item.visible !== false);
+    const dialogOptions: MerchDialogOptions = {
+        ...merch.dialog,
+        ...selectedItem?.dialog,
+    };
+    const dialogProduct = dialogOptions.productName ?? selectedItem?.name;
+    const dialogTitle = dialogOptions.title;
+    const dialogMessage = dialogOptions.message;
+    const dialogNote = dialogOptions.showNote ? dialogOptions.note : '';
+    const dialogCloseLabel = (dialogOptions.closeLabel ?? 'Close').trim() || 'Close';
+    const dialogDescriptionIds = [
+        dialogMessage ? 'merch-dialog-message' : '',
+        dialogNote ? 'merch-dialog-note' : '',
+    ].filter(Boolean).join(' ') || undefined;
+
+    const handleSelect = useCallback((item: MerchItem) => {
+        if (item.action === 'file-not-found') {
+            // Force the browser to render its native ERR_FILE_NOT_FOUND error page.
+            // Navigating to a non-existent blob URL fails in Chromium's internal BlobRegistry,
+            // triggering a file-not-found network failure without creating in-memory objects.
+            window.location.assign(`blob:${window.location.origin}/HA_YOU_THOUGHT`);
+            return;
+        }
+
+        const link = item.link;
+        const chancePercent = link?.chancePercent ?? 100;
+        const shouldOpenLink = link?.url && (
+            chancePercent >= 100 || (chancePercent > 0 && Math.random() * 100 < chancePercent)
+        );
+
+        if (shouldOpenLink) {
+            if (link.openInNewTab === false) {
+                window.location.assign(link.url);
+            } else {
+                window.open(link.url, '_blank', 'noopener,noreferrer');
+            }
+            return;
+        }
+
+        if (item.dialog) setSelectedItem(item);
+    }, []);
 
     useEffect(() => {
         const dialog = dialogRef.current;
@@ -211,45 +236,41 @@ const MerchPage = () => {
     return (
         <Page>
             <Intro>
-                <Title>{merchCopy.title}</Title>
-                <Tagline>{merchCopy.tagline}</Tagline>
-                <Introduction>{merchCopy.introduction}</Introduction>
+                <Title>{merch.title}</Title>
+                <Tagline>{merch.tagline}</Tagline>
+                <Introduction>{merch.introduction}</Introduction>
             </Intro>
 
             <section aria-labelledby="merch-collection-title">
                 <CollectionHeading>
-                    <h2 id="merch-collection-title">{merchCopy.collectionTitle}</h2>
-                    <p>{merchCopy.collectionNote}</p>
+                    <h2 id="merch-collection-title">{merch.collectionTitle}</h2>
+                    <p>{merch.collectionNote}</p>
                 </CollectionHeading>
                 {visibleItems.length > 0 ? (
-                    <Grid>
+                    <Grid style={merchColourStyles(merch.cardColours, theme.mode)}>
                         {visibleItems.map((item, index) => (
                             <MerchCard
                                 key={item.id}
                                 item={item}
-                                defaultButtonLabel={merchCopy.defaultButtonLabel}
-                                onSelect={setSelectedItem}
+                                defaultButtonLabel={merch.defaultButtonLabel}
+                                onSelect={handleSelect}
                                 eager={index < 3}
                             />
                         ))}
                     </Grid>
                 ) : (
                     <EmptyState>
-                        <h3>{merchCopy.emptyTitle}</h3>
-                        <p>{merchCopy.emptyMessage}</p>
+                        <h3>{merch.emptyTitle}</h3>
+                        <p>{merch.emptyMessage}</p>
                     </EmptyState>
                 )}
             </section>
 
-            <ShopNote>
-                <h2>{merchCopy.disclaimerTitle}</h2>
-                <p>{merchCopy.disclaimer}</p>
-            </ShopNote>
-
             <PurchaseDialog
                 ref={dialogRef}
-                aria-labelledby="merch-dialog-title"
-                aria-describedby="merch-dialog-message merch-dialog-note"
+                aria-labelledby={dialogTitle ? 'merch-dialog-title' : undefined}
+                aria-label={dialogTitle ? undefined : selectedItem?.name}
+                aria-describedby={dialogDescriptionIds}
                 onClose={() => { setSelectedItem(null); }}
                 onClick={event => {
                     if (event.target !== event.currentTarget) return;
@@ -259,12 +280,12 @@ const MerchPage = () => {
                     }
                 }}
             >
-                <DialogProduct>{selectedItem?.name}</DialogProduct>
-                <h2 id="merch-dialog-title">{merchCopy.dialogTitle}</h2>
-                <Punchline id="merch-dialog-message">{selectedItem?.punchline}</Punchline>
-                <DialogNote id="merch-dialog-note">{merchCopy.dialogNote}</DialogNote>
+                {dialogOptions.showProductName && dialogProduct && <DialogProduct>{dialogProduct}</DialogProduct>}
+                {dialogTitle && <h2 id="merch-dialog-title">{dialogTitle}</h2>}
+                {dialogMessage && <Punchline id="merch-dialog-message">{dialogMessage}</Punchline>}
+                {dialogNote && <DialogNote id="merch-dialog-note">{dialogNote}</DialogNote>}
                 <CloseButton type="button" autoFocus onClick={() => { dialogRef.current?.close(); }}>
-                    {merchCopy.dialogCloseLabel}
+                    {dialogCloseLabel}
                 </CloseButton>
             </PurchaseDialog>
         </Page>

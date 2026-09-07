@@ -1,6 +1,7 @@
-import {useState} from 'react';
-import styled from 'styled-components';
+import {memo, useState} from 'react';
+import styled, {useTheme} from 'styled-components';
 import type {MerchItem} from '../../data/merch';
+import {merchColourStyles} from '../../utils/merchColours';
 
 const Card = styled.article`
     min-width: 0;
@@ -9,12 +10,13 @@ const Card = styled.article`
     overflow: hidden;
     border: 1px solid ${({theme}) => theme.mode === 'dark' ? '#353535' : '#dedede'};
     border-radius: 18px;
-    background: ${({theme}) => theme.colors.background2};
+    background: var(--merch-card-background, ${({theme}) => theme.colors.background2});
+    color: var(--merch-card-text, ${({theme}) => theme.colors.text});
     transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 
     &:hover {
         transform: translateY(-5px);
-        border-color: ${({theme}) => theme.colors.highlight4};
+        border-color: ${({theme}) => theme.colors.highlight5};
         box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12);
     }
 
@@ -66,8 +68,8 @@ const Badge = styled.span`
     padding: 0.4rem 0.7rem;
     border: 1px solid rgba(0, 0, 0, 0.12);
     border-radius: 5px;
-    background: #fffdf4;
-    color: #242424;
+    background-color: var(--merch-card-badgeBackground, #fffdf4);
+    color: var(--merch-card-badgeText, #242424);
     font-size: 0.8rem;
     line-height: 1.25;
     overflow-wrap: anywhere;
@@ -101,12 +103,13 @@ const PriceBlock = styled.div`
 `;
 
 const Price = styled.p`
-    color: ${({theme}) => theme.mode === 'dark' ? theme.colors.highlight4 : '#16784f'};
+    color: var(--merch-card-price, ${({theme}) => theme.mode === 'dark' ? theme.colors.highlight4 : '#16784f'});
     font-size: 1.8rem;
     line-height: 1.15;
 `;
 
 const PriceNote = styled.p`
+    min-height: 1.4em;
     margin-top: 0.35rem;
     font-size: 0.85rem;
     line-height: 1.4;
@@ -124,8 +127,8 @@ const PurchaseButton = styled.button`
     gap: 1rem;
     border: 1px solid ${({theme}) => theme.mode === 'dark' ? '#456b59' : '#a2d1bb'};
     border-radius: 8px;
-    background: ${({theme}) => theme.mode === 'dark' ? '#1b2c24' : '#e5f5ed'};
-    color: ${({theme}) => theme.mode === 'dark' ? theme.colors.highlight4 : '#166344'};
+    background: var(--merch-card-buttonBackground, ${({theme}) => theme.mode === 'dark' ? '#1b2c24' : '#e5f5ed'});
+    color: var(--merch-card-buttonText, ${({theme}) => theme.mode === 'dark' ? theme.colors.highlight4 : '#166344'});
     text-align: left;
     transition: background-color 0.18s ease, color 0.18s ease;
 
@@ -136,8 +139,8 @@ const PurchaseButton = styled.button`
     }
 
     &:hover {
-        background: ${({theme}) => theme.colors.highlight4};
-        color: #11261d;
+        background: var(--merch-card-buttonBackground, ${({theme}) => theme.colors.highlight4});
+        color: var(--merch-card-buttonText, #11261d);
     }
 
     &:focus-visible {
@@ -158,12 +161,16 @@ interface MerchCardProps {
 }
 
 const MerchCard = ({item, defaultButtonLabel, onSelect, eager = false}: MerchCardProps) => {
+    const theme = useTheme();
     const [failedImage, setFailedImage] = useState<string | null>(null);
     const titleId = `merch-${item.id}`;
     const buttonLabel = item.buttonLabel ?? defaultButtonLabel;
+    // Shared colours inherit from the grid; resolve only this item's overrides here.
+    const colourStyles = item.colours ? merchColourStyles(item.colours, theme.mode) : undefined;
+    const canShowDialog = item.dialog && (!item.link?.url || (item.link.chancePercent ?? 100) < 100);
 
     return (
-        <Card aria-labelledby={titleId}>
+        <Card aria-labelledby={titleId} style={colourStyles}>
             <Artwork>
                 {item.image && failedImage !== item.image ? (
                     <Photo
@@ -188,13 +195,13 @@ const MerchCard = ({item, defaultButtonLabel, onSelect, eager = false}: MerchCar
                 <Description>{item.description}</Description>
                 <PriceBlock>
                     <Price>{item.price}</Price>
-                    {item.priceNote && <PriceNote>{item.priceNote}</PriceNote>}
+                    <PriceNote aria-hidden={item.priceNote ? undefined : true}>{item.priceNote}</PriceNote>
                 </PriceBlock>
                 <PurchaseButton
                     type="button"
                     onClick={() => { onSelect(item); }}
                     aria-label={`${buttonLabel}: ${item.name}`}
-                    aria-haspopup="dialog"
+                    aria-haspopup={canShowDialog ? 'dialog' : undefined}
                 >
                     {buttonLabel}
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true">
@@ -206,4 +213,4 @@ const MerchCard = ({item, defaultButtonLabel, onSelect, eager = false}: MerchCar
     );
 };
 
-export default MerchCard;
+export default memo(MerchCard);

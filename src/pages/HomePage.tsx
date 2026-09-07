@@ -6,7 +6,7 @@ import SectionMerch from '../assets/images/section_card/section_merch.webp'
 import SectionPortfolio from '../assets/images/section_card/section_portfolio.webp'
 import SectionProjects from '../assets/images/section_card/section_projects.webp'
 import AboutServerSection from "../components/pages/AboutServerSection.tsx";
-import ServerPhoto from "../assets/images/homepage/SD_NAS_1.JPG"
+import ServerPhoto from "../assets/images/homepage/SD_NAS_1.webp"
 import youtubeIcon from "../assets/icons/youtube.svg";
 import githubIcon from "../assets/icons/github.svg";
 import instagramIcon from "../assets/icons/instagram.svg";

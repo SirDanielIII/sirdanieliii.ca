@@ -1,21 +1,10 @@
 # Editing the merch page
 
-The shop is a joke: the buttons open product-specific punchlines, and nothing is purchased or submitted.
+Edit [src/data/merch.ts](../src/data/merch.ts). The `merch` object holds shared page and dialog text; `merchItems` holds products in display order. Edit values while keeping field names and value types intact.
 
-## Products and page copy
+## Adding and editing products
 
-Edit [`src/data/merch.ts`](../src/data/merch.ts). The `merchCopy` object holds the headings, introduction, shop note, and shared button/dialog text. The `merchItems` array holds the products in display order.
-
-- **Add:** copy an item, give it a unique `id`, and change its content.
-- **Remove:** delete the item's object from the array.
-- **Hide temporarily:** set `visible: false` on an item. Omit it or use `true` to show it again.
-- **Reorder:** move objects up or down in the array.
-- **Change an image:** put a photo in `public/merch/`, then set `image` to `/merch/your-photo.webp` and describe it in `imageAlt`. PNG and JPEG also work. Landscape or square photos work best; cards crop them to 4:3.
-- **Change the joke:** edit `punchline`. It appears when that product's button is clicked.
-
-Only `id`, `name`, `description`, `price`, and `punchline` are required. `price` is plain text, so currencies and joke prices both work. `badge`, `priceNote`, `image`, `imageAlt`, `buttonLabel`, and `visible` are optional. An omitted or broken image gets a built-in placeholder. If every item is hidden or removed, the page displays an empty-shop message.
-
-For example, add this object anywhere inside `merchItems`:
+Copy this object into `merchItems`:
 
 ```ts
 {
@@ -25,16 +14,101 @@ For example, add this object anywhere inside `merchItems`:
     price: 'Your last good idea',
     badge: 'Limited supply',
     buttonLabel: 'Think about it',
-    punchline: 'I forgot where I put it. That probably explains a lot.',
+    dialog: {
+        message: 'I forgot where I put it. That probably explains a lot.',
+    },
 },
 ```
 
-Keep IDs unique and unchanged when renaming an existing item. Long descriptions and prices wrap naturally; cards have no fixed text height. There are no separate mobile layouts to maintain: the grid uses three columns on desktop, two on tablets, and one on phones. New source changes require a build and deployment to appear on the live site.
+Required fields are `id`, `name`, `description`, and `price`, plus one button behaviour:
 
-## Layout and images
+- `dialog` with a `message`: show a popup, optionally with a chance-based `link`.
+- `link` alone: always open the link. Omit `chancePercent` or set it to `100`.
+- `action: 'file-not-found'`: open the native browser error. Omit both `dialog` and `link`.
 
-- [`src/pages/MerchPage.tsx`](../src/pages/MerchPage.tsx): page layout and accessible native purchase dialog, including Escape/backdrop dismissal and focus restoration.
-- [`src/components/pages/MerchCard.tsx`](../src/components/pages/MerchCard.tsx): reusable product card and image fallback.
-- [`public/merch/`](../public/merch/): six temporary product photos, optimized to 800px WebP files. The page loads no third-party image services.
+TypeScript checks these combinations, including requiring fallback dialog text for chance-based links. Keep IDs unique and stable. Prices are text, so currencies and joke prices both work.
 
-Styling uses the site's existing styled-components theme and Berlin Sans fonts. The green merch accent uses a darker shade for readable text in light mode. The page shares the existing header, footer, and theme toggle.
+- Add, remove, or reorder objects to change the collection.
+- Set `visible: false` to hide a product.
+- Set `image` to a file in `public/merch/`, for example `/merch/rock.webp`. Describe it with `imageAlt`; the product name is the default. Missing images show a placeholder.
+- Edit `badge`, `priceNote`, and `buttonLabel` for the optional card text.
+- Edit `dialog.message` for the popup's punchline.
+
+## Popup text
+
+All popup text lives under `dialog`:
+
+| Field | Default |
+| --- | --- |
+| `productName` | Product name |
+| `title` | `merch.dialog.title` |
+| `message` | Required for products with a dialog |
+| `note` | `merch.dialog.note` |
+| `closeLabel` | `merch.dialog.closeLabel` |
+| `showProductName`, `showNote` | `true` |
+
+An empty title, message, or note hides that section. The close button keeps a usable label. Escape, the close button, and clicking outside dismiss the popup.
+
+Fonts, spacing, dimensions, borders, and popup colours are shared component styles rather than per-product settings.
+
+## Basic card colours
+
+To change **every card**, edit `cardColours` inside `export const merch` in `src/data/merch.ts`. Replace the empty object with any of these seven keys:
+
+```ts
+cardColours: {
+    background: {light: '#fff8f0', dark: '#29231e'},
+    text: {light: '#30251b', dark: '#fff4e8'},
+    price: {light: '#8a4600', dark: '#ffbf75'},
+    badgeBackground: '#e9c683',
+    badgeText: '#242424',
+    buttonBackground: {light: '#f5dfc4', dark: '#533b25'},
+    buttonText: {light: '#623400', dark: '#ffe0b8'},
+} satisfies MerchCardColours,
+```
+
+To change **one card**, add `colours` to that entry in `merchItems`. Only the listed keys override the shared colours:
+
+```ts
+colours: {
+    badgeBackground: '#E9C683',
+    badgeText: '#242424',
+    price: {light: '#16784f', dark: '#3FD49A'},
+},
+```
+
+Each colour accepts a CSS string or separate `light` and `dark` values. Omitted colours use the shared value, then the site's theme. Shared colour variables are applied once to the grid and inherited by its cards. Card text inherits `text`; description and small-note text retain their muted opacity. Hover, focus, and layout styles remain shared. These settings colour the cards, not the page heading, purchase popup, or Chrome's native error page.
+
+## Links and random surprises
+
+Add `link` to a product:
+
+```ts
+link: {
+    url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
+    chancePercent: 25,
+    openInNewTab: true,
+},
+```
+
+- `url`: a full URL or site-relative path.
+- `chancePercent`: chance on each click, from 0 (always show the dialog) to 100 (always open the link). Defaults to 100. Each click rolls independently.
+- `openInNewTab`: defaults to true. Set false to navigate in the current tab.
+
+Keep `dialog.message` as the fallback when the link is not selected. For an always-open link, omit `dialog` and use `link: {url: 'https://example.com/'}`. Guaranteed links skip the random roll. A video or existing jumpscare page can be the destination; playback follows browser and destination-site settings.
+
+## Native missing-file error
+
+The upload-schedule item uses `action: 'file-not-found'`, with no `dialog` or `link`. It navigates to a randomly generated, nonexistent `blob:` URL in the current tab. No files on the visitor's device are accessed or deleted.
+
+In the Chrome version tested, this displays the browser's own error page: “Your file couldn’t be accessed” with `ERR_FILE_NOT_FOUND`. Older versions use “Your file was not found”; wording and appearance depend on the browser. The address is a generated `blob:` URL, not a downloadable PDF or an HTTP 404 endpoint.
+
+Browser Back returns to merch. Refresh retries the missing file and still fails. To switch back to a popup or link, replace `action` with `dialog` or `link`. It works without PHP.
+
+## Where the layout lives
+
+- [MerchPage.tsx](../src/pages/MerchPage.tsx): page layout, shared popup styles, and button behaviour.
+- [MerchCard.tsx](../src/components/pages/MerchCard.tsx): card layout, basic colour overrides, and image fallback.
+- [public/merch/](../public/merch/): product images.
+
+Cards adapt to desktop, tablet, and phone widths. Source edits need a build and deployment to appear on the live site.

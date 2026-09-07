@@ -32,7 +32,7 @@ export const lightTheme = {
         highlight3: '#AA9EEA',
         highlight4: '#3FD49A',
         highlight5: '#E9C683',
-        sectionCard: '#FFFFFF',
+        sectionCard: '#F2F2F2',
         header: '#FFFFFF',
         footer: '#FFFFFF',
         themeButton: '#282828',
