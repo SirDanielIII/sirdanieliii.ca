@@ -1,10 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import SectionCard from '../components/pages/SectionCard.tsx';
-import SectionGuides from '../assets/images/section_card/section_guides.webp'
-import SectionMerch from '../assets/images/section_card/section_merch.webp'
-import SectionPortfolio from '../assets/images/section_card/section_portfolio.webp'
-import SectionProjects from '../assets/images/section_card/section_projects.webp'
+import {homeSections} from '../data/homeSections';
 import AboutServerSection from "../components/pages/AboutServerSection.tsx";
 import ServerPhoto from "../assets/images/homepage/SD_NAS_1.webp"
 import youtubeIcon from "../assets/icons/youtube.svg";
@@ -80,21 +77,18 @@ const IconLink = styled.a`
 const Sections = styled.section`
     width: 100%;
     background: ${({theme}) => theme.colors.background2};
-    padding: 10px;
-    text-align: center;
+    padding: clamp(1.5rem, 4vw, 3rem) clamp(1rem, 3vw, 2rem);
 `;
 
-const SectionsGrid = styled.section`
+const SectionsGrid = styled.div`
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
-    max-width: 1500px;
-    margin: 40px auto;
-    padding-inline: 20px;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: clamp(1.25rem, 2.5vw, 2rem);
+    max-width: 1240px;
+    margin: 0 auto;
 
-    @media (max-width: 600px) {
-        grid-template-columns: 1fr;
-        gap: 20px;
+    @media (max-width: 700px) {
+        grid-template-columns: minmax(0, 1fr);
     }
 `;
 
@@ -128,12 +122,11 @@ const HomePage: React.FC = () => {
                 </IconsWrapper>
             </AboutMeSection>
 
-            <Sections>
+            <Sections aria-label="Explore the site">
                 <SectionsGrid>
-                    <SectionCard title="PROJECTS" to="/projects" backgroundImage={SectionProjects}/>
-                    <SectionCard title="PORTFOLIO" to="/portfolio" backgroundImage={SectionPortfolio}/>
-                    <SectionCard title="MERCH" to="/merch" backgroundImage={SectionMerch}/>
-                    <SectionCard title="GUIDES" to="/guides" backgroundImage={SectionGuides}/>
+                    {homeSections.map((section, index) => (
+                        <SectionCard key={section.id} section={section} eager={index < 2}/>
+                    ))}
                 </SectionsGrid>
             </Sections>
 
