@@ -1,6 +1,6 @@
 # Editing the merch page
 
-Edit [src/data/merch.ts](../src/data/merch.ts). The `merch` object holds shared page and dialog text; `merchItems` holds products in display order. Edit values while keeping field names and value types intact.
+Edit [src/pages/merch/merch.ts](../src/pages/merch/merch.ts). The `merch` object holds shared page and dialog text; `merchItems` holds products in display order. Edit values while keeping field names and value types intact.
 
 ## Adding and editing products
 
@@ -53,7 +53,7 @@ Fonts, spacing, dimensions, borders, and popup colours are shared component styl
 
 ## Basic card colours
 
-To change **every card**, edit `cardColours` inside `export const merch` in `src/data/merch.ts`. Replace the empty object with any of these seven keys:
+To change **every card**, edit `cardColours` inside `export const merch` in `src/pages/merch/merch.ts`. Replace the empty object with any of these seven keys:
 
 ```ts
 cardColours: {
@@ -107,8 +107,10 @@ Browser Back returns to merch. Refresh retries the missing file and still fails.
 
 ## Where the layout lives
 
-- [MerchPage.tsx](../src/pages/MerchPage.tsx): page layout, shared popup styles, and button behaviour.
-- [MerchCard.tsx](../src/components/pages/MerchCard.tsx): card layout, basic colour overrides, and image fallback.
+- [MerchPage.tsx](../src/pages/merch/MerchPage.tsx): page composition and purchase actions.
+- [MerchCard.tsx](../src/pages/merch/MerchCard.tsx): card layout, basic colour overrides, and image fallback.
+- [MerchDialog.tsx](../src/pages/merch/MerchDialog.tsx): popup content and open/close behaviour.
+- [src/css/merch/](../src/css/merch/): page, card, and popup styling.
 - [public/merch/](../public/merch/): product images.
 
 Cards adapt to desktop, tablet, and phone widths. Source edits need a build and deployment to appear on the live site.

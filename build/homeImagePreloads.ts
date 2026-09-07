@@ -10,7 +10,7 @@ export const homeImagePreloads = (): Plugin => ({
     transformIndexHtml: {
         order: 'pre',
         async handler() {
-            const configUrl = new URL('../src/data/homeSections.ts', import.meta.url);
+            const configUrl = new URL('../src/pages/home/homeSections.ts', import.meta.url);
             const source = ts.createSourceFile('homeSections.ts', await readFile(configUrl, 'utf8'), ts.ScriptTarget.Latest);
             const root = fileURLToPath(new URL('../', import.meta.url));
             const tags: HtmlTagDescriptor[] = [];

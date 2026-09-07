@@ -14,8 +14,6 @@ export default defineConfig({
             '/scripts': {
                 target: 'http://localhost:8000',
                 changeOrigin: true,
-                secure: false,
-                rewrite: (path) => path.replace(/^\/scripts/, '/scripts'),
             },
         },
     },
