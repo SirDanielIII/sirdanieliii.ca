@@ -41,7 +41,7 @@ export const homeSections: HomeSection[] = [
     {
         id: 'merch',
         title: 'MERCH',
-        description: 'The best merch store to ever gaze upon the Earth.',
+        description: 'The best merch store to ever graze upon the Earth.',
         to: '/merch/',
         image: merchImage,
         imagePosition: '50% 50%',

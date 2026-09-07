@@ -45,6 +45,8 @@ The portfolio requires PHP 8.1+. Set `'password' => 'your-password'` in `private
 
 ## Project structure
 
+Guides are written as MDX files in `src/pages/guides/content/`. See [Writing guides](docs/guides.md) to add recipes, tutorials, posts, or resources.
+
 - `src/pages/<category>/`: each page's components, editable data, and helpers. Home card configuration is in `home/homeSections.ts`; merch configuration is in `merch/merch.ts`.
 - `src/css/`: all styled-components definitions (`*.styles.ts`), global styles, fonts, and theme settings. Category folders mirror the page folders; shared styles live in `layout/` and `feedback/`.
 - `src/shared/`: shared layout, feedback, and navigation components.

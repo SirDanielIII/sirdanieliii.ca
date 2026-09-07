@@ -6,7 +6,6 @@ import {darkTheme, lightTheme} from './css/theme';
 import Header from './shared/layout/Header';
 import Footer from './shared/layout/Footer';
 import HomePage from './pages/home/HomePage';
-import GuidesPage from './pages/guides/GuidesPage';
 import NotFoundPage from './pages/not-found/NotFoundPage';
 import profileImage from './assets/images/profile.webp';
 import TestPage from './pages/test/TestPage';
@@ -18,6 +17,7 @@ import {AppWrapper, RouteLoading} from './css/App.styles';
 const ProjectsPage = lazy(() => import('./pages/projects/ProjectsPage'));
 const PortfolioPage = lazy(() => import('./pages/portfolio/PortfolioPage'));
 const MerchPage = lazy(() => import('./pages/merch/MerchPage'));
+const GuidesRoutes = lazy(() => import('./pages/guides/GuidesRoutes'));
 
 const App: React.FC = () => {
     const [colourMode, setColourMode] = useState<SavedTheme>(() => getSavedTheme() ?? 'dark');
@@ -51,7 +51,7 @@ const App: React.FC = () => {
                         <Route path="/projects/" element={<ProjectsPage/>}/>
                         <Route path="/portfolio/" element={<PortfolioPage/>}/>
                         <Route path="/merch/" element={<MerchPage/>}/>
-                        <Route path="/guides/" element={<GuidesPage/>}/>
+                        <Route path="/guides/*" element={<GuidesRoutes/>}/>
                         <Route path="/test/" element={<TestPage/>}/>
                         <Route path="*" element={<NotFoundPage/>}/>
                     </Routes>
