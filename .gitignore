@@ -23,5 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 /src/assets/images/section_card/Archive/
-/src/assets/images/section_card/[BATCH] image to webp.bat
 /public/projects/
+/other/
+/public/portfolio/
