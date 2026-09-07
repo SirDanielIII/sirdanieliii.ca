@@ -25,4 +25,6 @@ dist-ssr
 /src/assets/images/section_card/Archive/
 /public/projects/
 /other/
-/public/portfolio/
+/public/portfolio/*
+!/public/portfolio/.htaccess
+/private/portfolio/

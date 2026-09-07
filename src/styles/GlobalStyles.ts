@@ -1,6 +1,17 @@
 import {createGlobalStyle} from 'styled-components';
 
 export const GlobalStyles = createGlobalStyle`
+    :root {
+        /* Declare runtime merch overrides for the editor. Initial preserves var() fallbacks. */
+        --merch-card-background: initial;
+        --merch-card-text: initial;
+        --merch-card-badgeBackground: initial;
+        --merch-card-badgeText: initial;
+        --merch-card-price: initial;
+        --merch-card-buttonBackground: initial;
+        --merch-card-buttonText: initial;
+    }
+
     *, *::before, *::after {
         box-sizing: border-box;
         margin: 0;

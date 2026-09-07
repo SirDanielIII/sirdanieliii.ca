@@ -2,6 +2,10 @@ import {useState} from 'react';
 import {Link} from 'react-router';
 import styled from 'styled-components';
 import {homeSectionAspectRatio, type HomeSection} from '../../data/homeSections';
+import type {AppTheme} from '../../styles/theme';
+
+interface AccentProps {$accent: HomeSection['accent']}
+const accentColour = ({theme, $accent}: AccentProps & {theme: AppTheme}) => theme.colors[$accent];
 
 const Background = styled.img`
     position: absolute;
@@ -13,11 +17,11 @@ const Background = styled.img`
     transition: transform 0.55s ease;
 `;
 
-const Frame = styled.span`
+const Frame = styled.span<AccentProps>`
     position: absolute;
     z-index: 2;
     inset: clamp(0.65rem, 2.8cqw, 1.1rem);
-    border: 1px solid var(--section-accent);
+    border: 1px solid ${accentColour};
     border-radius: 12px;
     opacity: 0.4;
     transform: scale(0.98);
@@ -38,7 +42,7 @@ const Content = styled.div`
     text-align: left;
 `;
 
-const Title = styled.h2`
+const Title = styled.h2<AccentProps>`
     color: #ffffff;
     font-size: clamp(1.5rem, 7cqw, 3rem);
     font-weight: 400;
@@ -52,7 +56,7 @@ const Title = styled.h2`
         width: 2.25rem;
         height: 3px;
         margin-bottom: 0.8rem;
-        background: var(--section-accent);
+        background: ${accentColour};
     }
 `;
 
@@ -64,7 +68,7 @@ const Description = styled.p`
     text-wrap: pretty;
 `;
 
-const Arrow = styled.span`
+const Arrow = styled.span<AccentProps>`
     position: absolute;
     z-index: 3;
     top: clamp(1.25rem, 5cqw, 2rem);
@@ -73,10 +77,10 @@ const Arrow = styled.span`
     place-items: center;
     width: clamp(2.1rem, 7cqw, 2.75rem);
     aspect-ratio: 1;
-    border: 1px solid var(--section-accent);
+    border: 1px solid ${accentColour};
     border-radius: 50%;
     background: rgba(12, 14, 20, 0.65);
-    color: var(--section-accent);
+    color: ${accentColour};
     transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
 
     svg {
@@ -85,8 +89,7 @@ const Arrow = styled.span`
     }
 `;
 
-const CardLink = styled(Link)<{$accent: HomeSection['accent']}>`
-    --section-accent: ${({theme, $accent}) => theme.colors[$accent]};
+const CardLink = styled(Link)<AccentProps>`
     position: relative;
     isolation: isolate;
     container-type: inline-size;
@@ -112,9 +115,9 @@ const CardLink = styled(Link)<{$accent: HomeSection['accent']}>`
     }
 
     &:focus-visible {
-        outline: 3px solid var(--section-accent);
+        outline: 3px solid ${accentColour};
         outline-offset: 5px;
-        border-color: var(--section-accent);
+        border-color: ${accentColour};
     }
 
     &:focus-visible ${Frame} {
@@ -125,7 +128,7 @@ const CardLink = styled(Link)<{$accent: HomeSection['accent']}>`
     @media (hover: hover) and (pointer: fine) {
         &:hover {
             transform: translateY(-4px);
-            border-color: var(--section-accent);
+            border-color: ${accentColour};
             box-shadow: 0 16px 36px rgba(0, 0, 0, 0.2);
         }
 
@@ -140,7 +143,7 @@ const CardLink = styled(Link)<{$accent: HomeSection['accent']}>`
 
         &:hover ${Arrow} {
             transform: translate(2px, -2px);
-            background: var(--section-accent);
+            background: ${accentColour};
             color: #14141c;
         }
     }
@@ -172,19 +175,20 @@ const SectionCard = ({section, eager = false}: SectionCardProps) => {
                     src={section.image}
                     alt=""
                     style={{objectPosition: section.imagePosition ?? '50% 50%'}}
-                    loading={eager ? 'eager' : 'lazy'}
+                    loading="eager"
+                    fetchPriority={eager ? 'high' : 'auto'}
                     decoding="async"
                     onError={() => { setFailedImage(section.image); }}
                 />
             )}
-            <Frame aria-hidden="true"/>
-            <Arrow aria-hidden="true">
+            <Frame $accent={section.accent} aria-hidden="true"/>
+            <Arrow $accent={section.accent} aria-hidden="true">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8">
                     <path d="M6 18 18 6M6 6h12v12"/>
                 </svg>
             </Arrow>
             <Content>
-                <Title id={titleId}>{section.title}</Title>
+                <Title $accent={section.accent} id={titleId}>{section.title}</Title>
                 <Description id={`${titleId}-description`}>{section.description}</Description>
             </Content>
         </CardLink>

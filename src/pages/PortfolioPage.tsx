@@ -1,5 +1,6 @@
 import {useEffect, useState} from 'react';
 import styled from 'styled-components';
+import PortfolioAccess from './PortfolioAccess';
 import {portfolio, portfolioDocuments, type PortfolioDocument} from '../data/portfolio';
 
 const Page = styled.main`
@@ -141,7 +142,7 @@ const Message = styled.div`
 `;
 
 const PortfolioViewer = ({document}: {document: PortfolioDocument}) => {
-    const [status, setStatus] = useState<'loading' | 'ready' | 'unavailable'>('loading');
+    const [status, setStatus] = useState<'loading' | 'ready' | 'unavailable' | 'expired'>('loading');
 
     useEffect(() => {
         const controller = new AbortController();
@@ -150,9 +151,9 @@ const PortfolioViewer = ({document}: {document: PortfolioDocument}) => {
         // HEAD checks availability without downloading the whole PDF twice.
         const checkDocument = async () => {
             try {
-                const response = await fetch(document.file, {method: 'HEAD', signal: controller.signal});
+                const response = await fetch(document.file, {method: 'HEAD', cache: 'no-store', signal: controller.signal});
                 const isPdf = response.headers.get('content-type')?.split(';')[0].trim().toLowerCase() === 'application/pdf';
-                if (!controller.signal.aborted) setStatus(response.ok && isPdf ? 'ready' : 'unavailable');
+                if (!controller.signal.aborted) setStatus(response.status === 401 ? 'expired' : response.ok && isPdf ? 'ready' : 'unavailable');
             } catch {
                 if (!controller.signal.aborted) setStatus('unavailable');
             }
@@ -172,7 +173,7 @@ const PortfolioViewer = ({document}: {document: PortfolioDocument}) => {
                 {status === 'ready' && (
                     <DocumentActions>
                         <a href={document.file} target="_blank" rel="noopener noreferrer">Open PDF in new tab</a>
-                        <a href={document.file} download>Download PDF</a>
+                        <a href={`${document.file}&download=1`} download>Download PDF</a>
                     </DocumentActions>
                 )}
             </DocumentHeader>
@@ -185,7 +186,7 @@ const PortfolioViewer = ({document}: {document: PortfolioDocument}) => {
                 </Pdf>
             ) : (
                 <Message role="status">
-                    {status === 'loading' ? (
+                    {status === 'expired' ? <p>Your session has expired. Refresh the page to unlock the portfolio again.</p> : status === 'loading' ? (
                         <p>Loading the {document.title.toLowerCase()} portfolio…</p>
                     ) : (
                         <>
@@ -208,20 +209,22 @@ const PortfolioPage = () => {
                 <h1>{portfolio.title}</h1>
                 <p>{portfolio.introduction}</p>
             </Intro>
-            <CollectionPicker role="group" aria-label="Choose a portfolio">
-                {portfolioDocuments.map(document => (
-                    <CollectionButton
-                        key={document.id}
-                        type="button"
-                        aria-pressed={document.id === selectedDocument.id}
-                        aria-controls="portfolio-document"
-                        onClick={() => { setSelectedDocument(document); }}
-                    >
-                        {document.title}
-                    </CollectionButton>
-                ))}
-            </CollectionPicker>
-            <PortfolioViewer key={selectedDocument.file} document={selectedDocument}/>
+            <PortfolioAccess>
+                <CollectionPicker role="group" aria-label="Choose a portfolio">
+                    {portfolioDocuments.map(document => (
+                        <CollectionButton
+                            key={document.id}
+                            type="button"
+                            aria-pressed={document.id === selectedDocument.id}
+                            aria-controls="portfolio-document"
+                            onClick={() => { setSelectedDocument(document); }}
+                        >
+                            {document.title}
+                        </CollectionButton>
+                    ))}
+                </CollectionPicker>
+                <PortfolioViewer key={selectedDocument.file} document={selectedDocument}/>
+            </PortfolioAccess>
         </Page>
     );
 };

@@ -50,7 +50,7 @@ interface CookieNoticeProps {
 const CookieNotice: React.FC<CookieNoticeProps> = ({onDismiss}) => (
     <Notice role="status" aria-live="polite">
         <Message>
-            This site uses cookies only to remember your colour theme and whether you have seen this notice.
+            This site uses cookies to remember your colour theme, this notice, and portfolio access.
         </Message>
         <DismissButton type="button" onClick={onDismiss} aria-label="Dismiss cookie notice">
             GOT IT
