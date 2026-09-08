@@ -1,7 +1,7 @@
 {
   "name": "sirdanieliii.ca",
   "private": true,
-  "version": "0.4.0",
+  "version": "0.5.0",
   "type": "module",
   "scripts": {
     "serve:php": "php -S localhost:8000 -t public",
