@@ -38,7 +38,7 @@ npm install
 2. Copy everything in `dist/` into DocumentRoot. The build includes any PDFs placed in `public/portfolio/`.
 3. If updating the password-protected version, remove the old deployed `scripts/portfolio.php`, `private/` folder, and any `portfolio/.htaccess` that denies PDF access.
 
-The portfolio is public and serves PDFs directly without PHP or a password. Put the PDFs in `public/portfolio/` (excluded from Git), then edit their URLs and collection text in `src/pages/portfolio/portfolio.ts`.
+The public portfolio has an about page and dedicated photography, videography, and short film collections. Edit content in `src/pages/portfolio/portfolio.ts` and put images in `public/images/portfolio/`. Original PDFs in `public/portfolio/` (excluded from Git) remain available as archive links. See [Editing the portfolio](docs/portfolio.md) for adding photos, videos, and project stills.
 
 ---
 
