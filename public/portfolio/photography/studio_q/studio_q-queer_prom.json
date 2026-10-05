@@ -1,0 +1,31 @@
+{
+  "filename": "studio_q-queer_prom.jpg",
+  "preview_filename": "previews/studio_q-queer_prom.webp",
+  "title": "A shared celebration",
+  "description": "",
+  "alt": "Two people pose together, joining their hands in front of a leafy decorative backdrop.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 22871694
+    },
+    "image": {
+      "width": 6240,
+      "height": 4160
+    },
+    "capture": {
+      "date_taken": "2023-03-17T21:25:56",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 4.0,
+      "exposure_time_seconds": 0.016666666666666666,
+      "iso_speed": 1000,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 80.0,
+      "max_aperture_apex": 4.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 120.0
+    }
+  }
+}

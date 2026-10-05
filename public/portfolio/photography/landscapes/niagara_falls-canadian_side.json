@@ -1,0 +1,31 @@
+{
+  "filename": "niagara_falls-canadian_side.jpg",
+  "preview_filename": "previews/niagara_falls-canadian_side.webp",
+  "title": "At the edge of the falls",
+  "description": "",
+  "alt": "A red sightseeing boat approaches Niagara Falls beneath a broad curtain of mist.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 18594871
+    },
+    "image": {
+      "width": 6240,
+      "height": 4160
+    },
+    "capture": {
+      "date_taken": "2024-09-01T19:16:33",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 4.0,
+      "exposure_time_seconds": 0.03333333333333333,
+      "iso_speed": 160,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 21.2,
+      "max_aperture_apex": 4.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 32.0
+    }
+  }
+}

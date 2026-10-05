@@ -35,10 +35,9 @@ npm install
 ### 3. How to Deploy (Apache2)
 
 1. Run `npm run build`.
-2. Copy everything in `dist/` into DocumentRoot. The build includes any PDFs placed in `public/portfolio/`.
-3. If updating the password-protected version, remove the old deployed `scripts/portfolio.php`, `private/` folder, and any `portfolio/.htaccess` that denies PDF access.
+2. Copy everything in `dist/` into DocumentRoot, including the photography assets and compiled gallery manifest.
 
-The public portfolio has an about page and dedicated photography, videography, and short film collections. Edit content in `src/pages/portfolio/portfolio.ts` and put images in `public/images/portfolio/`. Original PDFs in `public/portfolio/` (excluded from Git) remain available as archive links. See [Editing the portfolio](docs/portfolio.md) for adding photos, videos, and project stills.
+The public portfolio has an about page and dedicated photography, videography, and short film collections. Photography originals and generated JSON live in `public/portfolio/photography/`, with optional WebP previews in each category's `previews/` folder. Run `npm run photography:generate -- --all` when adding photos, and `npm run photography:compile` after editing their JSON. Production serves the compiled gallery through PHP. Editable video and film JSON lives in `public/portfolio/video/videography.json` and `public/portfolio/short_film/short-films.json`; `npm run portfolio:compile` validates assets, generates WebP display previews, and compiles ordered React data. Development and production builds run media compilation automatically. Preview generation uses the existing Python/Pillow authoring dependency. Public source JSON is tracked; portfolio assets/previews are excluded from Git and must be backed up/deployed separately. Site-wide scroll restoration retains positions on refresh and return visits within a browser tab. See [Editing the portfolio](docs/portfolio.md) and [Editing Videography and Short Films](docs/portfolio-media.md).
 
 ---
 
@@ -51,7 +50,7 @@ Guides are written as MDX files in `src/pages/guides/content/`. See [Writing gui
 - `src/shared/`: shared layout, feedback, and navigation components.
 - `src/utils/`: utilities used across categories.
 - `src/assets/`: bundled images and icons; `public/`: public files and PHP endpoints.
-- `public/portfolio/`: publicly accessible portfolio PDFs, included in the build.
-- `build/`: Vite build helpers. `docs/`: editing guides.
+- `public/portfolio/`: photography originals, previews, and generated metadata/manifest, included in the build.
+- `build/`: Vite build helpers. `tools/photography/`: authoring generator/compiler and regression checks. `docs/`: editing guides.
 
 Keep category-specific code with its page and styling in the matching CSS folder. Use lowercase folder names and direct imports. Larger category pages load on demand. No new styling library is required; configurable colours and image positions remain data-driven.

@@ -1,0 +1,31 @@
+{
+  "filename": "studio_q-studio_portrait.jpg",
+  "preview_filename": "previews/studio_q-studio_portrait.webp",
+  "title": "In the studio",
+  "description": "",
+  "alt": "A person in a black blouse poses with one hand on their hip against a white studio backdrop.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 9792052
+    },
+    "image": {
+      "width": 3648,
+      "height": 5472
+    },
+    "capture": {
+      "date_taken": "2023-02-02T16:41:31",
+      "camera": "Canon EOS R6",
+      "f_stop": 2.8,
+      "exposure_time_seconds": 0.02,
+      "iso_speed": 200,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 104.0,
+      "max_aperture_apex": null,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": null
+    }
+  }
+}

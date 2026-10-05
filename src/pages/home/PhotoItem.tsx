@@ -40,6 +40,7 @@ const PhotoItem: React.FC<PhotoItemProps> = ({src, alt = 'photo'}) => {
         }
 
         const {x: scrollX, y: scrollY} = savedScrollPosition.current;
+        const pathname = window.location.pathname;
 
         const preventWheel = (event: WheelEvent) => {
             event.preventDefault();
@@ -50,7 +51,7 @@ const PhotoItem: React.FC<PhotoItemProps> = ({src, alt = 'photo'}) => {
         };
 
         const preservePosition = () => {
-            if (window.scrollX !== scrollX || window.scrollY !== scrollY) {
+            if (window.location.pathname === pathname && (window.scrollX !== scrollX || window.scrollY !== scrollY)) {
                 window.scrollTo(scrollX, scrollY);
             }
         };
@@ -65,7 +66,7 @@ const PhotoItem: React.FC<PhotoItemProps> = ({src, alt = 'photo'}) => {
             window.removeEventListener('wheel', preventWheel);
             window.removeEventListener('touchmove', preventTouchMove);
             window.removeEventListener('scroll', preservePosition);
-            window.scrollTo(scrollX, scrollY);
+            if (window.location.pathname === pathname) window.scrollTo(scrollX, scrollY);
         };
     }, [open, escHandler]);
 

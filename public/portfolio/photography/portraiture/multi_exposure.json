@@ -1,0 +1,31 @@
+{
+  "filename": "multi_exposure.jpg",
+  "preview_filename": "previews/multi_exposure.webp",
+  "title": "Passing through",
+  "description": "",
+  "alt": "Overlapping silhouettes of a seated person appear beside a tree on a sunlit path.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 11397703
+    },
+    "image": {
+      "width": 3368,
+      "height": 4210
+    },
+    "capture": {
+      "date_taken": null,
+      "camera": null,
+      "f_stop": null,
+      "exposure_time_seconds": null,
+      "iso_speed": null,
+      "exposure_bias_ev": null,
+      "focal_length_mm": null,
+      "max_aperture_apex": null,
+      "metering_mode": null,
+      "flash_mode": null,
+      "focal_length_35mm": null
+    }
+  }
+}

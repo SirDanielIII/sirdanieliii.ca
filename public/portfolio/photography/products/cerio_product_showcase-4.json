@@ -1,0 +1,31 @@
+{
+  "filename": "cerio_product_showcase-4.jpg",
+  "preview_filename": "previews/cerio_product_showcase-4.webp",
+  "title": "Cerio ? Connected",
+  "description": "",
+  "alt": "A Cerio card, a black connector panel and pink fibre-optic cables are arranged on a pale surface.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 16028303
+    },
+    "image": {
+      "width": 6240,
+      "height": 4160
+    },
+    "capture": {
+      "date_taken": "2026-08-07T12:11:43-04:00",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 8.0,
+      "exposure_time_seconds": 0.016666666666666666,
+      "iso_speed": 640,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 56.5,
+      "max_aperture_apex": 4.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 85.0
+    }
+  }
+}

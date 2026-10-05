@@ -10,7 +10,7 @@ import NotFoundPage from './pages/not-found/NotFoundPage';
 import profileImage from './assets/images/profile.webp';
 import TestPage from './pages/test/TestPage';
 import CookieNotice from './shared/feedback/CookieNotice';
-import ScrollToTop from './shared/navigation/ScrollToTop';
+import ScrollRestoration from './shared/navigation/ScrollRestoration';
 import {getSavedTheme, hasVisitedBefore, markAsVisited, saveTheme, type SavedTheme} from './utils/cookies';
 import {AppWrapper, RouteLoading} from './css/App.styles';
 
@@ -41,7 +41,7 @@ const App: React.FC = () => {
     return (
         <ThemeProvider theme={currentTheme}>
             <GlobalStyles/>
-            <ScrollToTop/>
+            <ScrollRestoration/>
             <AppWrapper>
                 <Header toggleTheme={toggleTheme} profileImage={profileImage}/>
 

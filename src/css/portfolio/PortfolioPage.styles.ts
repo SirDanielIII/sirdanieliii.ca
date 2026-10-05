@@ -1,11 +1,33 @@
-﻿import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import {Link} from 'react-router';
+import type {PortfolioMedium} from '../theme';
+import arrowLeftSquare from '../../assets/icons/arrow-left-square.svg';
+import arrowRightSquare from '../../assets/icons/arrow-right-square.svg';
 
-export const Page = styled.main<{$cinema?: boolean}>`
-    --portfolio-accent: ${({theme, $cinema}) => ($cinema ? (theme.mode === 'dark' ? '#e6c990' : '#805e23') : theme.mode === 'dark' ? '#c4b3ef' : '#705397')};
-    --portfolio-muted: ${({theme}) => (theme.mode === 'dark' ? '#aaa5b1' : '#66616d')};
-    --portfolio-line: ${({theme}) => (theme.mode === 'dark' ? '#343039' : '#dad5df')};
-    --portfolio-panel: ${({theme}) => (theme.mode === 'dark' ? '#1d1b20' : '#efecf2')};
+export const Page = styled.main<{$medium?: PortfolioMedium}>`
+    --portfolio-accent: ${({theme}) => theme.portfolioBase.accent};
+    --portfolio-muted: ${({theme}) => theme.portfolioBase.muted};
+    --portfolio-line: ${({theme}) => theme.portfolioBase.border};
+    --portfolio-panel: ${({theme}) => theme.portfolioBase.surface};
+    --portfolio-viewer-surface: ${({theme}) => theme.portfolioViewer.surface};
+    --portfolio-viewer-sidebar-surface: ${({theme}) => theme.portfolioViewer.sidebarSurface};
+    --portfolio-viewer-control-surface: ${({theme}) => theme.colors.background2};
+    --portfolio-viewer-text: ${({theme}) => theme.colors.text};
+    ${({theme, $medium}) => {
+        if (!$medium) return '';
+        const palette = theme.portfolio[$medium];
+        return css`
+            --portfolio-accent: ${palette.accent};
+            --portfolio-accent-hover: ${palette.accentHover};
+            --portfolio-accent-subtle: ${palette.accentSubtle};
+            --portfolio-on-accent: ${palette.onAccent};
+            --portfolio-line: ${palette.border};
+            --portfolio-control-border: ${palette.controlBorder};
+            --portfolio-focus: ${palette.focus};
+            --portfolio-panel: ${palette.surface};
+            --portfolio-muted: ${palette.muted};
+        `;
+    }}
     flex: 1;
     width: 100%;
     max-width: 1240px;
@@ -35,7 +57,7 @@ export const Page = styled.main<{$cinema?: boolean}>`
         color: var(--portfolio-accent);
     }
     :is(a, button):focus-visible {
-        outline: 2px solid var(--portfolio-accent);
+        outline: 2px solid var(--portfolio-focus, var(--portfolio-accent));
         outline-offset: 5px;
     }
     .sr-only {
@@ -48,18 +70,6 @@ export const Page = styled.main<{$cinema?: boolean}>`
         clip-path: inset(50%);
         white-space: nowrap;
         border: 0;
-    }
-    .archive-link {
-        margin-top: 3rem;
-        font-size: 0.85rem;
-        color: var(--portfolio-muted);
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.8rem;
-    }
-    .archive-link a {
-        text-decoration: underline;
-        text-underline-offset: 4px;
     }
     .channel-link {
         margin-top: 2rem;
@@ -260,19 +270,6 @@ export const CollectionCard = styled(Link)`
         font-size: 0.85rem;
         letter-spacing: 0.12em;
     }
-    .round-arrow {
-        position: absolute;
-        z-index: 1;
-        right: 1rem;
-        bottom: 1rem;
-        border-radius: 50%;
-        border: 1px solid #fff9;
-        width: 38px;
-        height: 38px;
-        display: grid;
-        place-items: center;
-        color: white;
-    }
     h3 {
         font-size: 2rem;
         margin: 0.35rem 0 0.55rem;
@@ -378,27 +375,39 @@ export const CollectionIntro = styled.div`
     }
 `;
 
-export const Filters = styled.div`
+export const Filters = styled.nav`
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     gap: 0.6rem;
     margin-bottom: 2rem;
-    button {
+    a {
+        display: inline-flex;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 0.35rem;
         min-height: 44px;
         padding: 0.7rem 1rem;
-        border: 1px solid var(--portfolio-line);
+        border: 1px solid var(--portfolio-control-border);
         color: inherit;
         font-size: 0.85rem;
         border-radius: 2px;
     }
-    button[aria-pressed='true'] {
+    a[aria-current='page'] {
         background: var(--portfolio-accent);
-        color: ${({theme}) => (theme.mode === 'dark' ? '#1c1724' : '#fff')};
+        color: var(--portfolio-on-accent);
         border-color: var(--portfolio-accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
     }
-    button:hover {
-        border-color: var(--portfolio-accent);
+    a:hover {
+        border-color: var(--portfolio-accent-hover);
+    }
+    a:not([aria-current]):hover {
+        background: var(--portfolio-accent-subtle);
+    }
+    small {
+        font-size: 0.75rem;
     }
     > span {
         margin-left: auto;
@@ -422,6 +431,12 @@ export const PhotoGrid = styled.div`
 export const PhotoCard = styled.figure`
     break-inside: avoid;
     margin-bottom: 1.8rem;
+    .skeleton-image, .skeleton-caption {
+        background: var(--portfolio-panel);
+        border: 1px solid var(--portfolio-line);
+    }
+    .skeleton-caption { height: 1rem; width: 50%; }
+    small.skeleton-caption { width: 25%; }
     button {
         position: relative;
         display: block;
@@ -433,23 +448,28 @@ export const PhotoCard = styled.figure`
     img {
         display: block;
         width: 100%;
-        height: auto;
+        height: 100%;
+        object-fit: contain;
         transition: transform 0.35s;
+    }
+    [data-loading='true'] img {
+        opacity: 0;
+    }
+    .photo-placeholder {
+        position: absolute;
+        inset: 0;
+        background: var(--portfolio-panel);
+        border: 1px solid var(--portfolio-line);
+    }
+    .photo-error {
+        display: grid;
+        place-content: center;
+        padding: 1rem;
+        text-align: center;
+        color: var(--portfolio-muted);
     }
     button:hover img {
         transform: scale(1.025);
-    }
-    .enlarge {
-        position: absolute;
-        bottom: 0.8rem;
-        right: 0.8rem;
-        width: 32px;
-        height: 32px;
-        display: grid;
-        place-items: center;
-        background: #12121299;
-        color: white;
-        border-radius: 50%;
     }
     figcaption {
         display: flex;
@@ -469,263 +489,240 @@ export const PhotoCard = styled.figure`
 export const Lightbox = styled.dialog`
     position: fixed;
     margin: auto;
-    width: min(1100px, 96vw);
-    max-width: 96vw;
-    height: min(900px, 94dvh);
-    max-height: 94dvh;
-    border: 1px solid #45414a;
-    background: #141217;
-    color: #f7f3fc;
-    padding: 1rem;
+    width: 98vw;
+    max-width: 98vw;
+    height: 98dvh;
+    max-height: 98dvh;
+    border: 1px solid var(--portfolio-line);
+    border-radius: 0.5rem;
+    background: var(--portfolio-viewer-surface);
+    color: var(--portfolio-viewer-text);
+    box-shadow: ${({theme}) => theme.portfolioViewer.shadow};
+    padding: 0.5rem;
+    overflow: hidden;
     &[open] {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(18rem, 22rem);
+        gap: 0.75rem;
     }
     &::backdrop {
-        background: #000e;
+        /* Apply mode tokens directly to the backdrop in the browser's top layer. */
+        background: ${({theme}) => theme.portfolioViewer.backdrop};
     }
-    > img {
-        width: 100%;
-        height: 0;
-        flex: 1;
+    .viewer-image {
+        position: relative;
+        min-width: 0;
         min-height: 0;
+        display: grid;
+        place-items: center;
+    }
+    .viewer-image img {
+        position: absolute;
+        width: 100%;
+        height: 100%;
         object-fit: contain;
+    }
+    .viewer-image img[data-loading='true'] {
+        visibility: hidden;
+    }
+    .viewer-placeholder {
+        position: absolute;
+        inset: 0;
+        background: var(--portfolio-panel);
+        border: 1px solid var(--portfolio-line);
+    }
+    .viewer-loading {
+        position: relative;
+        padding: 1rem;
+        text-align: center;
+        color: var(--portfolio-muted);
+    }
+    .viewer-error {
+        text-align: center;
+        padding: 1rem;
+        background: var(--portfolio-viewer-surface);
+        z-index: 1;
+    }
+    .viewer-error button {
+        margin-top: 0.75rem;
+    }
+    .viewer-sidebar {
+        min-width: 0;
+        min-height: 0;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        scrollbar-gutter: stable;
+        padding: 0 1rem 1rem;
+        background: var(--portfolio-viewer-sidebar-surface);
+        border-left: 1px solid var(--portfolio-line);
+        overflow-wrap: anywhere;
+    }
+    .viewer-sidebar:focus-visible {
+        outline: 2px solid var(--portfolio-focus);
+        outline-offset: -2px;
+    }
+    .viewer-metadata > p {
+        margin-bottom: 1rem;
+        color: var(--portfolio-muted);
+        font-size: 0.9rem;
+    }
+    dl {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+        font-size: 0.85rem;
+        line-height: 1.5;
+    }
+    dt, dd {
+        padding: 0.55rem 0;
+        border-bottom: 1px solid var(--portfolio-line);
+        overflow-wrap: anywhere;
+    }
+    dt {
+        color: var(--portfolio-muted);
+        padding-right: 0.8rem;
     }
     button {
         color: inherit;
         min-width: 44px;
         min-height: 44px;
-        border: 1px solid #665d73;
+        border: 1px solid var(--portfolio-control-border);
         padding: 0.4rem 0.8rem;
     }
-    button:focus-visible {
-        outline-color: #c4b3ef;
+    button:not(:disabled):hover {
+        background: var(--portfolio-accent-subtle);
+        border-color: var(--portfolio-accent-hover);
     }
-    .viewer-toolbar,
-    .viewer-caption {
+    button:disabled {
+        opacity: 0.5;
+        cursor: default;
+    }
+    .viewer-controls {
+        /* Keeping Close in view never consumes any of the image's vertical space. */
+        position: sticky;
+        top: 0;
+        z-index: 1;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        gap: 1rem;
-        flex-shrink: 0;
-    }
-    .viewer-toolbar {
-        padding-bottom: 1rem;
-        font-size: 0.8rem;
-    }
-    .viewer-caption {
-        padding-top: 1rem;
-        text-align: center;
-    }
-    h2 {
-        font-size: 1.25rem;
-    }
-    p {
-        font-size: 0.8rem;
-        color: #bfb7ca;
-        margin-top: 0.25rem;
-    }
-`;
-
-export const VideoGrid = styled.div`
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 2.5rem 2rem;
-    @media (max-width: 650px) {
-        grid-template-columns: 1fr;
-    }
-`;
-
-export const VideoCard = styled.article<{$featured: boolean}>`
-    grid-column: ${({$featured}) => ($featured ? '1 / -1' : 'auto')};
-    display: ${({$featured}) => ($featured ? 'grid' : 'block')};
-    grid-template-columns: 1.6fr 1fr;
-    background: ${({$featured}) => ($featured ? 'var(--portfolio-panel)' : 'transparent')};
-    .video-copy {
-        padding: ${({$featured}) => ($featured ? '2rem' : '1.3rem 0 0')};
-        align-self: center;
-    }
-    h2 {
-        font-size: ${({$featured}) => ($featured ? '2.3rem' : '1.75rem')};
-        line-height: 1.2;
-        margin: 0.6rem 0;
-    }
-    .video-copy > p:not(:first-child) {
-        color: var(--portfolio-muted);
-        font-size: 0.95rem;
-    }
-    .text-link {
-        margin-top: 1rem;
-        font-size: 0.85rem;
-    }
-    @media (max-width: 800px) {
-        grid-template-columns: 1fr;
-        h2 {
-            font-size: 1.75rem;
-        }
-    }
-`;
-
-export const VideoImage = styled.a`
-    position: relative;
-    display: block;
-    aspect-ratio: 16 / 9;
-    align-self: center;
-    overflow: hidden;
-    background: #0b0b0b;
-    img {
-        width: 100%;
-        height: 100%;
-        object-fit: contain;
-        display: block;
-    }
-    .featured-label {
-        position: absolute;
-        left: 1rem;
-        top: 1rem;
-        padding: 0.5rem 0.75rem;
-        background: #151119e6;
-        color: #eee5ff;
-        text-transform: uppercase;
-        font-size: 0.6rem;
-        letter-spacing: 0.15em;
-    }
-    &:hover .play {
-        background: #111d;
-    }
-`;
-
-export const EditingWork = styled.section`
-    display: grid;
-    grid-template-columns: 130px 1fr;
-    gap: 2rem;
-    align-items: center;
-    margin-top: 3.5rem;
-    padding: 2rem;
-    border: 1px solid var(--portfolio-line);
-    img {
-        width: 100%;
-        height: auto;
-    }
-    h2 {
-        font-size: 2rem;
-        margin: 0.4rem 0;
-    }
-    p:not(:first-child) {
-        color: var(--portfolio-muted);
-    }
-    .editing-links {
-        display: flex;
         flex-wrap: wrap;
-        gap: 0.5rem 1.5rem;
-        margin-top: 1rem;
-        font-size: 0.85rem;
-    }
-    @media (max-width: 600px) {
-        grid-template-columns: 1fr;
-        padding: 1.5rem;
-        img {
-            width: 85px;
-        }
-    }
-`;
-
-export const FilmFeature = styled.article`
-    margin-bottom: 4rem;
-    .film-cover {
-        display: block;
-        position: relative;
-        background: #080808;
-        padding: 2.5rem 0;
-    }
-    img {
-        display: block;
-        width: 100%;
-        height: auto;
-    }
-    .feature-caption {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 1.5rem;
-        padding-top: 1.8rem;
-    }
-    h2 {
-        font-size: clamp(2.5rem, 5vw, 4rem);
-        margin: 0.5rem 0;
-    }
-    .feature-caption p:not(:first-child) {
-        color: var(--portfolio-muted);
-    }
-    .text-link {
-        white-space: nowrap;
-    }
-    .film-cover:hover .play {
-        background: #111d;
-    }
-    @media (max-width: 600px) {
-        .film-cover {
-            padding: 1rem 0;
-        }
-        .feature-caption {
-            align-items: start;
-            flex-direction: column;
-        }
-    }
-`;
-
-export const FilmList = styled.div`
-    display: grid;
-`;
-
-export const FilmRow = styled.article`
-    display: grid;
-    grid-template-columns: 2rem minmax(0, 1fr) minmax(0, 1.15fr);
-    align-items: center;
-    gap: 2rem;
-    padding: 2rem 0;
-    border-bottom: 1px solid var(--portfolio-line);
-    .film-number {
-        color: var(--portfolio-muted);
+        gap: 0.5rem;
+        padding: 0.75rem 0;
+        background: var(--portfolio-viewer-control-surface);
         font-size: 0.8rem;
-        align-self: start;
     }
-    .film-thumbnail {
+    .viewer-navigation {
+        /* Fixed arrow columns never move when proportional counter digits change width. */
+        display: grid;
+        grid-template-columns: 44px minmax(0, 1fr) 44px;
+        flex: 0 1 10rem;
+        min-width: 0;
+        align-items: center;
+        gap: 0.25rem;
+    }
+    .viewer-navigation button {
+        display: grid;
+        place-items: center;
+        padding: 0;
+        border: 0;
+        background: transparent;
+        color: var(--portfolio-accent);
+    }
+    .viewer-navigation button:not(:disabled):hover {
+        background: transparent;
+        color: var(--portfolio-accent-hover);
+    }
+    .viewer-arrow {
         display: block;
+        width: 44px;
+        height: 44px;
+        background: currentColor;
     }
-    img {
-        display: block;
-        width: 100%;
-        height: auto;
-        aspect-ratio: 16 / 9;
-        object-fit: cover;
+    .viewer-arrow-left {
+        /* Quoting also supports Vite's inlined SVG data URLs. */
+        -webkit-mask: url("${arrowLeftSquare}") center / contain no-repeat;
+        mask: url("${arrowLeftSquare}") center / contain no-repeat;
     }
-    h2 {
-        font-size: clamp(1.5rem, 3vw, 2.4rem);
-        margin: 0.7rem 0;
+    .viewer-arrow-right {
+        -webkit-mask: url("${arrowRightSquare}") center / contain no-repeat;
+        mask: url("${arrowRightSquare}") center / contain no-repeat;
     }
-    .text-link {
+    .viewer-count {
+        min-width: 0;
+        text-align: center;
+        white-space: nowrap;
+        font-variant-numeric: tabular-nums;
+        color: var(--portfolio-muted);
+    }
+    .viewer-close {
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        margin-left: auto;
+        min-width: 5.5rem;
+        min-height: 44px;
+        padding: 0.4rem 1.25rem;
+        border: 1px solid var(--portfolio-control-border);
+        border-radius: 0.5rem;
+        background: transparent;
+        color: var(--portfolio-accent);
+    }
+    .viewer-close:not(:disabled):is(:hover, :focus-visible) {
+        /* Match the category filters' subtle fill, retaining a red cue for Close. */
+        background: ${({theme}) => theme.portfolioViewer.closeHoverSurface};
+        border-color: ${({theme}) => theme.colors.highlight1};
+        color: var(--portfolio-viewer-text);
+    }
+    .viewer-heading {
+        padding: 0.75rem 0 1.25rem;
+    }
+    .viewer-heading h2 {
+        font-size: 1.8rem;
+        line-height: 1.2;
+        overflow-wrap: anywhere;
+    }
+    .viewer-heading p {
         font-size: 0.85rem;
+        color: var(--portfolio-accent);
+        margin-top: 0.5rem;
     }
-    @media (max-width: 600px) {
-        grid-template-columns: 1.3rem minmax(0, 1fr);
-        gap: 1rem;
-        > div {
-            grid-column: 2;
+    @media (max-width: 48rem) {
+        padding: 0.35rem;
+        &[open] {
+            /* Reflow at narrow widths/zoom; both panes stay independently usable. */
+            grid-template-columns: minmax(0, 1fr);
+            grid-template-rows: minmax(0, 58%) minmax(0, 1fr);
+            gap: 0.5rem;
+        }
+        .viewer-sidebar {
+            border-left: 0;
+            border-top: 1px solid var(--portfolio-line);
+            padding: 0 0.5rem 1rem;
+        }
+        .viewer-heading h2 {
+            font-size: 1.5rem;
+        }
+    }
+    @media (max-height: 30rem), (max-width: 30rem) {
+        .viewer-controls {
+            /* Let enlarged text scroll past controls in constrained viewports. */
+            position: static;
         }
     }
 `;
 
-export const Stills = styled.div`
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(min(100%, 180px), 1fr));
-    gap: 1rem;
-    margin-top: 1.5rem;
-    grid-column: 1 / -1;
-    img {
-        display: block;
-        width: 100%;
-        height: auto;
-        aspect-ratio: auto;
+// Static skeletons avoid animation overhead and respect reduced motion by default.
+export const GalleryMessage = styled.div`
+    padding: 2.5rem 1.5rem;
+    background: var(--portfolio-panel);
+    border: 1px solid var(--portfolio-line);
+    margin-bottom: 2rem;
+    h2 { font-size: 1.75rem; margin-bottom: 0.5rem; }
+    p { color: var(--portfolio-muted); }
+    button {
+        min-height: 44px;
+        padding: 0.6rem 1rem;
+        margin-top: 1rem;
+        color: inherit;
+        border: 1px solid var(--portfolio-control-border);
     }
 `;

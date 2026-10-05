@@ -1,0 +1,31 @@
+{
+  "filename": "bicycle_playing_cards.JPG",
+  "preview_filename": "previews/bicycle_playing_cards.webp",
+  "title": "Bicycle playing cards",
+  "description": "",
+  "alt": "A Bicycle playing card box stands among scattered cards on a pale surface.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 4838923
+    },
+    "image": {
+      "width": 5184,
+      "height": 3456
+    },
+    "capture": {
+      "date_taken": "2020-10-22T20:02:27",
+      "camera": "Canon EOS REBEL T5i",
+      "f_stop": 5.6,
+      "exposure_time_seconds": 0.00625,
+      "iso_speed": 800,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 39.0,
+      "max_aperture_apex": null,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": null
+    }
+  }
+}

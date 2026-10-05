@@ -1,0 +1,31 @@
+{
+  "filename": "gaming_pc-2.jpg",
+  "preview_filename": "previews/gaming_pc-2.webp",
+  "title": "A glow in the room",
+  "description": "",
+  "alt": "A gaming computer with purple and blue illuminated fans stands on a desk in a dark room.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 19770432
+    },
+    "image": {
+      "width": 6240,
+      "height": 4160
+    },
+    "capture": {
+      "date_taken": "2024-02-02T20:15:37",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 6.4,
+      "exposure_time_seconds": 0.4,
+      "iso_speed": 640,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 35.8,
+      "max_aperture_apex": 4.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 54.0
+    }
+  }
+}

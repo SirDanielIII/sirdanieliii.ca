@@ -1,0 +1,31 @@
+{
+  "filename": "parliament_hill-east_block_2.jpg",
+  "preview_filename": "previews/parliament_hill-east_block_2.webp",
+  "title": "An evening on Parliament Hill",
+  "description": "",
+  "alt": "Parliament Hill buildings border a broad green lawn beneath pastel evening clouds.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 19785417
+    },
+    "image": {
+      "width": 6240,
+      "height": 4160
+    },
+    "capture": {
+      "date_taken": "2026-08-07T19:55:05-04:00",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 4.0,
+      "exposure_time_seconds": 0.002,
+      "iso_speed": 640,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 16.0,
+      "max_aperture_apex": 4.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 24.0
+    }
+  }
+}

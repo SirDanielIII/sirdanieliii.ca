@@ -1,0 +1,31 @@
+{
+  "filename": "gaming_pc-1.jpg",
+  "preview_filename": "previews/gaming_pc-1.webp",
+  "title": "Light from within",
+  "description": "",
+  "alt": "Colourful illuminated fans and components fill a gaming computer case.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 22371966
+    },
+    "image": {
+      "width": 6240,
+      "height": 4160
+    },
+    "capture": {
+      "date_taken": "2024-02-02T20:13:13",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 7.1,
+      "exposure_time_seconds": 0.25,
+      "iso_speed": 640,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 78.1,
+      "max_aperture_apex": 4.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 117.0
+    }
+  }
+}

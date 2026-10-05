@@ -1,0 +1,9 @@
+{
+    "portraiture": {"title": "Portraiture", "status": "published"},
+    "landscapes": {"title": "Landscapes", "status": "published"},
+    "products": {"title": "Products", "status": "published"},
+    "experimental": {"title": "Experimental", "status": "published"},
+    "studio_q": {"title": "Studio Q (Client work)", "status": "published"},
+    "2020_china": {"title": "China (2020)", "status": "published"},
+    "2026_japan_trip": {"title": "Japan (2026)", "status": "coming-soon"}
+}

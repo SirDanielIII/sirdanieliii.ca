@@ -1,0 +1,31 @@
+{
+  "filename": "cn_tower.jpg",
+  "preview_filename": "previews/cn_tower.webp",
+  "title": "CN Tower",
+  "description": "",
+  "alt": "The CN Tower rises into a clear blue sky, seen from below.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 18219078
+    },
+    "image": {
+      "width": 4160,
+      "height": 6240
+    },
+    "capture": {
+      "date_taken": "2020-03-01T18:51:19",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 2.8,
+      "exposure_time_seconds": 0.00025,
+      "iso_speed": 640,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 50.0,
+      "max_aperture_apex": 3.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 75.0
+    }
+  }
+}

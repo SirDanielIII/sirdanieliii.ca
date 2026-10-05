@@ -6,11 +6,19 @@
   "scripts": {
     "serve:php": "php -S localhost:8000 -t public",
     "dev": "concurrently \"npm run serve:php\" \"vite\"",
+    "predev": "npm run portfolio:compile",
+    "photography:generate": "python tools/photography/generate.py",
+    "photography:compile": "php tools/photography/compile.php",
+    "portfolio:previews": "python tools/portfolio_media/previews.py",
+    "portfolio:compile": "php tools/portfolio_media/compile.php --validate && npm run portfolio:previews && php tools/portfolio_media/compile.php",
+    "portfolio:test": "php tools/portfolio_media/test_catalog.php",
+    "prebuild": "npm run photography:compile && npm run portfolio:compile",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
+    "hls.js": "^1.7.3",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "react-router": "^8.3.1",

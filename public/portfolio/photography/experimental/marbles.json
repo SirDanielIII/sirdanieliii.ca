@@ -1,0 +1,31 @@
+{
+  "filename": "marbles.JPG",
+  "preview_filename": "previews/marbles.webp",
+  "title": "Glass and colour",
+  "description": "",
+  "alt": "Blue, black and clear glass marbles surround the base of a glass container.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 5125359
+    },
+    "image": {
+      "width": 5184,
+      "height": 3456
+    },
+    "capture": {
+      "date_taken": "2020-10-20T19:01:23",
+      "camera": "Canon EOS REBEL T5i",
+      "f_stop": 9.0,
+      "exposure_time_seconds": 0.025,
+      "iso_speed": 400,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 47.0,
+      "max_aperture_apex": null,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": null
+    }
+  }
+}

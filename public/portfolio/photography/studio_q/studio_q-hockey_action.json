@@ -1,0 +1,31 @@
+{
+  "filename": "studio_q-hockey_action.jpg",
+  "preview_filename": "previews/studio_q-hockey_action.webp",
+  "title": "On the ice",
+  "description": "",
+  "alt": "Hockey players converge around the goal as a player in yellow prepares a shot.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 18381668
+    },
+    "image": {
+      "width": 5368,
+      "height": 3019
+    },
+    "capture": {
+      "date_taken": "2022-11-26T21:25:17",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 4.0,
+      "exposure_time_seconds": 0.001,
+      "iso_speed": 6400,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 80.0,
+      "max_aperture_apex": 4.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 120.0
+    }
+  }
+}

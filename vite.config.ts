@@ -14,6 +14,10 @@ export default defineConfig({
     ],
     assetsInclude: ['**/*.JPG'], server: {
         proxy: {
+            '/media': {
+                target: 'https://sirdanieliii.ca',
+                changeOrigin: true,
+            },
             '/scripts': {
                 target: 'http://localhost:8000',
                 changeOrigin: true,

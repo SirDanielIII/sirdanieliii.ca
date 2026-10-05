@@ -1,0 +1,31 @@
+{
+  "filename": "cerio_product_showcase-3.jpg",
+  "preview_filename": "previews/cerio_product_showcase-3.webp",
+  "title": "Cerio ? Connection details",
+  "description": "",
+  "alt": "Rows of green connectors line a black network panel, with one pink connector standing upright.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 16305404
+    },
+    "image": {
+      "width": 6240,
+      "height": 4160
+    },
+    "capture": {
+      "date_taken": "2026-08-07T12:06:18-04:00",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 8.0,
+      "exposure_time_seconds": 0.016666666666666666,
+      "iso_speed": 640,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 80.0,
+      "max_aperture_apex": 4.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 120.0
+    }
+  }
+}

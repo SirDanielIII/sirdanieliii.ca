@@ -1,0 +1,31 @@
+{
+  "filename": "cd-2.jpg",
+  "preview_filename": "previews/cd-2.webp",
+  "title": "A spectrum of colour",
+  "description": "",
+  "alt": "Overlapping compact discs reflect bright rainbow bands of light.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 10093153
+    },
+    "image": {
+      "width": 5184,
+      "height": 3456
+    },
+    "capture": {
+      "date_taken": null,
+      "camera": null,
+      "f_stop": null,
+      "exposure_time_seconds": null,
+      "iso_speed": null,
+      "exposure_bias_ev": null,
+      "focal_length_mm": null,
+      "max_aperture_apex": null,
+      "metering_mode": null,
+      "flash_mode": null,
+      "focal_length_35mm": null
+    }
+  }
+}

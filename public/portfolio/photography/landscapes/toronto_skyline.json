@@ -1,0 +1,31 @@
+{
+  "filename": "toronto_skyline.jpg",
+  "preview_filename": "previews/toronto_skyline.webp",
+  "title": "Toronto after dark",
+  "description": "",
+  "alt": "The illuminated CN Tower and Toronto skyline reflect in still water at night.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 21381686
+    },
+    "image": {
+      "width": 4160,
+      "height": 6240
+    },
+    "capture": {
+      "date_taken": "2024-12-26T18:34:49",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 4.0,
+      "exposure_time_seconds": 0.25,
+      "iso_speed": 640,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 80.0,
+      "max_aperture_apex": 4.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 120.0
+    }
+  }
+}

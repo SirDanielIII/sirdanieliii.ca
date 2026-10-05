@@ -1,0 +1,31 @@
+{
+  "filename": "strawberry_splash.jpg",
+  "preview_filename": "previews/strawberry_splash.webp",
+  "title": "Strawberry splash",
+  "description": "",
+  "alt": "Water splashes upward from a stemmed glass holding a strawberry, with yellow fruit beside it.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 9528598
+    },
+    "image": {
+      "width": 3456,
+      "height": 5184
+    },
+    "capture": {
+      "date_taken": null,
+      "camera": null,
+      "f_stop": null,
+      "exposure_time_seconds": null,
+      "iso_speed": null,
+      "exposure_bias_ev": null,
+      "focal_length_mm": null,
+      "max_aperture_apex": null,
+      "metering_mode": null,
+      "flash_mode": null,
+      "focal_length_35mm": null
+    }
+  }
+}

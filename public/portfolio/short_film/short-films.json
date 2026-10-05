@@ -1,0 +1,73 @@
+{
+  "featuredFilm": "k_town_noir",
+  "collections": [
+    {
+      "slug": "street-drugs",
+      "title": "STREET DRUGS",
+      "presentation": "series",
+      "label": "An independent world",
+      "link": {"url": "https://ivanlikes.men/", "label": "Explore STREET DRUGS"},
+      "films": [
+        {
+          "slug": "street_drugs",
+          "title": "STREET DRUGS",
+          "year": 2021,
+          "type": "Short Film",
+          "video": {"type": "hls", "url": "https://sirdanieliii.ca/media/street_drugs/master.m3u8"},
+          "thumbnail": "UofW STREET DRUGS Broadcast Thumbnail.jpg",
+          "posters": ["Reasons to Watch Us.png"],
+          "synopsis": "Fortnite Battle pass.",
+          "funFact": "This was an assignment for FILM 392."
+        },
+        {
+          "slug": "street_drugs_3",
+          "title": "STREET DRUGS 3",
+          "year": 2027,
+          "type": "Short Film",
+          "status": "coming-soon"
+        }
+      ]
+    },
+    {
+      "slug": "filmography",
+      "title": "The filmography",
+      "label": "Short films & documentary",
+      "films": [
+        {
+          "slug": "k_town_noir",
+          "title": "K-Town Noir",
+          "year": 2024,
+          "type": "Short Film",
+          "video": {"type": "hls", "url": "https://sirdanieliii.ca/media/k_town_noir/master.m3u8"},
+          "thumbnail": "K-Town Noir (2024)-00.01.17.929.png",
+          "posters": ["DSCF7341 Spike Douglas.jpg"],
+          "synopsis": "A connoisseur of various drugs and substances, a local private investigator is tasked with solving a case that threatens to breach national security.",
+          "funFact": "This was an assignment for FILM 392."
+        },
+        {
+          "slug": "shelter",
+          "title": "Shelter",
+          "year": 2024,
+          "type": "Documentary",
+          "video": {"type": "hls", "url": "https://sirdanieliii.ca/media/shelter/master.m3u8"},
+          "thumbnail": "Shelter (Documentary) [2024-10-28 Final Render]-00.06.05.414.png",
+          "screenshotsDirectory": "screenshots/shelter",
+          "synopsis": "Realtor Jason Eade faces issues as a Canadian landlord.",
+          "funFact": "TBD."
+        },
+        {
+          "slug": "the_bachelorette_party",
+          "title": "The Bachelorette Party",
+          "year": 2024,
+          "type": "Short Film",
+          "video": {"type": "hls", "url": "https://sirdanieliii.ca/media/the_bachelorette_party/master.m3u8"},
+          "thumbnail": "The Bachelorette Party (The Definitive Cut).00_01_10_39422.Still007.png",
+          "posters": ["The Bachelorette Party Poster (K25).png", "The Bachelorette Party Poster (BTS) (K25).png"],
+          "screenshotsDirectory": "screenshots/the_bachelorette_party",
+          "synopsis": "On the eve of her wedding, Aleeza and her bridesmaids gather for a night of drinks, laughter, and a classic game of dares—the King’s Game. But when Kyoko discovers a mysterious cross in their Airbnb, a dark curiosity awakens within the group. Faced with impossible choices and mounting terror, Aleeza must confront the horrifying reality that some games are never meant to be played.",
+          "funFact": "This was an assignment for FILM 250, and got into the Kingston Film Festival!"
+        }
+      ]
+    }
+  ]
+}

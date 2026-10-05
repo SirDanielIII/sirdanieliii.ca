@@ -1,0 +1,31 @@
+{
+  "filename": "parliament_hill-east_block_1.jpg",
+  "preview_filename": "previews/parliament_hill-east_block_1.webp",
+  "title": "East Block details",
+  "description": "",
+  "alt": "Stone walls, arched windows and a green copper roof rise beneath a Canadian flag.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 18603041
+    },
+    "image": {
+      "width": 4070,
+      "height": 6104
+    },
+    "capture": {
+      "date_taken": "2026-08-07T19:26:41-04:00",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 2.8,
+      "exposure_time_seconds": 0.00025,
+      "iso_speed": 800,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 52.0,
+      "max_aperture_apex": 3.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 78.0
+    }
+  }
+}

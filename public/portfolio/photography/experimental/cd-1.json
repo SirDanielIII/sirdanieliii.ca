@@ -1,0 +1,31 @@
+{
+  "filename": "cd-1.JPG",
+  "preview_filename": "previews/cd-1.webp",
+  "title": "Reflections in the dark",
+  "description": "",
+  "alt": "Compact discs scattered on a dark surface catch narrow rainbow reflections.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 3814504
+    },
+    "image": {
+      "width": 5184,
+      "height": 3456
+    },
+    "capture": {
+      "date_taken": "2020-10-23T19:15:35",
+      "camera": "Canon EOS REBEL T5i",
+      "f_stop": 5.6,
+      "exposure_time_seconds": 0.06666666666666667,
+      "iso_speed": 100,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 55.0,
+      "max_aperture_apex": null,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": null
+    }
+  }
+}

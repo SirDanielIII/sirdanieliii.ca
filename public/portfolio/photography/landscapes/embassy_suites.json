@@ -1,0 +1,31 @@
+{
+  "filename": "embassy_suites.jpg",
+  "preview_filename": "previews/embassy_suites.webp",
+  "title": "Above the crowd",
+  "description": "",
+  "alt": "The Embassy Suites tower rises above pedestrians and street signs.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 15863135
+    },
+    "image": {
+      "width": 4122,
+      "height": 6183
+    },
+    "capture": {
+      "date_taken": "2024-09-01T18:31:02",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 4.0,
+      "exposure_time_seconds": 0.004,
+      "iso_speed": 160,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 80.0,
+      "max_aperture_apex": 4.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 120.0
+    }
+  }
+}

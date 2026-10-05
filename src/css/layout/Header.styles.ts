@@ -7,7 +7,15 @@ export const HeaderContainer = styled.header`
     width: 100%;
     background: ${({theme}) => theme.colors.header};
     z-index: 1000;
-    box-shadow: 0 0 10px #000;
+    border-bottom: 1px solid ${({theme}) => theme.portfolioBase.border};
+    box-shadow: 0 4px 24px #0000000a;
+    :is(a, button):focus-visible {
+        outline: 2px solid ${({theme}) => theme.portfolioBase.accent};
+        outline-offset: 4px;
+    }
+    @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { transition: none !important; animation: none !important; }
+    }
 `;
 
 export const HeaderContent = styled.div`
@@ -18,6 +26,7 @@ export const HeaderContent = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
+    @media (max-width: 720px) { height: 72px; padding: 0 1rem; }
 `;
 
 export const LogoLink = styled(Link)`
@@ -35,6 +44,7 @@ export const LogoImg = styled.img`
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
+    @media (max-width: 720px) { width: 44px; height: 44px; }
 `;
 
 export const LogoText = styled.div`
@@ -63,6 +73,7 @@ export const NavLink = styled(RouterNavLink)<{ $color: string }>`
     font-size: 20px;
     font-weight: 400;
     letter-spacing: 3px;
+    text-transform: uppercase;
     color: ${({$color}) => $color};
     background-color: transparent;
     transition: background-color 0.2s ease, color 0.2s ease, opacity 0.2s ease;
@@ -93,6 +104,7 @@ export const ToggleButton = styled.button`
     &:hover {
         opacity: 0.8;
     }
+    @media (max-width: 720px) { width: 48px; height: 48px; font-size: 22px; }
 `;
 
 export const HeaderActions = styled.div`
@@ -100,43 +112,89 @@ export const HeaderActions = styled.div`
     gap: 10px;
 `;
 
-/* Hamburger and Mobile Menu */
+/* Mobile disclosure: a clear 48px target and a menu icon that becomes Close. */
 export const HamburgerButton = styled.button`
     display: none;
-    width: 40px;
-    height: 50px;
-    background: ${({theme}) => theme.colors.text};
-    color: ${({theme}) => theme.colors.header};
-    border-radius: 8px;
-    font-size: 24px;
+    min-width: 104px;
+    min-height: 48px;
+    padding: 0.6rem 0.85rem;
+    gap: 0.65rem;
+    background: transparent;
+    color: ${({theme}) => theme.colors.text};
+    border: 1px solid ${({theme}) => theme.portfolioBase.border};
+    border-radius: 0.6rem;
+    font-size: 0.9rem;
     align-items: center;
     justify-content: center;
-    border: none;
+    transition: background-color 0.18s ease, border-color 0.18s ease;
+    &:hover, &[aria-expanded='true'] {
+        background: ${({theme}) => theme.portfolioBase.surface};
+        border-color: ${({theme}) => theme.portfolioBase.accent};
+    }
+    .menu-icon { position: relative; width: 22px; height: 22px; flex-shrink: 0; }
+    .menu-icon span {
+        position: absolute;
+        left: 0;
+        top: 10px;
+        width: 22px;
+        height: 2px;
+        border-radius: 1px;
+        background: currentColor;
+        transition: transform 0.18s ease, opacity 0.18s ease;
+    }
+    .menu-icon span:first-child { transform: translateY(-7px); }
+    .menu-icon span:last-child { transform: translateY(7px); }
+    &[aria-expanded='true'] .menu-icon span:first-child { transform: rotate(45deg); }
+    &[aria-expanded='true'] .menu-icon span:nth-child(2) { opacity: 0; }
+    &[aria-expanded='true'] .menu-icon span:last-child { transform: rotate(-45deg); }
 
     @media (max-width: 720px) {
         display: flex;
     }
 `;
 
-export const MobileMenuContainer = styled.div<{ $open: boolean }>`
-    display: ${({$open}) => ($open ? 'block' : 'none')};
+export const MobileMenuContainer = styled.nav`
+    &[hidden] { display: none; }
     position: absolute;
-    top: 80px;
-    right: 20px;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: calc(100dvh - 73px);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     background: ${({theme}) => theme.colors.header};
-    border-radius: 8px;
-    padding: 10px;
+    border-bottom: 1px solid ${({theme}) => theme.portfolioBase.border};
+    box-shadow: 0 18px 28px #00000018;
+    padding: 0.75rem 1rem max(1.25rem, env(safe-area-inset-bottom));
+    @media (min-width: 721px) { display: none; }
 `;
 
-export const MobileMenuList = styled.div`
+export const MobileMenuList = styled.ul`
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 0.25rem;
+    list-style: none;
+    max-width: 40rem;
+    margin: 0 auto;
+`;
 
-    a {
-        font-size: 20px;
-        font-weight: 400;
-        letter-spacing: 3px;
-        text-align: right;
+export const MobileNavLink = styled(NavLink)`
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    min-height: 60px;
+    padding: 0.9rem 1.1rem;
+    border-radius: 0.4rem;
+    font-size: 1.25rem;
+    letter-spacing: 0.01em;
+    text-transform: none;
+    color: ${({theme}) => theme.colors.text};
+    svg { width: 18px; height: 18px; opacity: 0.6; flex-shrink: 0; }
+    &[aria-current='page'] {
+        background: ${({theme}) => theme.portfolioBase.surface};
+        color: ${({theme}) => theme.colors.text};
+        box-shadow: inset 3px 0 0 ${({$color}) => $color};
     }
+    &:hover { opacity: 1; background: ${({theme}) => theme.portfolioBase.surface}; }
 `;

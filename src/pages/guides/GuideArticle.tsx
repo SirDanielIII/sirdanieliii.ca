@@ -28,16 +28,6 @@ const ArticleContent = ({guide}: {guide: Guide}) => {
         return () => { document.title = previousTitle; };
     }, [guide]);
 
-    useEffect(() => {
-        // The article and mobile contents list mount after the browser first sees the URL.
-        if (headings.length === 0 || !window.location.hash) return;
-        let id: string;
-        try { id = decodeURIComponent(window.location.hash.slice(1)); }
-        catch { return; }
-        const target = document.getElementById(id);
-        if (target && article.current?.contains(target)) target.scrollIntoView();
-    }, [headings]);
-
     return (
         <ArticlePage>
             <PrintStyles/>
