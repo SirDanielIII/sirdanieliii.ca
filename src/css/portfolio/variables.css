@@ -1,0 +1,17 @@
+/* Static declarations let the IDE resolve values supplied by Page at runtime.
+   Initial preserves var() fallbacks, including the home page's photo viewer. */
+:root {
+    --portfolio-accent: initial;
+    --portfolio-accent-hover: initial;
+    --portfolio-accent-subtle: initial;
+    --portfolio-on-accent: initial;
+    --portfolio-muted: initial;
+    --portfolio-line: initial;
+    --portfolio-panel: initial;
+    --portfolio-control-border: initial;
+    --portfolio-focus: initial;
+    --portfolio-viewer-surface: initial;
+    --portfolio-viewer-sidebar-surface: initial;
+    --portfolio-viewer-control-surface: initial;
+    --portfolio-viewer-text: initial;
+}
