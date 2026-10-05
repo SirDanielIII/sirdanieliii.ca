@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-// Isolated fixtures prove that compilation needs only JSON and file stats, never EXIF decoding.
+// Isolated fixtures prove that loading needs only JSON and file stats, never EXIF decoding.
 require_once __DIR__ . '/../../public/scripts/photography/catalog.php';
 
 function check(bool $condition, string $message): void
@@ -20,7 +20,6 @@ mkdir($root . '/2026_japan_trip');
 $files = [
     '/portraiture/sample.jpg', '/portraiture/second.jpg', '/portraiture/sample.json', '/portraiture/second.json',
     '/portraiture/previews/sample.webp', '/portraiture/previews/sample.json', '/2026_japan_trip/unfinished.jpg',
-    '/gallery-manifest.json', '/.manifest.lock',
 ];
 register_shutdown_function(static function () use ($root, $files): void {
     foreach ($files as $file) {
@@ -45,10 +44,11 @@ $sidecar = $root . '/portraiture/sample.json';
 file_put_contents($sidecar, json_encode($data));
 file_put_contents($root . '/portraiture/second.json', json_encode(array_replace($data, ['filename' => 'second.jpg', 'preview_filename' => null, 'weighting' => 0])));
 file_put_contents($root . '/portraiture/previews/sample.json', '{}');
-$gallery = Photography\compile($root, $configuration);
+$gallery = Photography\loadGallery($root, $configuration);
 check(count($gallery['photos']) === 2, 'Previews and coming-soon photos must not become gallery records.');
 check($gallery['photos'][0]['filename'] === 'sample.jpg', 'Higher weighting sorts first.');
 check($gallery['photos'][0]['preview_filename'] === 'previews/sample.webp', 'Valid preview is explicit.');
+check(Photography\record($root . '/portraiture', 'sample.jpg', '/portfolio/photography/portraiture/', 'portraiture', 'Portraiture') === $gallery['photos'][0], 'Standalone and gallery records must normalize the same sidecar identically.');
 check(! isset($gallery['photos'][0]['source']) && ! isset($gallery['photos'][0]['metadata']['capture']['gps']), 'Authoring fingerprints and unneeded metadata are private.');
 check($gallery['photos'][0]['metadata']['capture']['f_stop'] === null, 'Missing metadata is null.');
 check($gallery['photos'][0]['metadata']['capture']['camera'] === 'Canon EOS R5', 'Only the clean camera display value is needed.');
@@ -63,38 +63,33 @@ foreach ([0 => 1, 2 => 2, 4 => 4, 6 => 8] as $apex => $fNumber) {
 $invalid = Photography\metadata(['image' => ['width' => 1e100, 'height' => -1], 'file' => 'invalid', 'capture' => ['f_stop' => 'NaN', 'camera' => 'invalid']]);
 check($invalid['image']['width'] === null && $invalid['image']['height'] === null && $invalid['capture']['f_stop'] === null, 'Malformed metadata cannot create invalid dimensions or values.');
 
-Photography\writeManifest($root, $configuration);
-$manifest = $root . '/gallery-manifest.json';
-$before = file_get_contents($manifest);
-$mtime = filemtime($manifest);
-Photography\writeManifest($root, $configuration);
-clearstatcache();
-check(file_get_contents($manifest) === $before && filemtime($manifest) === $mtime, 'Identical compilation keeps the cache unchanged.');
-
 $oldPreview = $gallery['photos'][0]['preview_src'];
 touch($root . '/portraiture/previews/sample.webp', time() + 10);
 clearstatcache();
-check(Photography\compile($root, $configuration)['photos'][0]['preview_src'] !== $oldPreview, 'Preview edits update asset versions.');
+check(Photography\loadGallery($root, $configuration)['photos'][0]['preview_src'] !== $oldPreview, 'Preview edits update asset versions.');
 $data['preview_filename'] = null;
 file_put_contents($sidecar, json_encode($data));
-check(Photography\compile($root, $configuration)['photos'][0]['preview_src'] === null, 'Explicit null must never guess a preview.');
+check(Photography\loadGallery($root, $configuration)['photos'][0]['preview_src'] === null, 'Explicit null must never guess a preview.');
 $data['preview_filename'] = '../../outside.webp';
 file_put_contents($sidecar, json_encode($data));
-check(Photography\compile($root, $configuration)['photos'][0]['preview_src'] === null, 'Traversal paths must fall back safely.');
+check(Photography\loadGallery($root, $configuration)['photos'][0]['preview_src'] === null, 'Traversal paths must fall back safely.');
 
 $data['preview_filename'] = 'previews/sample.webp';
 $data['description'] = 'An edited description';
 file_put_contents($sidecar, json_encode($data));
-Photography\writeManifest($root, $configuration);
-check(file_get_contents($manifest) !== $before, 'Editorial changes invalidate the compiled snapshot.');
+check(Photography\loadGallery($root, $configuration)['photos'][0]['description'] === 'An edited description', 'Editorial changes appear without generating a cache.');
 unlink($root . '/portraiture/previews/sample.webp');
-check(Photography\compile($root, $configuration)['photos'][0]['preview_src'] === null, 'Removed previews fall back to originals.');
+check(Photography\loadGallery($root, $configuration)['photos'][0]['preview_src'] === null, 'Removed previews fall back to originals.');
 file_put_contents($sidecar, '{malformed JSON');
-$gallery = Photography\compile($root, $configuration);
-check(count($gallery['photos']) === 2, 'Malformed JSON must not discard a photograph.');
-check($gallery['photos'][1]['width'] === null || $gallery['photos'][0]['width'] === null, 'Unknown dimensions stay null.');
+$gallery = Photography\loadGallery($root, $configuration);
+check(count($gallery['photos']) === 1, 'Malformed JSON must not corrupt the rest of the gallery.');
+file_put_contents($sidecar, json_encode($data));
+check(count(Photography\loadGallery($root, $configuration)['photos']) === 2, 'Repairing JSON restores the photo immediately.');
+unlink($sidecar);
+check(count(Photography\loadGallery($root, $configuration)['photos']) === 1, 'Deleting JSON removes the entry even when its original remains.');
+file_put_contents($sidecar, json_encode($data));
 unlink($root . '/portraiture/sample.jpg');
-check(count(Photography\compile($root, $configuration)['photos']) === 1, 'Deleted originals leave the gallery.');
+check(count(Photography\loadGallery($root, $configuration)['photos']) === 1, 'Deleted originals leave the gallery.');
 
 try {
     Photography\categoryDirectory($root, '../outside');

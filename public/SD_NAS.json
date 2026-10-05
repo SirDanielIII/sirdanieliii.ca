@@ -1,0 +1,31 @@
+{
+  "filename": "SD_NAS.JPG",
+  "preview_filename": "preview-SD_NAS.webp",
+  "title": "SD_NAS",
+  "description": "My custom-built homelab server, assembled in November 2021. It stores my files and runs this website alongside other services.",
+  "alt": "The black SD_NAS tower on a desk beside a window, with a blue power light and coloured light behind it.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 12986460
+    },
+    "image": {
+      "width": 6240,
+      "height": 4160
+    },
+    "capture": {
+      "date_taken": "2022-02-05T02:02:28",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 1.4,
+      "exposure_time_seconds": 8.0,
+      "iso_speed": 1250,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 33.0,
+      "max_aperture_apex": 1.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 50.0
+    }
+  }
+}

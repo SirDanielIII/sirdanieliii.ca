@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Photography;
 
 const SCHEMA_VERSION = 1;
-const JSON_FLAGS = JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_INVALID_UTF8_SUBSTITUTE | JSON_THROW_ON_ERROR;
 
 function readJson(string $path): array
 {
@@ -79,7 +78,7 @@ function text(mixed $value, string $fallback = ''): string
     return is_string($value) && trim($value) !== '' ? trim($value) : $fallback;
 }
 
-/** Only properties displayed in the viewer belong in the compiled metadata. */
+/** Only properties displayed in the viewer belong in the response. */
 function metadata(array $data): array
 {
     $value = static function (mixed $value, bool $positive = false): int|float|null {
@@ -101,7 +100,7 @@ function metadata(array $data): array
         $result['capture'][$key] = $value($capture[$key] ?? null, $key !== 'exposure_bias_ev');
     }
     // EXIF MaxApertureValue is APEX: N = 2^(Av/2). Convert once on the PHP side
-    // during compilation, retaining only the displayed f-number in the response.
+    // when loading the sidecar, retaining only the displayed f-number in the response.
     // Zero is valid (f/1); missing or implausible input must never invent an aperture.
     $apex = $value($capture['max_aperture_apex'] ?? null);
     $result['capture']['max_aperture_f_stop'] = $apex !== null && $apex >= -20 && $apex <= 40
@@ -115,38 +114,35 @@ function metadata(array $data): array
     return $result;
 }
 
-/** Asset versions change at compilation, so browsers can reuse previews without serving stale edits. */
+/** Asset versions follow current file stats, so browsers can reuse previews without serving stale edits. */
 function assetVersion(string $path): string
 {
     return dechex((int) filemtime($path)) . '-' . dechex((int) filesize($path));
 }
 
-function photoRecord(string $root, string $category, string $categoryTitle, string $filename): array
+function record(string $directory, string $filename, string $baseUrl, string $category, string $categoryTitle, ?array $data = null): array
 {
-    $directory = categoryDirectory($root, $category);
+    if (! validImageFilename($filename)) throw new \RuntimeException("Invalid photography filename.");
     $original = childFile($directory, $filename);
     $sidecar = pathinfo($filename, PATHINFO_FILENAME) . '.json';
-    $data = [];
-    try {
-        $data = readJson(childFile($directory, $sidecar));
-        if (($data['filename'] ?? null) !== $filename) {
-            throw new \RuntimeException('Invalid photography sidecar filename.');
-        }
-    } catch (\Throwable $exception) {
-        // Keep the photograph available while its missing/malformed sidecar is repaired.
-        fwrite(STDERR, sprintf("Warning: %s/%s needs metadata generation.\n", $category, $filename));
-        $data = [];
+    $sidecarPath = childFile($directory, $sidecar);
+    // Gallery discovery already decoded this sidecar; standalone records still read it here.
+    $data ??= readJson($sidecarPath);
+    if (($data['filename'] ?? null) !== $filename) {
+        throw new \RuntimeException('Invalid photography sidecar filename.');
     }
     $preview = $data['preview_filename'] ?? null;
     $previewPath = null;
     if ($preview !== null) {
         try {
             $expected = 'previews/' . pathinfo($filename, PATHINFO_FILENAME) . '.webp';
-            if ($preview !== $expected) {
+            if ($preview !== $expected && $preview !== 'preview-' . pathinfo($filename, PATHINFO_FILENAME) . '.webp') {
                 throw new \RuntimeException('Invalid photography preview filename.');
             }
-            $previewPath = childFile(categoryDirectory($directory, 'previews'), substr($preview, 9));
-        } catch (\Throwable $exception) {
+            $previewPath = str_starts_with($preview, 'previews/')
+                ? childFile(categoryDirectory($directory, 'previews'), substr($preview, 9))
+                : childFile($directory, $preview);
+        } catch (\Throwable) {
             // Respect explicit null and gracefully fall back if a previously indexed preview was removed.
             $preview = null;
         }
@@ -166,13 +162,12 @@ function photoRecord(string $root, string $category, string $categoryTitle, stri
         && (preg_match('/\A(?:dsc[fn]?|img|pxl|dji)[_ -]?\d/i', $alt) || $alt === 'Untitled photograph')) {
         $alt = $categoryTitle . ' photograph';
     }
-    $baseUrl = '/portfolio/photography/' . rawurlencode($category) . '/';
     return [
         'id' => substr(hash('sha256', $category . '/' . $filename), 0, 32),
         'filename' => $filename,
         'preview_filename' => $preview,
         'src' => $baseUrl . rawurlencode($filename) . '?v=' . assetVersion($original),
-        'preview_src' => $previewPath === null ? null : $baseUrl . 'previews/' . rawurlencode(substr($preview, 9)) . '?v=' . assetVersion($previewPath),
+        'preview_src' => $previewPath === null ? null : $baseUrl . implode('/', array_map('rawurlencode', explode('/', $preview))) . '?v=' . assetVersion($previewPath),
         'title' => $title,
         'description' => $description,
         'alt' => $alt,
@@ -185,11 +180,11 @@ function photoRecord(string $root, string $category, string $categoryTitle, stri
     ];
 }
 
-/** Compilation runs on authoring/build commands, never on visitor requests. */
-function compile(string $root, array $configuration): array
+/** Sidecars are the live source of gallery membership; no EXIF or generated manifest. */
+function loadGallery(string $root, array $configuration): array
 {
     if (! is_dir($root)) {
-        throw new \RuntimeException('Add the photography source folder before compiling.');
+        throw new \RuntimeException('Photography source folder is missing.');
     }
     $photos = [];
     $categories = [];
@@ -199,12 +194,19 @@ function compile(string $root, array $configuration): array
         if ($category['status'] === 'published' && is_dir($directory)) {
             $directory = categoryDirectory($root, $id);
             foreach (new \DirectoryIterator($directory) as $entry) {
-                // Direct originals only: do not recurse into previews or accept symlinks.
-                if ($entry->isDot() || $entry->isLink() || ! $entry->isFile() || ! validImageFilename($entry->getFilename())) {
-                    continue;
+                // Removing the JSON unpublishes a photo while retaining its original.
+                if ($entry->isDot() || $entry->isLink() || ! $entry->isFile() || $entry->getExtension() !== 'json') continue;
+                try {
+                    $data = readJson($entry->getPathname());
+                    $filename = $data['filename'] ?? null;
+                    if (! validImageFilename($filename) || pathinfo($filename, PATHINFO_FILENAME) . '.json' !== $entry->getFilename()) {
+                        throw new \RuntimeException('Invalid photo sidecar filename.');
+                    }
+                    $photos[] = record($directory, $filename, '/portfolio/photography/' . rawurlencode($id) . '/', $id, $category['title'], $data);
+                    $count++;
+                } catch (\Throwable $exception) {
+                    error_log("Photography: skipping $id/{$entry->getFilename()}: {$exception->getMessage()}");
                 }
-                $photos[] = photoRecord($root, $id, $category['title'], $entry->getFilename());
-                $count++;
             }
         }
         $categories[] = ['id' => $id, 'title' => $category['title'], 'status' => $category['status'], 'count' => $count];
@@ -216,41 +218,4 @@ function compile(string $root, array $configuration): array
             ?: strcmp($left['id'], $right['id']);
     });
     return ['schema_version' => SCHEMA_VERSION, 'categories' => $categories, 'photos' => $photos];
-}
-
-/** Lock writers and replace in the same directory so readers see a complete old or new manifest. */
-function writeManifest(string $root, array $configuration): int
-{
-    $lock = fopen($root . '/.manifest.lock', 'c');
-    if ($lock === false) {
-        throw new \RuntimeException('Photography manifest lock could not be opened.');
-    }
-    $temporary = false;
-    try {
-        if (! flock($lock, LOCK_EX)) {
-            throw new \RuntimeException('Photography manifest lock could not be acquired.');
-        }
-        $gallery = compile($root, $configuration);
-        $json = json_encode($gallery, JSON_FLAGS) . "\n";
-        $manifest = $root . '/gallery-manifest.json';
-        // Identical runs leave the cache untouched, including its modification timestamp.
-        if (! is_file($manifest) || file_get_contents($manifest) !== $json) {
-            $temporary = tempnam($root, '.manifest-');
-            if ($temporary === false || file_put_contents($temporary, $json) !== strlen($json)) {
-                throw new \RuntimeException('Photography manifest could not be written.');
-            }
-            chmod($temporary, 0644);
-            if (! rename($temporary, $manifest)) {
-                throw new \RuntimeException('Photography manifest could not be replaced.');
-            }
-            $temporary = false;
-        }
-        return count($gallery['photos']);
-    } finally {
-        if ($temporary !== false && is_file($temporary)) {
-            unlink($temporary);
-        }
-        flock($lock, LOCK_UN);
-        fclose($lock);
-    }
 }

@@ -1,4 +1,4 @@
-/** Normalized, build-validated content. Author JSON lives beside assets in public/portfolio/. */
+/** Normalized, runtime-validated content. Author JSON lives beside assets in public/portfolio/. */
 export interface MediaImage {
     src: string;
     alt: string;

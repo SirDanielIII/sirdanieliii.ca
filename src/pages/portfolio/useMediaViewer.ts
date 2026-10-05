@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useMemo, useState} from 'react';
 import {useLocation, useNavigate, useSearchParams} from 'react-router';
 import {filmImages, type Film, type GalleryImage, type MediaViewerEntry, type WatchableWork} from './media';
 
@@ -18,10 +18,10 @@ export function useMediaViewer(entries: MediaViewerEntry[]) {
     const requestedVideo = params.get('watch');
     const requestedGallery = params.get('gallery');
     const entry = entries.find(item => item.work.slug === (requestedVideo ?? requestedGallery));
+    const images = useMemo(() => requestedGallery && entry && 'year' in entry.work ? filmImages(entry.work) : [], [entry, requestedGallery]);
     let selection: ViewerSelection | null = null;
     if (requestedVideo && entry?.work.video) selection = {kind: 'video', entry, opener};
     else if (requestedGallery && entry && 'year' in entry.work) {
-        const images = filmImages(entry.work);
         const requestedIndex = Number(params.get('image') ?? 0);
         const index = Number.isInteger(requestedIndex) && requestedIndex >= 0 && requestedIndex < images.length ? requestedIndex : 0;
         if (images.length) selection = {kind: 'gallery', film: entry.work, images, index, opener};

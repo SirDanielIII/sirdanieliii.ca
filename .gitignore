@@ -28,11 +28,7 @@ __pycache__/
 /src/assets/images/section_card/Archive/
 /public/projects/
 /other/
-/public/portfolio/*
-!/public/portfolio/video/
-!/public/portfolio/short_film/
-/public/portfolio/video/*
-!/public/portfolio/video/videography.json
-/public/portfolio/short_film/*
-!/public/portfolio/short_film/short-films.json
-/src/pages/portfolio/generated/
+# Ignore everything in public/portfolio except JSON files
+/public/portfolio/**
+!/public/portfolio/**/
+!/public/portfolio/**/*.json

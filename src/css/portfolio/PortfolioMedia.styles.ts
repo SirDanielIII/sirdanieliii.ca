@@ -48,7 +48,6 @@ export const VideoPoster = styled.button`
     &:hover img { opacity: 0.85; }
     &:hover .play { background: #111d; }
     .media-placeholder { display: grid; place-content: center; height: 100%; padding: 1rem; color: #ddd; font-size: 0.85rem; }
-    &:disabled { cursor: default; }
 `;
 
 export const WatchButton = styled.button`

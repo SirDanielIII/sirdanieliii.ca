@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate photography sidecars ahead of time; visitor requests never open EXIF."""
+"""Generate editable photo JSON with Python. Optionally create WebP previews; no build or PHP required."""
 
 import argparse
 from datetime import datetime
@@ -8,16 +8,16 @@ import math
 import os
 from pathlib import Path
 import re
-import subprocess
 import struct
 import sys
 import tempfile
 import warnings
 
-from PIL import Image
+from PIL import Image, ImageOps
 
 
 PROJECT = Path(__file__).resolve().parents[2]
+PUBLIC = PROJECT / "public"
 ROOT = PROJECT / "public/portfolio/photography"
 CONFIG = PROJECT / "public/scripts/photography/config.json"
 EXTENSIONS = {".jpg", ".jpeg", ".png", ".webp", ".avif", ".tif", ".tiff", ".gif", ".bmp"}
@@ -107,7 +107,7 @@ def extract(path):
                     "iso_speed": int(iso) if iso is not None else None,
                     "exposure_bias_ev": number(capture.get(37380)),
                     "focal_length_mm": number(capture.get(37386), positive=True),
-                    # Keep the EXIF value; PHP owns the display conversion when compiling.
+                    # Keep the EXIF value; the runtime loader owns the display conversion.
                     "max_aperture_apex": number(capture.get(37381)),
                     "metering_mode": METERING.get(number(capture.get(37383))),
                     "flash_mode": flash_mode(capture.get(37385)),
@@ -130,12 +130,12 @@ def display_title(path):
 
 def original_path(path, categories):
     resolved = path.resolve(strict=True)
-    if (path.is_symlink() or path.parent.is_symlink() or resolved.parent.parent != ROOT.resolve()
-            or resolved.parent.name not in categories or resolved.parent.is_symlink()
+    if (path.is_symlink() or path.parent.is_symlink() or (resolved.parent != PUBLIC.resolve() and (resolved.parent.parent != ROOT.resolve()
+            or resolved.parent.name not in categories)) or resolved.parent.is_symlink()
             or not resolved.is_file() or resolved.suffix.lower() not in EXTENSIONS
             or not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_. -]*", resolved.name)
             or ".." in resolved.name):
-        raise ValueError("Only original images directly inside a configured photography category are accepted.")
+        raise ValueError("Use an original in public/ or directly inside a configured photography category.")
     if any(other != resolved and other.suffix.lower() in EXTENSIONS and other.stem.lower() == resolved.stem.lower()
            for other in resolved.parent.iterdir() if other.is_file()):
         raise ValueError("Originals in one category must have unique basenames so their JSON and previews cannot collide.")
@@ -175,7 +175,7 @@ def atomic_json(path, data):
             os.unlink(temporary)
 
 
-def generate(path, *, overwrite_curated=False):
+def generate(path, *, overwrite_curated=False, preview_path=None, create_previews=False):
     sidecar = path.with_suffix(".json")
     if sidecar.is_symlink():
         raise ValueError("Photo JSON must not be a symbolic link.")
@@ -193,12 +193,40 @@ def generate(path, *, overwrite_curated=False):
     # Header extraction only runs during authoring. No source fingerprints or duplicate
     # raw fields need to live in the public JSON; identical output still avoids a write.
     metadata = extract(path)
-    preview = path.parent / "previews" / (path.stem + ".webp")
-    has_preview = (preview.is_file() and not preview.is_symlink() and not preview.parent.is_symlink()
-                   and preview.resolve().parent == path.parent.resolve() / "previews")
+    preview = preview_path
+    if preview is None:
+        # Retain authored preview choices; also recognize the standalone home preview.
+        authored = existing.get("preview_filename")
+        if isinstance(authored, str):
+            preview = path.parent / authored
+        else:
+            standalone = path.parent / ("preview-" + path.stem + ".webp")
+            preview = standalone if standalone.is_file() else path.parent / "previews" / (path.stem + ".webp")
+    preview = preview.absolute()
+    parent = path.parent.resolve()
+    allowed = {parent / "previews" / (path.stem + ".webp"), parent / ("preview-" + path.stem + ".webp")}
+    if preview not in allowed or preview.is_symlink() or preview.parent.is_symlink():
+        raise ValueError("Use previews/<original stem>.webp or preview-<original stem>.webp beside the original.")
+    if create_previews and (not preview.is_file() or preview.stat().st_mtime_ns < path.stat().st_mtime_ns):
+        preview.parent.mkdir(parents=True, exist_ok=True)
+        with Image.open(path) as original:
+            image = ImageOps.exif_transpose(original)
+            image.thumbnail((1920, 1920), Image.Resampling.LANCZOS)
+            if image.mode not in ("RGB", "RGBA"):
+                image = image.convert("RGB")
+            descriptor, temporary = tempfile.mkstemp(prefix=".preview-", suffix=".tmp", dir=preview.parent)
+            os.close(descriptor)
+            try:
+                image.save(temporary, format="WEBP", quality=82, method=6)
+                os.chmod(temporary, 0o644)
+                os.replace(temporary, preview)
+            finally:
+                if os.path.exists(temporary):
+                    os.unlink(temporary)
+    has_preview = preview.is_file()
     data = {
         "filename": path.name,
-        "preview_filename": "previews/" + preview.name if has_preview else None,
+        "preview_filename": preview.relative_to(parent).as_posix() if has_preview else None,
         "title": display_title(path), "description": "", "alt": "", "weighting": 0,
         "metadata": metadata,
     }
@@ -214,13 +242,16 @@ def main():
     parser.add_argument("photos", nargs="*", type=Path, help="Original image path(s), relative to your working directory")
     parser.add_argument("--all", action="store_true", help="Process direct originals in configured categories only")
     parser.add_argument("--overwrite-curated", action="store_true", help="Explicitly reset title, description, alt and weighting")
-    parser.add_argument("--no-compile", action="store_true", help="Defer manifest compilation until a later batch command")
+    parser.add_argument("--preview", type=Path, help="Existing preview for a single photo")
+    parser.add_argument("--previews", action="store_true", help="Create missing/stale WebP previews (originals are never changed)")
     args = parser.parse_args()
-    if args.all == bool(args.photos):
-        parser.error("Supply image paths or --all")
+    if args.all and args.photos:
+        parser.error("Supply image paths or --all, not both")
+    if args.preview and (args.all or len(args.photos) != 1):
+        parser.error("--preview requires exactly one original image")
     categories = json.loads(CONFIG.read_text(encoding="utf-8"))
     paths = args.photos
-    if args.all:
+    if args.all or not paths:
         try:
             paths = originals(categories)
         except (OSError, ValueError) as error:
@@ -228,19 +259,12 @@ def main():
     failed = False
     for path in paths:
         try:
-            generate(original_path(path, categories), overwrite_curated=args.overwrite_curated)
+            generate(original_path(path, categories), overwrite_curated=args.overwrite_curated,
+                     preview_path=args.preview, create_previews=args.previews)
         except (OSError, ValueError) as error:
             failed = True
             print(f"Could not generate {path.name}: {error}", file=sys.stderr)
     print(f"Processed {len(paths)} photography original(s).")
-    if not args.no_compile:
-        # Publishing a fresh manifest also handles edits, removals and preview changes.
-        try:
-            result = subprocess.run(["php", str(PROJECT / "tools/photography/compile.php")], check=False)
-            failed = failed or result.returncode != 0
-        except OSError:
-            print("PHP is required to compile the gallery. Run npm run photography:compile when available.", file=sys.stderr)
-            failed = True
     return 1 if failed else 0
 
 

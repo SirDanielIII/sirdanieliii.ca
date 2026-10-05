@@ -131,6 +131,43 @@ class GeneratorTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             generate.originals({'../outside': {}})
 
+    def test_preview_generation_preserves_original_and_is_idempotent(self):
+        original = self.photo.read_bytes()
+        generate.generate(self.photo, create_previews=True)
+        preview = self.category / 'previews/sample.webp'
+        with Image.open(preview) as image:
+            self.assertEqual(image.size, (640, 480))
+        self.assertEqual(self.sidecar()['preview_filename'], 'previews/sample.webp')
+        timestamp = preview.stat().st_mtime_ns
+        generate.generate(self.photo, create_previews=True)
+        self.assertEqual(preview.stat().st_mtime_ns, timestamp)
+        self.assertEqual(self.photo.read_bytes(), original)
+
+    def test_preview_respects_orientation_and_maximum_size(self):
+        exif = Image.Exif()
+        exif[274] = 6
+        Image.new('RGB', (2400, 1200)).save(self.photo, exif=exif)
+        generate.generate(self.photo, create_previews=True)
+        with Image.open(self.category / 'previews/sample.webp') as image:
+            self.assertEqual(image.size, (960, 1920))
+            self.assertNotIn(274, image.getexif())
+
+    def test_standalone_public_photo_and_existing_preview(self):
+        photo = self.root / 'SD_NAS.JPG'
+        preview = self.root / 'preview-SD_NAS.webp'
+        Image.new('RGB', (64, 48)).save(photo)
+        Image.new('RGB', (64, 48)).save(preview)
+        with patch.object(generate, 'PUBLIC', self.root):
+            self.assertEqual(generate.original_path(photo, {}), photo.resolve())
+            generate.generate(photo, preview_path=preview)
+        data = json.loads(photo.with_suffix('.json').read_text())
+        self.assertEqual(data['preview_filename'], 'preview-SD_NAS.webp')
+
+    def test_preview_path_cannot_escape_original_directory(self):
+        with self.assertRaises(ValueError):
+            generate.generate(self.photo, preview_path=self.root / 'outside.webp', create_previews=True)
+        self.assertFalse((self.root / 'outside.webp').exists())
+
 
 if __name__ == "__main__":
     unittest.main()

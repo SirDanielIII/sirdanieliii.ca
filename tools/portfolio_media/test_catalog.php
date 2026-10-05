@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-require_once __DIR__ . '/catalog.php';
+require_once __DIR__ . '/../../public/scripts/portfolio_media/catalog.php';
 
 $root = dirname(__DIR__, 2);
 $temporary = sys_get_temp_dir() . '/portfolio-media-tests-' . bin2hex(random_bytes(8));
@@ -56,7 +56,7 @@ function expectFailure(string $name, callable $mutation, string $expected): void
     $mutation($videos, $films);
     writeSource($videos, $films);
     try {
-        PortfolioMedia\compile("$temporary/public");
+        PortfolioMedia\loadCatalog("$temporary/public");
     } catch (RuntimeException $exception) {
         check(str_contains($exception->getMessage(), $expected), "$name produced the wrong error: {$exception->getMessage()}");
         return;
@@ -68,7 +68,7 @@ try {
     assetFixtures($videoSource, "$temporary/public/portfolio/video");
     assetFixtures($filmSource, "$temporary/public/portfolio/short_film");
     writeSource($videoSource, $filmSource);
-    $data = PortfolioMedia\compile("$temporary/public");
+    $data = PortfolioMedia\loadCatalog("$temporary/public");
     $sections = $data['videography']['sections'];
     $collections = $data['short-films']['collections'];
     check(array_column($sections, 'slug') === ['youtube-channel', 'springfest', 'commissions', 'studio-q'], 'section order changed');
@@ -101,13 +101,13 @@ try {
     $reordered['collections'][1]['films'] = array_reverse($reordered['collections'][1]['films']);
     $reordered['collections'][1]['films'][0]['posters'] = array_reverse($reordered['collections'][1]['films'][0]['posters']);
     writeSource($videoSource, $reordered);
-    $changed = PortfolioMedia\compile("$temporary/public");
+    $changed = PortfolioMedia\loadCatalog("$temporary/public");
     check(array_column($changed['short-films']['collections'][1]['films'], 'slug') === ['the_bachelorette_party', 'shelter', 'k_town_noir'], 'source edits did not change film order');
     check(str_contains($changed['short-films']['collections'][1]['films'][0]['posters'][0]['src'], '%28BTS%29'), 'poster array order changed');
     $optional = $filmSource;
     foreach (['video', 'thumbnail', 'posters', 'synopsis', 'funFact'] as $field) unset($optional['collections'][1]['films'][1][$field]);
     writeSource($videoSource, $optional);
-    $without = PortfolioMedia\compile("$temporary/public");
+    $without = PortfolioMedia\loadCatalog("$temporary/public");
     check($without['short-films']['collections'][1]['films'][1]['video'] === null, 'optional media must normalize to null');
     check($without['short-films']['collections'][1]['films'][1]['posters'] === [], 'optional galleries must normalize to arrays');
 
@@ -134,7 +134,7 @@ try {
     writeSource($videoSource, $filmSource);
     file_put_contents("$temporary/public/portfolio/short_film/short-films.json", '{bad json');
     try {
-        PortfolioMedia\compile("$temporary/public");
+        PortfolioMedia\loadCatalog("$temporary/public");
         throw new RuntimeException('malformed JSON unexpectedly passed');
     } catch (RuntimeException $exception) {
         check(str_contains($exception->getMessage(), 'Syntax error'), 'malformed JSON must fail with its source name');

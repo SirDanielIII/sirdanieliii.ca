@@ -1,8 +1,8 @@
 import React from 'react';
+import {preload} from 'react-dom';
 import SectionCard from './SectionCard';
 import {homeSections} from './homeSections';
 import AboutServerSection from './AboutServerSection';
-import ServerPhoto from '../../assets/images/homepage/SD_NAS_1.webp';
 import youtubeIcon from '../../assets/icons/youtube.svg';
 import githubIcon from '../../assets/icons/github.svg';
 import instagramIcon from '../../assets/icons/instagram.svg';
@@ -21,6 +21,9 @@ import {
 } from '../../css/home/HomePage.styles';
 
 const HomePage: React.FC = () => {
+    for (const section of homeSections.slice(0, 2)) {
+        preload(section.image, {as: 'image', fetchPriority: 'high'});
+    }
     return (
         <MainContent>
             <AboutMeSection>
@@ -58,7 +61,7 @@ const HomePage: React.FC = () => {
                 </SectionsGrid>
             </Sections>
 
-            <AboutServerSection align="left" src={ServerPhoto}/>
+            <AboutServerSection align="left"/>
 
         </MainContent>
     );

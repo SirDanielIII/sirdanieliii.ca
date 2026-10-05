@@ -71,9 +71,6 @@ export const Page = styled.main<{$medium?: PortfolioMedium}>`
         white-space: nowrap;
         border: 0;
     }
-    .channel-link {
-        margin-top: 2rem;
-    }
     #collections {
         scroll-margin-top: 100px;
     }
@@ -487,16 +484,30 @@ export const PhotoCard = styled.figure`
 `;
 
 export const Lightbox = styled.dialog`
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip-path: inset(50%);
+        white-space: nowrap;
+    }
+    h2 { font-family: Georgia, 'Times New Roman', serif; font-weight: 400; }
+    p { line-height: 1.75; }
+    button:focus-visible {
+        outline: 2px solid var(--portfolio-focus, ${({theme}) => theme.portfolio.photography.focus});
+        outline-offset: 3px;
+    }
     position: fixed;
     margin: auto;
     width: 98vw;
     max-width: 98vw;
     height: 98dvh;
     max-height: 98dvh;
-    border: 1px solid var(--portfolio-line);
+    border: 1px solid var(--portfolio-line, ${({theme}) => theme.portfolio.photography.border});
     border-radius: 0.5rem;
-    background: var(--portfolio-viewer-surface);
-    color: var(--portfolio-viewer-text);
+    background: var(--portfolio-viewer-surface, ${({theme}) => theme.portfolioViewer.surface});
+    color: var(--portfolio-viewer-text, ${({theme}) => theme.colors.text});
     box-shadow: ${({theme}) => theme.portfolioViewer.shadow};
     padding: 0.5rem;
     overflow: hidden;
@@ -528,19 +539,19 @@ export const Lightbox = styled.dialog`
     .viewer-placeholder {
         position: absolute;
         inset: 0;
-        background: var(--portfolio-panel);
-        border: 1px solid var(--portfolio-line);
+        background: var(--portfolio-panel, ${({theme}) => theme.portfolio.photography.surface});
+        border: 1px solid var(--portfolio-line, ${({theme}) => theme.portfolio.photography.border});
     }
     .viewer-loading {
         position: relative;
         padding: 1rem;
         text-align: center;
-        color: var(--portfolio-muted);
+        color: var(--portfolio-muted, ${({theme}) => theme.portfolio.photography.muted});
     }
     .viewer-error {
         text-align: center;
         padding: 1rem;
-        background: var(--portfolio-viewer-surface);
+        background: var(--portfolio-viewer-surface, ${({theme}) => theme.portfolioViewer.surface});
         z-index: 1;
     }
     .viewer-error button {
@@ -553,17 +564,17 @@ export const Lightbox = styled.dialog`
         overscroll-behavior: contain;
         scrollbar-gutter: stable;
         padding: 0 1rem 1rem;
-        background: var(--portfolio-viewer-sidebar-surface);
-        border-left: 1px solid var(--portfolio-line);
+        background: var(--portfolio-viewer-sidebar-surface, ${({theme}) => theme.portfolioViewer.sidebarSurface});
+        border-left: 1px solid var(--portfolio-line, ${({theme}) => theme.portfolio.photography.border});
         overflow-wrap: anywhere;
     }
     .viewer-sidebar:focus-visible {
-        outline: 2px solid var(--portfolio-focus);
+        outline: 2px solid var(--portfolio-focus, ${({theme}) => theme.portfolio.photography.focus});
         outline-offset: -2px;
     }
     .viewer-metadata > p {
         margin-bottom: 1rem;
-        color: var(--portfolio-muted);
+        color: var(--portfolio-muted, ${({theme}) => theme.portfolio.photography.muted});
         font-size: 0.9rem;
     }
     dl {
@@ -574,23 +585,23 @@ export const Lightbox = styled.dialog`
     }
     dt, dd {
         padding: 0.55rem 0;
-        border-bottom: 1px solid var(--portfolio-line);
+        border-bottom: 1px solid var(--portfolio-line, ${({theme}) => theme.portfolio.photography.border});
         overflow-wrap: anywhere;
     }
     dt {
-        color: var(--portfolio-muted);
+        color: var(--portfolio-muted, ${({theme}) => theme.portfolio.photography.muted});
         padding-right: 0.8rem;
     }
     button {
         color: inherit;
         min-width: 44px;
         min-height: 44px;
-        border: 1px solid var(--portfolio-control-border);
+        border: 1px solid var(--portfolio-control-border, ${({theme}) => theme.portfolio.photography.controlBorder});
         padding: 0.4rem 0.8rem;
     }
     button:not(:disabled):hover {
-        background: var(--portfolio-accent-subtle);
-        border-color: var(--portfolio-accent-hover);
+        background: var(--portfolio-accent-subtle, ${({theme}) => theme.portfolio.photography.accentSubtle});
+        border-color: var(--portfolio-accent-hover, ${({theme}) => theme.portfolio.photography.accentHover});
     }
     button:disabled {
         opacity: 0.5;
@@ -607,7 +618,7 @@ export const Lightbox = styled.dialog`
         flex-wrap: wrap;
         gap: 0.5rem;
         padding: 0.75rem 0;
-        background: var(--portfolio-viewer-control-surface);
+        background: var(--portfolio-viewer-control-surface, ${({theme}) => theme.colors.background2});
         font-size: 0.8rem;
     }
     .viewer-navigation {
@@ -625,11 +636,11 @@ export const Lightbox = styled.dialog`
         padding: 0;
         border: 0;
         background: transparent;
-        color: var(--portfolio-accent);
+        color: var(--portfolio-accent, ${({theme}) => theme.portfolio.photography.accent});
     }
     .viewer-navigation button:not(:disabled):hover {
         background: transparent;
-        color: var(--portfolio-accent-hover);
+        color: var(--portfolio-accent-hover, ${({theme}) => theme.portfolio.photography.accentHover});
     }
     .viewer-arrow {
         display: block;
@@ -651,7 +662,7 @@ export const Lightbox = styled.dialog`
         text-align: center;
         white-space: nowrap;
         font-variant-numeric: tabular-nums;
-        color: var(--portfolio-muted);
+        color: var(--portfolio-muted, ${({theme}) => theme.portfolio.photography.muted});
     }
     .viewer-close {
         display: grid;
@@ -661,16 +672,16 @@ export const Lightbox = styled.dialog`
         min-width: 5.5rem;
         min-height: 44px;
         padding: 0.4rem 1.25rem;
-        border: 1px solid var(--portfolio-control-border);
+        border: 1px solid var(--portfolio-control-border, ${({theme}) => theme.portfolio.photography.controlBorder});
         border-radius: 0.5rem;
         background: transparent;
-        color: var(--portfolio-accent);
+        color: var(--portfolio-accent, ${({theme}) => theme.portfolio.photography.accent});
     }
     .viewer-close:not(:disabled):is(:hover, :focus-visible) {
         /* Match the category filters' subtle fill, retaining a red cue for Close. */
         background: ${({theme}) => theme.portfolioViewer.closeHoverSurface};
         border-color: ${({theme}) => theme.colors.highlight1};
-        color: var(--portfolio-viewer-text);
+        color: var(--portfolio-viewer-text, ${({theme}) => theme.colors.text});
     }
     .viewer-heading {
         padding: 0.75rem 0 1.25rem;
@@ -682,7 +693,7 @@ export const Lightbox = styled.dialog`
     }
     .viewer-heading p {
         font-size: 0.85rem;
-        color: var(--portfolio-accent);
+        color: var(--portfolio-accent, ${({theme}) => theme.portfolio.photography.accent});
         margin-top: 0.5rem;
     }
     @media (max-width: 48rem) {
@@ -695,7 +706,7 @@ export const Lightbox = styled.dialog`
         }
         .viewer-sidebar {
             border-left: 0;
-            border-top: 1px solid var(--portfolio-line);
+            border-top: 1px solid var(--portfolio-line, ${({theme}) => theme.portfolio.photography.border});
             padding: 0 0.5rem 1rem;
         }
         .viewer-heading h2 {
@@ -713,16 +724,16 @@ export const Lightbox = styled.dialog`
 // Static skeletons avoid animation overhead and respect reduced motion by default.
 export const GalleryMessage = styled.div`
     padding: 2.5rem 1.5rem;
-    background: var(--portfolio-panel);
-    border: 1px solid var(--portfolio-line);
+    background: var(--portfolio-panel, ${({theme}) => theme.portfolio.photography.surface});
+    border: 1px solid var(--portfolio-line, ${({theme}) => theme.portfolio.photography.border});
     margin-bottom: 2rem;
     h2 { font-size: 1.75rem; margin-bottom: 0.5rem; }
-    p { color: var(--portfolio-muted); }
+    p { color: var(--portfolio-muted, ${({theme}) => theme.portfolio.photography.muted}); }
     button {
         min-height: 44px;
         padding: 0.6rem 1rem;
         margin-top: 1rem;
         color: inherit;
-        border: 1px solid var(--portfolio-control-border);
+        border: 1px solid var(--portfolio-control-border, ${({theme}) => theme.portfolio.photography.controlBorder});
     }
 `;

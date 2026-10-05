@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useJson} from '../../shared/media/useJson';
 
 export interface PhotoMetadata {
     file: {type: string | null; size_bytes: number | null};
@@ -48,46 +48,14 @@ export interface PhotographyGallery {
     photos: Photo[];
 }
 
-interface GalleryState {
-    data: PhotographyGallery | null;
-    status: 'loading' | 'ready' | 'error';
-}
-
-let pending: Promise<PhotographyGallery> | null = null;
-
-function loadGallery(): Promise<PhotographyGallery> {
-    // Share only in-flight requests (including Strict Mode); subsequent visits can revalidate via ETag.
-    pending ??= fetch('/scripts/list_photography.php', {cache: 'no-cache'})
-        .then(async response => {
-            if (!response.ok) throw new Error('Photography could not be loaded.');
-            const data = await response.json() as PhotographyGallery;
-            if (data.schema_version !== 1 || !Array.isArray(data.photos) || !Array.isArray(data.categories)) {
-                throw new Error('Photography data is unavailable.');
-            }
-            return data;
-        })
-        .finally(() => { pending = null; });
-    return pending;
+function isGallery(value: unknown): value is PhotographyGallery {
+    if (!value || typeof value !== 'object') return false;
+    const gallery = value as Partial<PhotographyGallery>;
+    return gallery.schema_version === 1 && Array.isArray(gallery.photos) && Array.isArray(gallery.categories);
 }
 
 export function usePhotography() {
-    const [state, setState] = useState<GalleryState>({data: null, status: 'loading'});
-    const [attempt, setAttempt] = useState(0);
-    useEffect(() => {
-        let current = true;
-        void loadGallery().then(
-            data => { if (current) setState({data, status: 'ready'}); },
-            () => { if (current) setState({data: null, status: 'error'}); },
-        );
-        return () => { current = false; };
-    }, [attempt]);
-    return {
-        ...state,
-        retry: () => {
-            setState({data: null, status: 'loading'});
-            setAttempt(value => value + 1);
-        },
-    };
+    return useJson('/scripts/list_photography.php', isGallery);
 }
 
 export const gallerySource = (photo: Photo) => photo.preview_src ?? photo.src;

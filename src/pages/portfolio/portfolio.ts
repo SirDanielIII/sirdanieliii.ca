@@ -1,60 +1,52 @@
-// Overview copy and artwork. Video/film JSON lives beside its assets in public/portfolio/.
-export const portfolio = {
-    name: 'Daniel Zhuo',
-    about: "I'm Daniel, and this is my world through a lens. From portraits and quiet landscapes to client projects and questionable short films, I like finding stories worth keeping — and having some fun along the way.",
-    email: 'sirdanieldathird@gmail.com',
-    youtube: 'https://www.youtube.com/@SirDanielIII',
-};
+import {createContext, useContext} from 'react';
 
-// Choose the overview's two spotlight pictures independently of gallery contents.
-// These are temporary AI images. When replacing them, also update alt, dimensions and crop position.
-export const portfolioSpotlight = {
-    primary: {
-        image: '/portfolio/spotlight-street.webp',
-        alt: 'Brick buildings and rain-soaked paving along a quiet city street.',
-        width: 1024,
-        height: 1536,
-        position: '50% 50%',
-    },
-    secondary: {
-        image: '/portfolio/spotlight-portrait.webp',
-        alt: 'A person with short dark hair in soft outdoor light.',
-        width: 1024,
-        height: 1536,
-        position: '50% 32%',
-    },
-};
+interface OverviewImage {
+    image: string;
+    alt?: string;
+    width: number;
+    height: number;
+    position: string;
+}
 
-// Each collection has its own chosen cover; it is not borrowed from a gallery or video project.
-export const collections = [
-    {
-        id: 'photography',
-        title: 'Photography',
-        label: 'Still moments',
-        description: 'People, places, and the details in between.',
-        image: '/portfolio/collection-photography.webp',
-        width: 1448,
-        height: 1086,
-        position: '50% 50%',
-    },
-    {
-        id: 'videography',
-        title: 'Videography',
-        label: 'Life in motion',
-        description: 'Vlogs, reviews, trailers, and creative edits.',
-        image: '/portfolio/collection-videography.webp',
-        width: 1448,
-        height: 1086,
-        position: '50% 50%',
-    },
-    {
-        id: 'short-films',
-        title: 'Short films',
-        label: 'A little cinema',
-        description: 'Small stories. A different world in every frame.',
-        image: '/portfolio/collection-short-films.webp',
-        width: 1448,
-        height: 1086,
-        position: '50% 50%',
-    },
-] as const;
+export interface PortfolioContent {
+    portfolio: {name: string; about: string; email: string};
+    portfolioSpotlight: {primary: OverviewImage & {alt: string}; secondary: OverviewImage & {alt: string}};
+    collections: (OverviewImage & {id: 'photography' | 'videography' | 'short-films'; title: string; label: string; description: string})[];
+}
+
+function isObject(value: unknown): value is Record<string, unknown> {
+    return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+function isOverviewImage(value: unknown): value is OverviewImage {
+    return isObject(value)
+        && typeof value.image === 'string' && value.image.trim() !== ''
+        && typeof value.width === 'number' && Number.isInteger(value.width) && value.width > 0
+        && typeof value.height === 'number' && Number.isInteger(value.height) && value.height > 0
+        && typeof value.position === 'string' && value.position.trim() !== ''
+        && (value.alt === undefined || typeof value.alt === 'string');
+}
+
+function isCollection(value: unknown): value is PortfolioContent['collections'][number] {
+    return isObject(value) && isOverviewImage(value)
+        && (value.id === 'photography' || value.id === 'videography' || value.id === 'short-films')
+        && typeof value.title === 'string' && typeof value.label === 'string' && typeof value.description === 'string';
+}
+
+/** Reject malformed editable JSON before it reaches the overview and collection navigation. */
+export function isPortfolioContent(value: unknown): value is PortfolioContent {
+    if (!isObject(value) || !isObject(value.portfolio) || !isObject(value.portfolioSpotlight)) return false;
+    const {portfolio, portfolioSpotlight, collections} = value;
+    return typeof portfolio.name === 'string' && typeof portfolio.about === 'string' && typeof portfolio.email === 'string'
+        && isOverviewImage(portfolioSpotlight.primary) && typeof portfolioSpotlight.primary.alt === 'string'
+        && isOverviewImage(portfolioSpotlight.secondary) && typeof portfolioSpotlight.secondary.alt === 'string'
+        && Array.isArray(collections) && collections.every(isCollection)
+        && new Set(collections.map(collection => collection.id)).size === collections.length;
+}
+
+export const PortfolioContext = createContext<PortfolioContent | null>(null);
+export function usePortfolio() {
+    const data = useContext(PortfolioContext);
+    if (!data) throw new Error('Portfolio content has not loaded.');
+    return data;
+}

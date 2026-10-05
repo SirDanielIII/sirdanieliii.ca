@@ -8,12 +8,14 @@ export default function PhotoViewer({items, index, opener, onNavigate, onClose}:
     items: Photo[];
     index: number;
     opener: HTMLButtonElement | null;
-    onNavigate: (id: string) => void;
+    onNavigate?: (id: string) => void;
     onClose: () => void;
 }) {
     const selected = items[index];
     const modal = useModalDialog(opener, onClose, [`#photo-${selected.id}`, '[aria-label="Photography categories"] a[aria-current]']);
-    const changePhoto = (offset: number) => { onNavigate(items[(index + offset + items.length) % items.length].id); };
+    const changePhoto = (offset: number) => {
+        if (items.length > 1) onNavigate?.(items[(index + offset + items.length) % items.length].id);
+    };
 
     return (
         <Lightbox

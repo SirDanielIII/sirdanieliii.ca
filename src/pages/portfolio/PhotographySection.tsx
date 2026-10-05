@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import {useMemo, useState} from 'react';
 import {Link, useLocation, useNavigate, useSearchParams} from 'react-router';
 import {CollectionIntro, Eyebrow, Filters, GalleryMessage} from '../../css/portfolio/PortfolioPage.styles';
 import {usePhotography} from './photography';
@@ -15,9 +15,11 @@ export default function PhotographySection() {
     const requestedCategory = searchParams.get('category') ?? '';
     const category = data?.categories.find(item => item.id === requestedCategory);
     const activeCategory = category?.id ?? '';
-    const filtered = data?.photos.filter(photo => !activeCategory || photo.category === activeCategory) ?? [];
+    const filtered = useMemo(() => activeCategory
+        ? data?.photos.filter(photo => photo.category === activeCategory) ?? []
+        : data?.photos ?? [], [data, activeCategory]);
     const requestedPhoto = searchParams.get('photo');
-    // IDs are resolved against the manifest, never used as client-supplied filesystem paths.
+    // IDs are resolved against the loaded gallery, never used as client-supplied filesystem paths.
     // A shared photo link still works if its category filter is missing or no longer matches.
     const viewerItems = filtered.some(photo => photo.id === requestedPhoto) ? filtered : data?.photos ?? [];
     const selectedIndex = viewerItems.findIndex(photo => photo.id === requestedPhoto);

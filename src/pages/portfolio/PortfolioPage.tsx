@@ -3,7 +3,9 @@ import NotFoundPage from '../not-found/NotFoundPage';
 import PhotographySection from './PhotographySection';
 import VideographySection from './VideographySection';
 import ShortFilmsSection from './ShortFilmsSection';
-import {collections, portfolio, portfolioSpotlight} from './portfolio';
+import {PortfolioContext, usePortfolio, isPortfolioContent} from './portfolio';
+import {useJson} from '../../shared/media/useJson';
+import ContentStatus from './ContentStatus';
 import {
     Page, Eyebrow, About, AboutImages, SectionHeading, CollectionGrid,
     CollectionCard, Contact, CollectionNav,
@@ -11,7 +13,9 @@ import {
 
 const Arrow = () => <span aria-hidden="true">?</span>;
 
-const ContactSection = () => (
+const ContactSection = () => {
+    const {portfolio} = usePortfolio();
+    return (
     <Contact>
         <div>
             <Eyebrow>Have something in mind?</Eyebrow>
@@ -23,13 +27,16 @@ const ContactSection = () => (
             Get in touch <Arrow />
         </a>
     </Contact>
-);
+    );
+};
 
-const Landing = () => (
+const Landing = () => {
+    const {collections, portfolio, portfolioSpotlight} = usePortfolio();
+    return (
     <Page>
         <About aria-labelledby="about-title">
             <div>
-                <Eyebrow>Daniel Zhuo / Visual portfolio</Eyebrow>
+                <Eyebrow>{portfolio.name} / Visual portfolio</Eyebrow>
                 <h1 id="about-title">
                     A little life.
                     <br />A different <em>lens.</em>
@@ -100,9 +107,12 @@ const Landing = () => (
         </section>
         <ContactSection />
     </Page>
-);
+    );
+};
 
-const Navigation = () => (
+const Navigation = () => {
+    const {collections} = usePortfolio();
+    return (
     <CollectionNav aria-label="Portfolio collections">
         <Link to="/portfolio/">← Overview</Link>
         <div>
@@ -113,7 +123,8 @@ const Navigation = () => (
             ))}
         </div>
     </CollectionNav>
-);
+    );
+};
 
 const Photography = () => (
     <Page $medium="photography">
@@ -139,13 +150,15 @@ const ShortFilms = () => (
     </Page>
 );
 
-const PortfolioPage = () => (
-    <Routes>
+const PortfolioPage = () => {
+    const {data, status, retry} = useJson('/portfolio/portfolio.json', isPortfolioContent);
+    if (!data) return <Page><ContentStatus status={status} retry={retry} /></Page>;
+    return <PortfolioContext value={data}><Routes>
         <Route index element={<Landing />} />
         <Route path="photography" element={<Photography />} />
         <Route path="videography" element={<Videography />} />
         <Route path="short-films" element={<ShortFilms />} />
         <Route path="*" element={<NotFoundPage />} />
-    </Routes>
-);
+    </Routes></PortfolioContext>;
+};
 export default PortfolioPage;

@@ -35,9 +35,11 @@ npm install
 ### 3. How to Deploy (Apache2)
 
 1. Run `npm run build`.
-2. Copy everything in `dist/` into DocumentRoot, including the photography assets and compiled gallery manifest.
+2. Copy everything in `dist/` into DocumentRoot, including the portfolio JSON, assets and PHP endpoints.
 
-The public portfolio has an about page and dedicated photography, videography, and short film collections. Photography originals and generated JSON live in `public/portfolio/photography/`, with optional WebP previews in each category's `previews/` folder. Run `npm run photography:generate -- --all` when adding photos, and `npm run photography:compile` after editing their JSON. Production serves the compiled gallery through PHP. Editable video and film JSON lives in `public/portfolio/video/videography.json` and `public/portfolio/short_film/short-films.json`; `npm run portfolio:compile` validates assets, generates WebP display previews, and compiles ordered React data. Development and production builds run media compilation automatically. Preview generation uses the existing Python/Pillow authoring dependency. Public source JSON is tracked; portfolio assets/previews are excluded from Git and must be backed up/deployed separately. Site-wide scroll restoration retains positions on refresh and return visits within a browser tab. See [Editing the portfolio](docs/portfolio.md) and [Editing Videography and Short Films](docs/portfolio-media.md).
+Portfolio content is editable public JSON loaded at runtime. Update the JSON/assets on the server and refresh; no website rebuild or content cache generation is needed. Overview copy/artwork lives in `public/portfolio/portfolio.json`; video and film entries live beside their assets in `public/portfolio/video/videography.json` and `public/portfolio/short_film/short-films.json`. Photography uses one JSON sidecar per original; deleting that JSON unpublishes the photo.
+
+Generate photo metadata directly with `python tools/photography/generate.py PATH_TO_PHOTO`; add `--previews` to create WebP previews, or use `--all` for every configured original. Optional video/film artwork previews use `python tools/portfolio_media/previews.py`. Install Pillow once with `python -m pip install -r tools/photography/requirements.txt`. Builds do not run these tools. The home page uses `public/SD_NAS.JPG`, its preview and generated `SD_NAS.json` with the shared photography viewer. See [Editing the portfolio](docs/portfolio.md) and [Editing Videography and Short Films](docs/portfolio-media.md) for schemas and deployment details.
 
 ---
 
@@ -50,7 +52,7 @@ Guides are written as MDX files in `src/pages/guides/content/`. See [Writing gui
 - `src/shared/`: shared layout, feedback, and navigation components.
 - `src/utils/`: utilities used across categories.
 - `src/assets/`: bundled images and icons; `public/`: public files and PHP endpoints.
-- `public/portfolio/`: photography originals, previews, and generated metadata/manifest, included in the build.
-- `build/`: Vite build helpers. `tools/photography/`: authoring generator/compiler and regression checks. `docs/`: editing guides.
+- `public/portfolio/`: photography originals, previews, and editable photo metadata, included in the build.
+- `tools/portfolio/`: overview JSON validation checks. `tools/photography/`: Python authoring generator and regression checks. `tools/portfolio_media/`: video/film preview generation and regression checks. `docs/`: editing guides.
 
 Keep category-specific code with its page and styling in the matching CSS folder. Use lowercase folder names and direct imports. Larger category pages load on demand. No new styling library is required; configurable colours and image positions remain data-driven.

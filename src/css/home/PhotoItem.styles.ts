@@ -1,36 +1,29 @@
 import styled from 'styled-components';
 
-/* ---------- styled bits ---------- */
-export const Thumb = styled.img`
-    /* fill PhotoContainer’s full height while keeping aspect‑ratio */
+export const PhotoButton = styled.button`
+    display: grid;
+    place-items: center;
+    width: 100%;
     height: 100%;
-    width: auto;
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain; /* show entire image, no cropping */
-
+    padding: 0;
+    border: 0;
     border-radius: 8px;
+    background: transparent;
     cursor: pointer;
-    transition: transform 0.15s ease;
-
-    &:hover {
-        transform: scale(1.03);
+    &:focus-visible {
+        outline: 2px solid ${({theme}) => theme.portfolio.photography.focus};
+        outline-offset: 5px;
     }
+    &:disabled { cursor: wait; }
 `;
 
-export const Backdrop = styled.div`
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.75);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 1000;
-`;
-
-export const FullImage = styled.img`
-    max-width: 90vw;
-    max-height: 90vh;
-    border-radius: 12px;
-    box-shadow: 0 0 12px rgba(0, 0, 0, 0.4);
+export const Thumb = styled.img`
+    display: block;
+    height: 100%;
+    width: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    transition: transform 0.15s ease;
+    ${PhotoButton}:not(:disabled):hover & { transform: scale(1.03); }
+    @media (prefers-reduced-motion: reduce) { transition: none; }
 `;

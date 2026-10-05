@@ -1,14 +1,14 @@
+import {useMemo} from 'react';
 import {CollectionIntro, Eyebrow} from '../../css/portfolio/PortfolioPage.styles';
 import {ComingSoonFilm, FeaturedFilmFrame, FilmCollectionFrame, FilmEntryFrame, WatchButton} from '../../css/portfolio/PortfolioMedia.styles';
-import {shortFilms} from './generated/media';
-import {filmEntries, filmImages, type Film} from './media';
+import {useJson} from '../../shared/media/useJson';
+import ContentStatus from './ContentStatus';
+import {filmEntries, type Film, type ShortFilmsContent} from './media';
 import {useMediaViewer, type OpenGallery, type OpenVideo} from './useMediaViewer';
 import ExternalLink from './ExternalLink';
 import VideoThumbnail from './VideoThumbnail';
 import FilmGallery from './FilmGallery';
 import MediaViewer from './MediaViewer';
-
-const viewerEntries = filmEntries(shortFilms);
 
 function FeaturedFilm({film, onOpen}: {film: Film; onOpen: OpenVideo}) {
     return <FeaturedFilmFrame aria-labelledby="featured-film-title">
@@ -31,7 +31,7 @@ function FilmEntry({film, index, onVideo, onGallery}: {film: Film; index: number
         <div><h3 id={`${film.slug}-title`}>{film.title}</h3><Eyebrow>{film.year} · {film.type}</Eyebrow></div>
         <p className="coming-soon-status">COMING SOON</p>
     </ComingSoonFilm>;
-    const images = filmImages(film);
+    const imageCount = (film.thumbnail ? 1 : 0) + film.posters.length + film.screenshots.length;
     return <FilmEntryFrame id={`film-${film.slug}`} aria-labelledby={`${film.slug}-title`}>
         <VideoThumbnail work={film} onOpen={onVideo} />
         <div className="film-copy">
@@ -40,8 +40,8 @@ function FilmEntry({film, index, onVideo, onGallery}: {film: Film; index: number
             {film.synopsis && <p className="film-synopsis">{film.synopsis}</p>}
             <div className="film-actions">
                 {film.video && <WatchButton type="button" onClick={event => { onVideo(film, event.currentTarget); }} aria-label={`Watch ${film.title}`}><span aria-hidden="true">▶</span> Watch film</WatchButton>}
-                {images.length > 0 && <button className="gallery-button" type="button" onClick={event => { onGallery(film, 0, event.currentTarget); }} aria-label={`View ${film.title} image gallery`}>
-                    {images.length === 1 ? 'View film still' : `View gallery (${String(images.length)})`}
+                {imageCount > 0 && <button className="gallery-button" type="button" onClick={event => { onGallery(film, 0, event.currentTarget); }} aria-label={`View ${film.title} image gallery`}>
+                    {imageCount === 1 ? 'View film still' : `View gallery (${String(imageCount)})`}
                 </button>}
             </div>
             {film.funFact && <p className="production-note"><span>Production note</span>{film.funFact}</p>}
@@ -51,6 +51,12 @@ function FilmEntry({film, index, onVideo, onGallery}: {film: Film; index: number
 }
 
 export default function ShortFilmsSection() {
+    const {data, status, retry} = useJson<ShortFilmsContent>('/scripts/list_short_films.php');
+    return data ? <ShortFilmsContent shortFilms={data} /> : <ContentStatus status={status} retry={retry} />;
+}
+
+function ShortFilmsContent({shortFilms}: {shortFilms: ShortFilmsContent}) {
+    const viewerEntries = useMemo(() => filmEntries(shortFilms), [shortFilms]);
     const viewer = useMediaViewer(viewerEntries);
     // Lookup only. The featured film and its ordered listing share this exact object.
     const featured = shortFilms.collections.flatMap(collection => collection.films).find(film => film.slug === shortFilms.featuredFilm);

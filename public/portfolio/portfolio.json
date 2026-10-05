@@ -1,0 +1,55 @@
+{
+  "portfolio": {
+    "name": "Daniel Zhuo",
+    "about": "I'm Daniel, and this is my world through a lens. From portraits and quiet landscapes to client projects and questionable short films, I like finding stories worth keeping — and having some fun along the way.",
+    "email": "sirdanieldathird@gmail.com"
+  },
+  "portfolioSpotlight": {
+    "primary": {
+      "image": "/portfolio/spotlight-street.webp",
+      "alt": "Brick buildings and rain-soaked paving along a quiet city street.",
+      "width": 1024,
+      "height": 1536,
+      "position": "50% 50%"
+    },
+    "secondary": {
+      "image": "/portfolio/spotlight-portrait.webp",
+      "alt": "A person with short dark hair in soft outdoor light.",
+      "width": 1024,
+      "height": 1536,
+      "position": "50% 32%"
+    }
+  },
+  "collections": [
+    {
+      "id": "photography",
+      "title": "Photography",
+      "label": "Still moments",
+      "description": "People, places, and the details in between.",
+      "image": "/portfolio/collection-photography.webp",
+      "width": 1448,
+      "height": 1086,
+      "position": "50% 50%"
+    },
+    {
+      "id": "videography",
+      "title": "Videography",
+      "label": "Life in motion",
+      "description": "Vlogs, reviews, trailers, and creative edits.",
+      "image": "/portfolio/collection-videography.webp",
+      "width": 1448,
+      "height": 1086,
+      "position": "50% 50%"
+    },
+    {
+      "id": "short-films",
+      "title": "Short films",
+      "label": "A little cinema",
+      "description": "Small stories. A different world in every frame.",
+      "image": "/portfolio/collection-short-films.webp",
+      "width": 1448,
+      "height": 1086,
+      "position": "50% 50%"
+    }
+  ]
+}

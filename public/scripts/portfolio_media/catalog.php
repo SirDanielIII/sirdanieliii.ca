@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace PortfolioMedia;
 
 // Reuse Photography's safe file resolution and cache versions, never its sidecar reader.
-require_once __DIR__ . '/../../public/scripts/photography/catalog.php';
+require_once __DIR__ . '/../photography/catalog.php';
 
 const IMAGE_EXTENSIONS = ['jpg', 'jpeg', 'png', 'webp', 'avif', 'gif', 'bmp'];
 
-final class Compiler
+final class Catalog
 {
     public array $errors = [];
     private array $slugs = [];
@@ -353,25 +353,26 @@ final class Compiler
     }
 }
 
-/** All normalization is completed before a generated file can replace the last valid build. */
-function compile(string $publicDirectory): array
+/** Load editable public JSON at request time, preserving all authored array ordering. */
+function loadCatalog(string $publicDirectory, ?string $section = null): array
 {
     $result = [];
     $errors = [];
     foreach (['videography' => 'video', 'short-films' => 'short_film'] as $name => $assets) {
-        $compiler = new Compiler("$publicDirectory/portfolio/$assets", "/portfolio/$assets");
+        if ($section !== null && $section !== $name) continue;
+        $catalog = new Catalog("$publicDirectory/portfolio/$assets", "/portfolio/$assets");
         try {
             $sourcePath = "$publicDirectory/portfolio/$assets/$name.json";
             if (! is_file($sourcePath)) throw new \RuntimeException("source JSON not found: $sourcePath");
             $json = file_get_contents($sourcePath);
             if ($json === false) throw new \RuntimeException('source JSON could not be read');
-            $source = $compiler->object(json_decode($json, true, 64, JSON_THROW_ON_ERROR), $name);
-            $compiler->rejectLegacy($source, $name);
-            $result[$name] = $name === 'videography' ? $compiler->videography($source) : $compiler->shortFilms($source);
+            $source = $catalog->object(json_decode($json, true, 64, JSON_THROW_ON_ERROR), $name);
+            $catalog->rejectLegacy($source, $name);
+            $result[$name] = $name === 'videography' ? $catalog->videography($source) : $catalog->shortFilms($source);
         } catch (\Throwable $exception) {
             $errors[] = "$name: {$exception->getMessage()}";
         }
-        array_push($errors, ...$compiler->errors);
+        array_push($errors, ...$catalog->errors);
     }
     if ($errors !== []) throw new \RuntimeException(implode("\n", $errors));
     return $result;

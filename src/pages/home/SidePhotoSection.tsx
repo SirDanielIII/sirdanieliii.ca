@@ -5,6 +5,7 @@ import {Section, PhotoCol, TextCol} from '../../css/home/SidePhotoSection.styles
 /* ---------- props ---------- */
 export interface SidePhotoSectionProps {
     imgSrc: string;
+    photoUrl: string;
     imgAlt?: string;
     align?: 'left' | 'right';          // photo on which side (default: 'left')
     photoMaxWidth?: number | string;   // default: 400
@@ -17,6 +18,7 @@ export interface SidePhotoSectionProps {
 /* ---------- component ---------- */
 const SidePhotoSection: React.FC<SidePhotoSectionProps> = ({
     imgSrc,
+    photoUrl,
     imgAlt = '',
     align = 'left',
     photoMaxWidth = 400,
@@ -31,7 +33,7 @@ const SidePhotoSection: React.FC<SidePhotoSectionProps> = ({
 
     const Photo = (
         <PhotoCol $max={maxWidth} $aspectRatio={photoAspectRatio}>
-            <PhotoItem src={imgSrc} alt={imgAlt}/>
+            <PhotoItem src={imgSrc} alt={imgAlt} photoUrl={photoUrl}/>
         </PhotoCol>
     );
 

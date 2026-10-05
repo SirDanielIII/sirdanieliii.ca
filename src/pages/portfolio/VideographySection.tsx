@@ -1,13 +1,13 @@
+import {useMemo} from 'react';
 import {CollectionIntro, Eyebrow} from '../../css/portfolio/PortfolioPage.styles';
 import {CommissionGroup, ExperienceEntry, MediaSection, SectionIndex, VideoEntryFrame, WatchButton, WorkGrid} from '../../css/portfolio/PortfolioMedia.styles';
-import {videography} from './generated/media';
-import {videographyEntries, type ExternalProjectLink, type ProfessionalExperience, type VideoWork, type VideoWorkSection} from './media';
+import {useJson} from '../../shared/media/useJson';
+import ContentStatus from './ContentStatus';
+import {videographyEntries, type ExternalProjectLink, type ProfessionalExperience, type VideographyContent, type VideoWork, type VideoWorkSection} from './media';
 import ExternalLink from './ExternalLink';
 import VideoThumbnail from './VideoThumbnail';
 import MediaViewer from './MediaViewer';
 import {useMediaViewer, type OpenVideo} from './useMediaViewer';
-
-const viewerEntries = videographyEntries(videography);
 
 function VideoEntry({work, onOpen, layout, heading: Heading = 'h3', eager = false, description, link, label}: {
     work: VideoWork;
@@ -38,7 +38,7 @@ function VideoEntry({work, onOpen, layout, heading: Heading = 'h3', eager = fals
 function CreativeSection({section, onOpen, first}: {section: VideoWorkSection; onOpen: OpenVideo; first: boolean}) {
     return <MediaSection id={section.slug} aria-labelledby={`${section.slug}-title`}>
         <header>
-            {section.logo && <img src={section.logo.src} alt="" width={section.logo.width} height={section.logo.height} loading="lazy" />}
+            {section.logo && <img src={section.logo.previewSrc ?? section.logo.src} alt="" width={section.logo.width} height={section.logo.height} loading="lazy" decoding="async" />}
             <div><Eyebrow>{section.label}</Eyebrow><h2 id={`${section.slug}-title`}>{section.title}</h2></div>
         </header>
         {section.description && <p className="section-description">{section.description}</p>}
@@ -80,6 +80,12 @@ function Experience({entry}: {entry: ProfessionalExperience}) {
 }
 
 export default function VideographySection() {
+    const {data, status, retry} = useJson<VideographyContent>('/scripts/list_videography.php');
+    return data ? <VideographyContent videography={data} /> : <ContentStatus status={status} retry={retry} />;
+}
+
+function VideographyContent({videography}: {videography: VideographyContent}) {
+    const viewerEntries = useMemo(() => videographyEntries(videography), [videography]);
     const viewer = useMediaViewer(viewerEntries);
     return <>
         <CollectionIntro><Eyebrow>02 / Videography</Eyebrow><h1>Always <em>in motion.</em></h1>

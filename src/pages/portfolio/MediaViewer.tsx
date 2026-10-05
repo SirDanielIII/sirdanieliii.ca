@@ -31,6 +31,7 @@ function GalleryViewer({selection, onNavigate, onClose}: {
                 const touch = event.touches[0];
                 start.current = event.touches.length === 1 ? {x: touch.clientX, y: touch.clientY} : null;
             }}
+            onTouchCancel={() => { start.current = null; }}
             onTouchEnd={event => {
                 const touch = event.changedTouches[0];
                 if (start.current) {
