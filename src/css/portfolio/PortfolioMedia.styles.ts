@@ -46,7 +46,10 @@ export const VideoPoster = styled.button`
     background: #090909;
     img { width: 100%; height: 100%; object-fit: contain; display: block; transition: opacity 0.25s; }
     &:hover img { opacity: 0.85; }
+    /* VideoThumbnail renders both descendants. */
+    /*noinspection CssUnusedSymbol*/
     &:hover .play { background: #111d; }
+    /*noinspection CssUnusedSymbol*/
     .media-placeholder { display: grid; place-content: center; height: 100%; padding: 1rem; color: #ddd; font-size: 0.85rem; }
 `;
 
@@ -113,6 +116,8 @@ export const VideoEntryFrame = styled.article`
         border-bottom: 1px solid var(--portfolio-line);
         .video-copy { padding: 0; }
         h5 { font-size: 1.15rem; margin: 0; }
+        /* VideoThumbnail renders the play control. */
+        /*noinspection CssUnusedSymbol*/
         .play { width: 36px; height: 36px; font-size: 0.75rem; }
     }
     @media (max-width: 850px) {
@@ -282,6 +287,8 @@ export const ComingSoonFilm = styled.article`
 
 export const FilmCollectionFrame = styled(MediaSection)`
     > header { justify-content: space-between; flex-wrap: wrap; margin-bottom: 0; }
+    /* ExternalLink renders this class in the collection header. */
+    /*noinspection CssUnusedSymbol*/
     > header .text-link { font-size: 0.85rem; }
     /* A single divider between siblings; the next collection/contact owns its own top rule. */
     .film-entries > article + article { border-top: 1px solid var(--portfolio-line); }
@@ -290,6 +297,8 @@ export const FilmCollectionFrame = styled(MediaSection)`
         border-left: 2px solid var(--portfolio-accent);
         padding: 2rem clamp(1.25rem, 3vw, 2.5rem);
         > header { border-top: 0; padding-top: 0; }
+        /* FilmEntry in ShortFilmsSection renders the index. */
+        /*noinspection CssUnusedSymbol*/
         .film-index { display: none; }
         .film-entries > article:last-child { padding-bottom: 0; }
         ${ComingSoonFilm} h3 { font-size: clamp(1.5rem, 3vw, 2.1rem); }

@@ -60,6 +60,8 @@ export const Page = styled.main<{$medium?: PortfolioMedium}>`
         outline: 2px solid var(--portfolio-focus, var(--portfolio-accent));
         outline-offset: 5px;
     }
+    /* Shared viewer and ExternalLink descendants render this class. */
+    /*noinspection CssUnusedSymbol*/
     .sr-only {
         position: absolute;
         width: 1px;
@@ -74,6 +76,8 @@ export const Page = styled.main<{$medium?: PortfolioMedium}>`
     #collections {
         scroll-margin-top: 100px;
     }
+    /* VideoThumbnail renders the play control. */
+    /*noinspection CssUnusedSymbol*/
     .play {
         width: 64px;
         height: 64px;
@@ -239,6 +243,8 @@ export const CollectionGrid = styled.div`
 
 export const CollectionCard = styled(Link)`
     display: block;
+    /* Landing in PortfolioPage renders these collection-card descendants. */
+    /*noinspection CssUnusedSymbol*/
     .cover {
         position: relative;
         overflow: hidden;
@@ -252,12 +258,14 @@ export const CollectionCard = styled(Link)`
         object-fit: cover;
         transition: transform 0.4s;
     }
+    /*noinspection CssUnusedSymbol*/
     .cover::after {
         content: '';
         position: absolute;
         inset: 0;
         background: linear-gradient(transparent 55%, #0007);
     }
+    /*noinspection CssUnusedSymbol*/
     .number {
         position: absolute;
         z-index: 1;
@@ -536,18 +544,22 @@ export const Lightbox = styled.dialog`
     .viewer-image img[data-loading='true'] {
         visibility: hidden;
     }
+    /* ViewerImage renders the loading and error states. */
+    /*noinspection CssUnusedSymbol*/
     .viewer-placeholder {
         position: absolute;
         inset: 0;
         background: var(--portfolio-panel, ${({theme}) => theme.portfolio.photography.surface});
         border: 1px solid var(--portfolio-line, ${({theme}) => theme.portfolio.photography.border});
     }
+    /*noinspection CssUnusedSymbol*/
     .viewer-loading {
         position: relative;
         padding: 1rem;
         text-align: center;
         color: var(--portfolio-muted, ${({theme}) => theme.portfolio.photography.muted});
     }
+    /*noinspection CssUnusedSymbol*/
     .viewer-error {
         text-align: center;
         padding: 1rem;

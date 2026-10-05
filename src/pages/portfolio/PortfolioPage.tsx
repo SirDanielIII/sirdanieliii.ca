@@ -12,6 +12,7 @@ import {
 } from '../../css/portfolio/PortfolioPage.styles';
 
 const Arrow = () => <span aria-hidden="true">?</span>;
+const collectionsId = 'collections';
 
 const ContactSection = () => {
     const {portfolio} = usePortfolio();
@@ -45,7 +46,7 @@ const Landing = () => {
                     <h2>Hi, I’m Daniel.</h2>
                     <p>{portfolio.about}</p>
                 </div>
-                <a className="text-link" href="#collections">
+                <a className="text-link" href={`#${collectionsId}`}>
                     Explore my work <span aria-hidden="true">↓</span>
                 </a>
             </div>
@@ -75,7 +76,7 @@ const Landing = () => {
                 </span>
             </AboutImages>
         </About>
-        <section id="collections" aria-labelledby="collections-title">
+        <section id={collectionsId} aria-labelledby="collections-title">
             <SectionHeading>
                 <div>
                     <Eyebrow>The collections</Eyebrow>
