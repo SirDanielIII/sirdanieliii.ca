@@ -1,10 +1,10 @@
 {
   "filename": "niagara_falls-border_control.jpg",
   "preview_filename": "previews/preview-niagara_falls-border_control.webp",
-  "title": "Across Niagara Falls",
-  "description": "",
+  "title": "Niagara Falls (Border Control)",
+  "description": "My friend had to pee in a bottle while we were in line waiting at border control.",
   "alt": "Sightseeing boats cross blue water below Niagara Falls as mist rises from the waterfall.",
-  "weighting": 0,
+  "weighting": 20,
   "metadata": {
     "file": {
       "type": "JPEG",

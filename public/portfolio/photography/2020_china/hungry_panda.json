@@ -1,10 +1,10 @@
 {
   "filename": "hungry_panda.jpg",
   "preview_filename": "previews/preview-hungry_panda.webp",
-  "title": "Bamboo lunch",
-  "description": "",
+  "title": "Hungry Panda",
+  "description": "He's just enjoying life.",
   "alt": "A giant panda sits among bamboo stalks, holding leafy branches against its chest.",
-  "weighting": 0,
+  "weighting": 4,
   "metadata": {
     "file": {
       "type": "JPEG",

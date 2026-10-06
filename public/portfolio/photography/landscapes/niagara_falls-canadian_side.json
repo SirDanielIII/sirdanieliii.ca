@@ -1,10 +1,10 @@
 {
   "filename": "niagara_falls-canadian_side.jpg",
   "preview_filename": "previews/preview-niagara_falls-canadian_side.webp",
-  "title": "At the edge of the falls",
-  "description": "",
+  "title": "Niagara Falls (Canadian Side)",
+  "description": "The American side is not as pretty. 😜",
   "alt": "A red sightseeing boat approaches Niagara Falls below a wall of water and mist.",
-  "weighting": 0,
+  "weighting": 60,
   "metadata": {
     "file": {
       "type": "JPEG",

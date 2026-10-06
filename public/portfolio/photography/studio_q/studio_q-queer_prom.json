@@ -1,10 +1,10 @@
 {
   "filename": "studio_q-queer_prom.jpg",
   "preview_filename": "previews/preview-studio_q-queer_prom.webp",
-  "title": "A shared celebration",
-  "description": "",
+  "title": "A Shared Celebration",
+  "description": "Photo from the Queen's University Queer Prom.",
   "alt": "Two people pose with joined hands in front of a backdrop decorated with green leaves.",
-  "weighting": 0,
+  "weighting": 5,
   "metadata": {
     "file": {
       "type": "JPEG",

@@ -133,7 +133,7 @@ def original_path(path, categories):
     if (path.is_symlink() or path.parent.is_symlink() or (resolved.parent != PUBLIC.resolve() and (resolved.parent.parent != ROOT.resolve()
             or resolved.parent.name not in categories)) or resolved.parent.is_symlink()
             or not resolved.is_file() or resolved.suffix.lower() not in EXTENSIONS
-            or not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_. -]*", resolved.name)
+            or not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_. ()-]*", resolved.name)
             or ".." in resolved.name):
         raise ValueError("Use an original in public/ or directly inside a configured photography category.")
     if any(other != resolved and other.suffix.lower() in EXTENSIONS and other.stem.lower() == resolved.stem.lower()

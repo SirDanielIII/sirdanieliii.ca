@@ -1,10 +1,10 @@
 {
   "filename": "early_morning_kingston.jpg",
   "preview_filename": "previews/preview-early_morning_kingston.webp",
-  "title": "Early morning in Kingston",
-  "description": "",
+  "title": "Early Morning Walk In Kingston",
+  "description": "I think I took this picture while on an all-nighter.",
   "alt": "A tall waterfront tower is silhouetted above the water beneath a pink and orange dawn sky.",
-  "weighting": 0,
+  "weighting": 10,
   "metadata": {
     "file": {
       "type": "JPEG",

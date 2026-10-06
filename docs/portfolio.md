@@ -89,7 +89,7 @@ The preview loads on the page; the original loads only when opening the dialog. 
 }
 ```
 
-Unavailable metadata is `null`; the viewer consistently displays `—`. File size is shown in decimal MB (1 MB = 1,000,000 bytes), alongside the precise stored byte count. Missing previews use **`"preview_filename": null`**. That explicitly selects the original for the grid; the runtime loader never guesses a preview. Capture date comes from EXIF DateTimeOriginal, never filesystem modification time. Camera timezone offsets are retained when present; otherwise the local capture time remains unconverted. Dimensions account for EXIF orientation.
+Unavailable metadata is `null`; the viewer consistently displays `—`. File size is shown in MiB (1 MiB = 1,048,576 bytes), alongside the precise stored byte count. Missing previews use **`"preview_filename": null`**. That explicitly selects the original for the grid; the runtime loader never guesses a preview. Capture date comes from EXIF DateTimeOriginal, never filesystem modification time. Camera timezone offsets are retained when present; otherwise the local capture time remains unconverted. Dimensions account for EXIF orientation.
 
 `max_aperture_apex` stores the camera's EXIF MaxApertureValue. PHP converts it with `2 ** (value / 2)` in `public/scripts/photography/catalog.php` when loading the gallery; the viewer formats the resulting `max_aperture_f_stop` as, for example, `f/2.8`. Zero means `f/1`; missing or invalid input remains null. Neither the generator nor hand-edited photo JSON needs to calculate an f-number. The response includes only the converted value. This is separate from `f_stop`, which is the aperture actually used for the photograph.
 

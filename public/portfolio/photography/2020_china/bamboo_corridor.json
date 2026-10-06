@@ -4,7 +4,7 @@
   "title": "Bamboo Corridor",
   "description": "Photo taken in the Panda Park.",
   "alt": "Pedestrians and a small vehicle follow a curving road beneath dense green bamboo.",
-  "weighting": 0,
+  "weighting": 10,
   "metadata": {
     "file": {
       "type": "JPEG",

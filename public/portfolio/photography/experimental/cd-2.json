@@ -1,10 +1,10 @@
 {
   "filename": "cd-2.jpg",
   "preview_filename": "previews/preview-cd-2.webp",
-  "title": "A spectrum of colour",
-  "description": "",
+  "title": "CD Reflections (Bright)",
+  "description": "The result of a \"slow shutter speed\" photo I needed in one of my highschool photography assignments.",
   "alt": "A close-up of overlapping compact discs reflecting vivid rainbow colours.",
-  "weighting": 0,
+  "weighting": 10,
   "metadata": {
     "file": {
       "type": "JPEG",
@@ -15,16 +15,16 @@
       "height": 3456
     },
     "capture": {
-      "date_taken": null,
-      "camera": null,
-      "f_stop": null,
-      "exposure_time_seconds": null,
-      "iso_speed": null,
-      "exposure_bias_ev": null,
-      "focal_length_mm": null,
+      "date_taken": "2020-10-23T19:29:48",
+      "camera": "Canon EOS REBEL T5i",
+      "f_stop": 32.0,
+      "exposure_time_seconds": 6.0,
+      "iso_speed": 100,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 42.0,
       "max_aperture_apex": null,
-      "metering_mode": null,
-      "flash_mode": null,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
       "focal_length_35mm": null
     }
   }

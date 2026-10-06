@@ -1,10 +1,10 @@
 {
   "filename": "queensu_pride.jpg",
   "preview_filename": "previews/preview-queensu_pride.webp",
-  "title": "Queen’s pride",
-  "description": "",
+  "title": "QueensU Pride",
+  "description": "(That's not her jacket).",
   "alt": "A person wearing sunglasses, a white cropped top and a purple jacket poses with raised arms in a hallway.",
-  "weighting": 0,
+  "weighting": 100,
   "metadata": {
     "file": {
       "type": "JPEG",

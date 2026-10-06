@@ -2,9 +2,9 @@
   "filename": "epiphany.jpg",
   "preview_filename": "previews/preview-epiphany.webp",
   "title": "Epiphany",
-  "description": "",
+  "description": "Why does a photo outside a Walmart go so hard.",
   "alt": "A person in a white shirt leans beside a stone column on a city street at dusk.",
-  "weighting": 0,
+  "weighting": 10,
   "metadata": {
     "file": {
       "type": "JPEG",

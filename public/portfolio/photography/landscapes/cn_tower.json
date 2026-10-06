@@ -2,9 +2,9 @@
   "filename": "cn_tower.jpg",
   "preview_filename": "previews/preview-cn_tower.webp",
   "title": "CN Tower",
-  "description": "",
+  "description": "I took this photo after climbing all the way up the CN Tower... via the stairs (WWF CN Tower Climb).",
   "alt": "The CN Tower observation deck and antenna rise against a clear blue sky.",
-  "weighting": 0,
+  "weighting": 40,
   "metadata": {
     "file": {
       "type": "JPEG",
@@ -15,7 +15,7 @@
       "height": 6240
     },
     "capture": {
-      "date_taken": "2020-03-01T18:51:19",
+      "date_taken": "2026-05-03",
       "camera": "FUJIFILM X-T4",
       "f_stop": 2.8,
       "exposure_time_seconds": 0.00025,

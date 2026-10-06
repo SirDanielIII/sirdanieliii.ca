@@ -1,10 +1,10 @@
 {
   "filename": "strawberry_splash.jpg",
   "preview_filename": "previews/preview-strawberry_splash.webp",
-  "title": "Strawberry splash",
-  "description": "",
+  "title": "Strawberry Splash",
+  "description": "The result of a \"fast shutter speed\" photo I needed in one of my highschool photography assignments.",
   "alt": "Water splashes out of a stemmed glass holding a strawberry, with bananas beside it against a black background.",
-  "weighting": 0,
+  "weighting": 100,
   "metadata": {
     "file": {
       "type": "JPEG",
@@ -15,16 +15,16 @@
       "height": 5184
     },
     "capture": {
-      "date_taken": null,
-      "camera": null,
-      "f_stop": null,
-      "exposure_time_seconds": null,
-      "iso_speed": null,
-      "exposure_bias_ev": null,
-      "focal_length_mm": null,
+      "date_taken": "2020-10-30T09:23:38",
+      "camera": "Canon EOS REBEL T5i",
+      "f_stop": 6.3,
+      "exposure_time_seconds": 0.000625,
+      "iso_speed": 6400,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 51.0,
       "max_aperture_apex": null,
-      "metering_mode": null,
-      "flash_mode": null,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
       "focal_length_35mm": null
     }
   }

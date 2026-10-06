@@ -1,10 +1,10 @@
 {
   "filename": "gaming_pc-2.jpg",
   "preview_filename": "previews/preview-gaming_pc-2.webp",
-  "title": "A glow in the room",
-  "description": "",
+  "title": "DANIEL-RYZEN (Wide)",
+  "description": "Snapshot of my PC with some new fans (that I returned cause their airflow sucked).",
   "alt": "A glass-sided gaming PC with purple and blue illuminated fans stands on a table in a dark room.",
-  "weighting": 0,
+  "weighting": 40,
   "metadata": {
     "file": {
       "type": "JPEG",

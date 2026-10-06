@@ -1,10 +1,10 @@
 {
   "filename": "building_the_josh_computer.jpg",
   "preview_filename": "previews/preview-building_the_josh_computer.webp",
-  "title": "Building Josh’s computer",
-  "description": "",
+  "title": "Building The Josh computer",
+  "description": "Building PCs is always somehow scuffed.",
   "alt": "A person in a plaid shirt works on an open computer case on a bed beside a multi-monitor desk.",
-  "weighting": 0,
+  "weighting": 20,
   "metadata": {
     "file": {
       "type": "JPEG",

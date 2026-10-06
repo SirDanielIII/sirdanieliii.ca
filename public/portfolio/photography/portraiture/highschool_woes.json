@@ -1,10 +1,10 @@
 {
   "filename": "highschool_woes.jpg",
   "preview_filename": "previews/preview-highschool_woes.webp",
-  "title": "High school woes",
-  "description": "",
+  "title": "Highschool Woes",
+  "description": "This is what COVID highschool does to a man.",
   "alt": "A black-and-white portrait of a person wearing glasses with clasped hands beneath their face.",
-  "weighting": 0,
+  "weighting": 20,
   "metadata": {
     "file": {
       "type": "JPEG",

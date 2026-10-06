@@ -1,10 +1,10 @@
 {
   "filename": "cerio_product_showcase-4.jpg",
   "preview_filename": "previews/preview-cerio_product_showcase-4.webp",
-  "title": "Cerio ? Connected",
-  "description": "",
+  "title": "Cerio Product Package",
+  "description": "Part of my product photography for Cerio.",
   "alt": "A black connector panel, a Cerio network card and pink fibre-optic cables are arranged on a white surface.",
-  "weighting": 0,
+  "weighting": 15,
   "metadata": {
     "file": {
       "type": "JPEG",

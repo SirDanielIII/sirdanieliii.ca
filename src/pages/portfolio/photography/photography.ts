@@ -61,8 +61,8 @@ export function usePhotography() {
 export const gallerySource = (photo: Photo) => photo.preview_src ?? photo.src;
 export const photoAspectRatio = (photo: Photo) => photo.width && photo.height ? `${String(photo.width)} / ${String(photo.height)}` : '3 / 2';
 
-const numeric = (value: number | null, maximumFractionDigits = 1): string | null =>
-    value !== null && Number.isFinite(value) ? value.toLocaleString('en-CA', {maximumFractionDigits}) : null;
+const numeric = (value: number | null, maximumFractionDigits = 1, minimumFractionDigits = 0): string | null =>
+    value !== null && Number.isFinite(value) ? value.toLocaleString('en-CA', {maximumFractionDigits, minimumFractionDigits}) : null;
 const withUnit = (value: number | null, unit: string, prefix = '') => {
     const formatted = numeric(value);
     return formatted === null ? '—' : `${prefix}${formatted}${unit}`;
@@ -83,8 +83,8 @@ export function metadataRows(photo: Photo): [string, string][] {
     }
     return [
         ['Type', file.type ?? '—'],
-        // Decimal MB matches the requested display unit; the JSON keeps the precise byte count.
-        ['Size', size !== null && size > 0 ? `${numeric(size / 1_000_000) ?? '—'} MB (${size.toLocaleString('en-CA')} bytes)` : '—'],
+        // MiB uses the binary unit; the JSON keeps the precise byte count.
+        ['Size', size !== null && size > 0 ? `${numeric(size / 1_048_576, 2, 2) ?? '—'} MiB (${size.toLocaleString('en-CA')} bytes)` : '—'],
         // EXIF capture times are local unless an offset was supplied. Display without timezone conversion.
         ['Date Taken', capture.date_taken?.replace('T', ' ') ?? '—'],
         ['Dimensions', image.width && image.height ? `${numeric(image.width, 0) ?? '—'} × ${numeric(image.height, 0) ?? '—'} pixels` : '—'],

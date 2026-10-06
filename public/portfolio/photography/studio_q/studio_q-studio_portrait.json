@@ -1,10 +1,10 @@
 {
   "filename": "studio_q-studio_portrait.jpg",
   "preview_filename": "previews/preview-studio_q-studio_portrait.webp",
-  "title": "In the studio",
-  "description": "",
+  "title": "Studio Portrait",
+  "description": "Portrait client work.",
   "alt": "A person wearing a black blouse poses with one hand on their hip against a pale studio backdrop.",
-  "weighting": 0,
+  "weighting": 15,
   "metadata": {
     "file": {
       "type": "JPEG",

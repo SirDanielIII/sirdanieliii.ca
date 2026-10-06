@@ -1,10 +1,10 @@
 {
   "filename": "parliament_hill-canadian_flag.jpg",
   "preview_filename": "previews/preview-parliament_hill-canadian_flag.webp",
-  "title": "The flag on Parliament Hill",
-  "description": "",
+  "title": "Parliament Hill - Canadian Flag",
+  "description": "I can feel the Canadian nationalism flowing through me. 🍁",
   "alt": "A Canadian flag flies above the decorative ironwork of a green copper roof.",
-  "weighting": 0,
+  "weighting": 30,
   "metadata": {
     "file": {
       "type": "JPEG",

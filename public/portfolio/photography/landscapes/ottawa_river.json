@@ -2,9 +2,9 @@
   "filename": "ottawa_river.jpg",
   "preview_filename": "previews/preview-ottawa_river.webp",
   "title": "Ottawa River",
-  "description": "",
+  "description": "I can see Québec from here!",
   "alt": "A sightseeing boat passes beneath a steel bridge on the Ottawa River, with city buildings beyond.",
-  "weighting": 0,
+  "weighting": 67,
   "metadata": {
     "file": {
       "type": "JPEG",

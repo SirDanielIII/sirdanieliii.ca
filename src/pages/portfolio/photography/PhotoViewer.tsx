@@ -48,7 +48,7 @@ export default function PhotoViewer({items, index, opener, onNavigate, onClose}:
                 </div>
                 <header className="viewer-heading" aria-live="polite" aria-atomic="true">
                     <h2 id="photo-viewer-title">{selected.title}</h2>
-                    <p>{selected.category_title}.</p>
+                    <p>{selected.category_title}</p>
                 </header>
                 <div className="viewer-metadata">
                     <p>{selected.description || 'No description added.'}</p>

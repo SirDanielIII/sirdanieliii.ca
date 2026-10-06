@@ -1,10 +1,10 @@
 {
   "filename": "parliament_hill-east_block_1.jpg",
   "preview_filename": "previews/preview-parliament_hill-east_block_1.webp",
-  "title": "East Block details",
-  "description": "",
+  "title": "Parliament Hill - East Block",
+  "description": "Photo taken from Wellington St, Ottawa.",
   "alt": "A Canadian flag flies above the green copper roof, stone walls and arched windows of Parliament Hill's East Block.",
-  "weighting": 0,
+  "weighting": 40,
   "metadata": {
     "file": {
       "type": "JPEG",

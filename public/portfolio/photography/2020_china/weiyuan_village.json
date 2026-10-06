@@ -1,10 +1,10 @@
 {
   "filename": "weiyuan_village.jpg",
   "preview_filename": "previews/preview-weiyuan_village.webp",
-  "title": "Weiyuan village",
-  "description": "",
+  "title": "Weiyuan Village",
+  "description": "This was the village my Dad grew up in.",
   "alt": "An earthen path passes small tiled-roof houses surrounded by trees and overgrown plants.",
-  "weighting": 0,
+  "weighting": 11,
   "metadata": {
     "file": {
       "type": "JPEG",

@@ -1,10 +1,10 @@
 {
   "filename": "professional_portrait-1.jpg",
   "preview_filename": "previews/preview-professional_portrait-1.webp",
-  "title": "A professional portrait",
+  "title": "A Professional Portrait",
   "description": "",
   "alt": "A person wearing glasses and a white shirt stands with folded arms against a grey studio backdrop.",
-  "weighting": 0,
+  "weighting": 5,
   "metadata": {
     "file": {
       "type": "JPEG",
