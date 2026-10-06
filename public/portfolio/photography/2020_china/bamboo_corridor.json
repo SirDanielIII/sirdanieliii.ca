@@ -1,0 +1,31 @@
+{
+  "filename": "bamboo_corridor.jpg",
+  "preview_filename": "previews/preview-bamboo_corridor.webp",
+  "title": "Bamboo Corridor",
+  "description": "Photo taken in the Panda Park.",
+  "alt": "Pedestrians and a small vehicle follow a curving road beneath dense green bamboo.",
+  "weighting": 10,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 4233525
+    },
+    "image": {
+      "width": 3008,
+      "height": 2000
+    },
+    "capture": {
+      "date_taken": "2020-01-06T10:18:57",
+      "camera": "NIKON D70s",
+      "f_stop": 4.5,
+      "exposure_time_seconds": 0.0125,
+      "iso_speed": 200,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 70.0,
+      "max_aperture_apex": 4.3,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 105.0
+    }
+  }
+}

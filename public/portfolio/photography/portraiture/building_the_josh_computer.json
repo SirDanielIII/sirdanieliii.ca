@@ -1,0 +1,31 @@
+{
+  "filename": "building_the_josh_computer.jpg",
+  "preview_filename": "previews/preview-building_the_josh_computer.webp",
+  "title": "Building The Josh computer",
+  "description": "Building PCs is always somehow scuffed.",
+  "alt": "A person in a plaid shirt works on an open computer case on a bed beside a multi-monitor desk.",
+  "weighting": 20,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 19492705
+    },
+    "image": {
+      "width": 6240,
+      "height": 4160
+    },
+    "capture": {
+      "date_taken": "2022-09-28T02:44:29",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 1.4,
+      "exposure_time_seconds": 0.016666666666666666,
+      "iso_speed": 1250,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 33.0,
+      "max_aperture_apex": 1.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 50.0
+    }
+  }
+}

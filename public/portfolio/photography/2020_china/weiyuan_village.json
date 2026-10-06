@@ -1,0 +1,31 @@
+{
+  "filename": "weiyuan_village.jpg",
+  "preview_filename": "previews/preview-weiyuan_village.webp",
+  "title": "Weiyuan Village",
+  "description": "This was the village my Dad grew up in.",
+  "alt": "An earthen path passes small tiled-roof houses surrounded by trees and overgrown plants.",
+  "weighting": 11,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 5618084
+    },
+    "image": {
+      "width": 3008,
+      "height": 2000
+    },
+    "capture": {
+      "date_taken": "2020-01-03T12:56:17",
+      "camera": "NIKON D70s",
+      "f_stop": 3.5,
+      "exposure_time_seconds": 0.002,
+      "iso_speed": 200,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 18.0,
+      "max_aperture_apex": 3.6,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 27.0
+    }
+  }
+}

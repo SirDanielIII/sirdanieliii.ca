@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import {monochromeIcon} from '../icon.styles';
 
 export const MainContent = styled.main`
     margin-top: 80px; /* Space for fixed header */
@@ -55,7 +56,7 @@ export const IconLink = styled.a`
         height: 60%;
         object-fit: contain;
         transition: filter .18s ease;
-        filter: ${({theme}) => theme.mode === 'dark' ? 'brightness(0) invert(1)' : 'brightness(0)'};
+        ${monochromeIcon}
     }
 
     &:hover {

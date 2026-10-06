@@ -1,0 +1,31 @@
+{
+  "filename": "weiyuan_buildings.JPG",
+  "preview_filename": "previews/preview-weiyuan_buildings.webp",
+  "title": "Weiyuan buildings",
+  "description": "A couple of buildings that caught my eye on the way to my grandfather’s.",
+  "alt": "A narrow paved courtyard runs between weathered concrete apartment buildings.",
+  "weighting": 9,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 2734177
+    },
+    "image": {
+      "width": 2000,
+      "height": 3008
+    },
+    "capture": {
+      "date_taken": "2020-01-02T14:55:23",
+      "camera": "NIKON D70s",
+      "f_stop": 3.5,
+      "exposure_time_seconds": 0.003125,
+      "iso_speed": null,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 18.0,
+      "max_aperture_apex": 3.6,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 27.0
+    }
+  }
+}

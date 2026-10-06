@@ -1,0 +1,31 @@
+{
+  "filename": "professional_portrait-2.jpg",
+  "preview_filename": "previews/preview-professional_portrait-2.webp",
+  "title": "A Professional Headshot",
+  "description": "",
+  "alt": "A close-up portrait of a person wearing glasses and a white shirt against a grey studio backdrop.",
+  "weighting": 10,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 16621494
+    },
+    "image": {
+      "width": 4038,
+      "height": 6056
+    },
+    "capture": {
+      "date_taken": "2026-08-07T12:28:42-04:00",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 2.8,
+      "exposure_time_seconds": 0.004,
+      "iso_speed": 640,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 129.2,
+      "max_aperture_apex": 3.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 194.0
+    }
+  }
+}

@@ -10,6 +10,8 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+.tmp/
+__pycache__/
 *.local
 *.tsbuildinfo
 
@@ -26,4 +28,7 @@ dist-ssr
 /src/assets/images/section_card/Archive/
 /public/projects/
 /other/
-/public/portfolio/
+# Ignore everything in public/portfolio except JSON files
+/public/portfolio/**
+!/public/portfolio/**/
+!/public/portfolio/**/*.json

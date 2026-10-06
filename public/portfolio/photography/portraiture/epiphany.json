@@ -1,0 +1,31 @@
+{
+  "filename": "epiphany.jpg",
+  "preview_filename": "previews/preview-epiphany.webp",
+  "title": "Epiphany",
+  "description": "Why does a photo outside a Walmart go so hard.",
+  "alt": "A person in a white shirt leans beside a stone column on a city street at dusk.",
+  "weighting": 10,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 20866622
+    },
+    "image": {
+      "width": 4160,
+      "height": 6240
+    },
+    "capture": {
+      "date_taken": "2022-07-06T21:46:40",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 1.4,
+      "exposure_time_seconds": 0.016666666666666666,
+      "iso_speed": 2000,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 33.0,
+      "max_aperture_apex": 1.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 50.0
+    }
+  }
+}

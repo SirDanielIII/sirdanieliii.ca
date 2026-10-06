@@ -1,0 +1,31 @@
+{
+  "filename": "intel_cpu.jpg",
+  "preview_filename": "previews/preview-intel_cpu.webp",
+  "title": "Intel CPU",
+  "description": "This little guy belongs to my Dad's PC.",
+  "alt": "A blue-gloved hand holds an Intel processor in front of the camera.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 7264373
+    },
+    "image": {
+      "width": 3013,
+      "height": 3013
+    },
+    "capture": {
+      "date_taken": "2023-01-04T13:54:01",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 2.5,
+      "exposure_time_seconds": 0.008,
+      "iso_speed": 640,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 33.0,
+      "max_aperture_apex": 1.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 50.0
+    }
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "filename": "sleepy_pandas.jpg",
+  "preview_filename": "previews/preview-sleepy_pandas.webp",
+  "title": "Sleepy Pandas",
+  "description": "They're so cute! Fluffy little white balls in the tree.",
+  "alt": "Two giant pandas rest at different heights in the branches of a bare tree.",
+  "weighting": 10,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 4312605
+    },
+    "image": {
+      "width": 2000,
+      "height": 3008
+    },
+    "capture": {
+      "date_taken": "2020-01-06T09:10:13",
+      "camera": "NIKON D70s",
+      "f_stop": 4.5,
+      "exposure_time_seconds": 0.01,
+      "iso_speed": 640,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 44.0,
+      "max_aperture_apex": 4.2,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 66.0
+    }
+  }
+}

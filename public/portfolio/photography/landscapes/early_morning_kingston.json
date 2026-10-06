@@ -1,0 +1,31 @@
+{
+  "filename": "early_morning_kingston.jpg",
+  "preview_filename": "previews/preview-early_morning_kingston.webp",
+  "title": "Early Morning Walk In Kingston",
+  "description": "I think I took this picture while on an all-nighter.",
+  "alt": "A tall waterfront tower is silhouetted above the water beneath a pink and orange dawn sky.",
+  "weighting": 10,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 15917484
+    },
+    "image": {
+      "width": 6240,
+      "height": 4160
+    },
+    "capture": {
+      "date_taken": "2022-09-21T06:35:22",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 4.0,
+      "exposure_time_seconds": 0.03333333333333333,
+      "iso_speed": 160,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 32.5,
+      "max_aperture_apex": 4.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 49.0
+    }
+  }
+}

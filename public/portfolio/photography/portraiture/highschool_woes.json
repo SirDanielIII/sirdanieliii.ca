@@ -1,0 +1,31 @@
+{
+  "filename": "highschool_woes.jpg",
+  "preview_filename": "previews/preview-highschool_woes.webp",
+  "title": "Highschool Woes",
+  "description": "This is what COVID highschool does to a man.",
+  "alt": "A black-and-white portrait of a person wearing glasses with clasped hands beneath their face.",
+  "weighting": 20,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 16119971
+    },
+    "image": {
+      "width": 6240,
+      "height": 4160
+    },
+    "capture": {
+      "date_taken": "2022-03-11T11:54:08",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 1.4,
+      "exposure_time_seconds": 0.001,
+      "iso_speed": 160,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 33.0,
+      "max_aperture_apex": 1.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 50.0
+    }
+  }
+}

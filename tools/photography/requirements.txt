@@ -1,0 +1,2 @@
+# Pillow is used only when authoring images; production needs PHP, not Python.
+Pillow>=11

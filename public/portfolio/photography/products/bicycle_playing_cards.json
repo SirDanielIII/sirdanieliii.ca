@@ -1,0 +1,31 @@
+{
+  "filename": "bicycle_playing_cards.JPG",
+  "preview_filename": "previews/preview-bicycle_playing_cards.webp",
+  "title": "Bicycle Playing Cards",
+  "description": "\"Don't Edit, Shoot!\" submission for my highschool photography assignment.",
+  "alt": "A green Bicycle playing-card box stands upright among scattered cards on a white surface.",
+  "weighting": 2,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 4838923
+    },
+    "image": {
+      "width": 5184,
+      "height": 3456
+    },
+    "capture": {
+      "date_taken": "2020-10-22T20:02:27",
+      "camera": "Canon EOS REBEL T5i",
+      "f_stop": 5.6,
+      "exposure_time_seconds": 0.00625,
+      "iso_speed": 800,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 39.0,
+      "max_aperture_apex": null,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": null
+    }
+  }
+}

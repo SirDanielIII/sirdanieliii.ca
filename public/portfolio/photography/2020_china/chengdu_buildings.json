@@ -1,0 +1,31 @@
+{
+  "filename": "chengdu_buildings.jpg",
+  "preview_filename": "previews/preview-chengdu_buildings.webp",
+  "title": "Chengdu",
+  "description": "The view from my Grandparents' balcony.",
+  "alt": "Low-rise apartments and taller residential towers fill a city neighbourhood in Chengdu.",
+  "weighting": 0,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 4039211
+    },
+    "image": {
+      "width": 3008,
+      "height": 2000
+    },
+    "capture": {
+      "date_taken": "2020-01-07T14:34:30",
+      "camera": "NIKON D70s",
+      "f_stop": 4.0,
+      "exposure_time_seconds": 0.0003125,
+      "iso_speed": 320,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 29.0,
+      "max_aperture_apex": 3.9,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 43.0
+    }
+  }
+}

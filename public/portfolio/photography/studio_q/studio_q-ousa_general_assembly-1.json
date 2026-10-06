@@ -1,0 +1,31 @@
+{
+  "filename": "studio_q-ousa_general_assembly-1.jpg",
+  "preview_filename": "previews/preview-studio_q-ousa_general_assembly-1.webp",
+  "title": "OUSA General Assembly (1)",
+  "description": "Ontario Undergraduate Student Alliance (OUSA).",
+  "alt": "Meeting participants raise white voting cards in a formal chamber beneath a coat of arms.",
+  "weighting": 3,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 23637329
+    },
+    "image": {
+      "width": 6240,
+      "height": 4160
+    },
+    "capture": {
+      "date_taken": "2023-03-05T16:53:51",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 2.8,
+      "exposure_time_seconds": 0.008,
+      "iso_speed": 3200,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 33.0,
+      "max_aperture_apex": 1.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 50.0
+    }
+  }
+}

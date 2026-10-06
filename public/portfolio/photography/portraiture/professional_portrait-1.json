@@ -1,0 +1,31 @@
+{
+  "filename": "professional_portrait-1.jpg",
+  "preview_filename": "previews/preview-professional_portrait-1.webp",
+  "title": "A Professional Portrait",
+  "description": "",
+  "alt": "A person wearing glasses and a white shirt stands with folded arms against a grey studio backdrop.",
+  "weighting": 5,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 16106288
+    },
+    "image": {
+      "width": 4068,
+      "height": 6103
+    },
+    "capture": {
+      "date_taken": "2026-08-07T12:28:20-04:00",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 2.8,
+      "exposure_time_seconds": 0.004,
+      "iso_speed": 640,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 63.4,
+      "max_aperture_apex": 3.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 95.0
+    }
+  }
+}

@@ -12,6 +12,7 @@
     "github": "https://github.com/SirDanielIII/Modern_Snek"
   },
   "thumbnail": "icon.png",
+  "thumbnailAlt": "A green cartoon snake with large eyes and a black top hat.",
   "showThumbnailBackground": false,
   "version": "1.0.3",
   "lastUpdated": "2020-12-07",

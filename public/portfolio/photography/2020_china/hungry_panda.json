@@ -1,0 +1,31 @@
+{
+  "filename": "hungry_panda.jpg",
+  "preview_filename": "previews/preview-hungry_panda.webp",
+  "title": "Hungry Panda",
+  "description": "He's just enjoying life.",
+  "alt": "A giant panda sits among bamboo stalks, holding leafy branches against its chest.",
+  "weighting": 4,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 4761751
+    },
+    "image": {
+      "width": 2000,
+      "height": 3008
+    },
+    "capture": {
+      "date_taken": "2020-01-06T11:15:02",
+      "camera": "NIKON D70s",
+      "f_stop": 4.5,
+      "exposure_time_seconds": 0.00625,
+      "iso_speed": 320,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 70.0,
+      "max_aperture_apex": 4.3,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 105.0
+    }
+  }
+}

@@ -1,36 +1,23 @@
-import PortfolioViewer from './PortfolioViewer';
+import {Route, Routes} from 'react-router';
+import NotFoundPage from '../not-found/NotFoundPage';
+import PhotographySection from './photography/PhotographySection';
+import VideographySection from './videography/VideographySection';
+import ShortFilmsSection from './films/ShortFilmsSection';
+import PortfolioOverview from './overview/PortfolioOverview';
+import PortfolioLayout from './layout/PortfolioLayout';
+import {PortfolioContext, isPortfolioContent} from './shared/portfolio';
+import {useJson} from '../../shared/media/useJson';
+import ContentStatus from './shared/ContentStatus';
+import {Page} from '../../css/portfolio/layout/PortfolioLayout.styles';
 
-import {useState} from 'react';
-
-import {portfolio, portfolioDocuments} from './portfolio';
-
-import {Page, Intro, CollectionPicker, CollectionButton} from '../../css/portfolio/PortfolioPage.styles';
-
-const PortfolioPage = () => {
-    const [selectedDocument, setSelectedDocument] = useState(portfolioDocuments[0]);
-
-    return (
-        <Page>
-            <Intro>
-                <h1>{portfolio.title}</h1>
-                <p>{portfolio.introduction}</p>
-            </Intro>
-            <CollectionPicker role="group" aria-label="Choose a portfolio">
-                {portfolioDocuments.map(document => (
-                    <CollectionButton
-                        key={document.id}
-                        type="button"
-                        aria-pressed={document.id === selectedDocument.id}
-                        aria-controls="portfolio-document"
-                        onClick={() => { setSelectedDocument(document); }}
-                    >
-                        {document.title}
-                    </CollectionButton>
-                ))}
-            </CollectionPicker>
-            <PortfolioViewer key={selectedDocument.file} document={selectedDocument}/>
-        </Page>
-    );
-};
-
-export default PortfolioPage;
+export default function PortfolioPage() {
+    const {data, status, retry} = useJson('/portfolio/portfolio.json', isPortfolioContent);
+    if (!data) return <Page><ContentStatus status={status} retry={retry} /></Page>;
+    return <PortfolioContext value={data}><Routes>
+        <Route index element={<PortfolioOverview />} />
+        <Route path="photography" element={<PortfolioLayout medium="photography"><PhotographySection /></PortfolioLayout>} />
+        <Route path="videography" element={<PortfolioLayout medium="videography"><VideographySection /></PortfolioLayout>} />
+        <Route path="short-films" element={<PortfolioLayout medium="short-films"><ShortFilmsSection /></PortfolioLayout>} />
+        <Route path="*" element={<NotFoundPage />} />
+    </Routes></PortfolioContext>;
+}

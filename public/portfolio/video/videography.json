@@ -1,0 +1,176 @@
+{
+  "sections": [
+    {
+      "slug": "youtube-channel",
+      "kind": "channel",
+      "title": "YouTube Channel",
+      "label": "Personal work",
+      "logo": "logo-sirdanieliii.webp",
+      "link": {
+        "url": "https://www.youtube.ca/@SirDanielIII?sub_confirmation=1",
+        "label": "More on YouTube @SirDanielIII"
+      },
+      "items": [
+        {
+          "slug": "room-review",
+          "title": "Room tour + in-depth review",
+          "description": "Room review at Leonard Hall",
+          "presentation": "feature",
+          "thumbnail": "thumbnail-room_review.webp",
+          "video": {"type": "youtube", "url": "https://youtu.be/Qs6sIiztsIQ"}
+        },
+        {
+          "slug": "move-in-vlog",
+          "title": "Can I fit a $3000 gaming setup in my dorm?",
+          "description": "Move-in vlog.",
+          "thumbnail": "thumbnail-move_in_vlog.webp",
+          "video": {"type": "youtube", "url": "https://youtu.be/EcepVOODAmg"}
+        }
+      ]
+    },
+    {
+      "slug": "springfest",
+      "kind": "series",
+      "title": "Volunteer Work — Springfest",
+      "label": "Volunteer Work",
+      "collectionTitle": "Westmount Springfest (2022-2024)",
+      "logo": "logo-westmount.webp",
+      "description": "Aided Mr. Nixon in documenting/filming the Westmount Music Springfest concerts.",
+      "link": {
+        "url": "https://www.youtube.com/watch?v=b0F89YexFCE&list=PLjds7zsYU2zClKmBoHqF9KmZ4-clrsv3D&pp=sAgC",
+        "label": "Watch the Springfest playlist"
+      },
+      "items": [
+        {
+          "slug": "springfest-2022",
+          "title": "Westmount Music - Springfest 2022",
+          "thumbnail": "thumbnail-springfest_2022.webp",
+          "video": {"type": "youtube", "url": "https://youtu.be/b0F89YexFCE?si=y7hLNWP7ppnhJqAP"}
+        },
+        {
+          "slug": "springfest-2023",
+          "title": "Westmount Music - Springfest 2023",
+          "thumbnail": "thumbnail-springfest_2023.webp",
+          "video": {"type": "youtube", "url": "https://youtu.be/bpZjxzusPP0?si=5CRnFoJhM-5GAKXe"}
+        },
+        {
+          "slug": "springfest-2024",
+          "title": "Westmount Music - Springfest 2024",
+          "thumbnail": "thumbnail-springfest_2024.webp",
+          "video": {"type": "youtube", "url": "https://youtu.be/R0Q3D6E8rOg?si=1YgTOP67VqGkjvu6"}
+        }
+      ]
+    },
+    {
+      "slug": "commissions",
+      "kind": "commissions",
+      "title": "Commissions",
+      "label": "Client work",
+      "groups": [
+        {
+          "slug": "echos-of-my-silence",
+          "title": "Echos of my Silence",
+          "description": "Recorded and produced video on the whole theatre play + trailers for social media promotion",
+          "link": {"url": "https://ttdb.ca/shows/echoes-of-my-silence/", "label": "About the production"},
+          "items": [
+            {
+              "slug": "echos-trailer",
+              "title": "Echos of my Silence",
+              "presentation": "feature",
+              "thumbnail": "thumbnail-echos_of_my_silence.webp",
+              "video": {"type": "hls", "url": "https://sirdanieliii.ca/media/silence_of_my_echos_trailer/master.m3u8"}
+            }
+          ]
+        },
+        {
+          "slug": "lost-tribe",
+          "title": "Lost Tribe (2022-2023)",
+          "logo": "logo-lost_tribe.webp",
+          "items": [
+            {
+              "slug": "lt-smp-launch-trailer",
+              "title": "LT SMP Launch Trailer",
+              "date": "2023 Dec",
+              "thumbnail": "thumbnail-lt_smp_alternate.webp",
+              "video": {"type": "hls", "url": "https://sirdanieliii.ca/media/lt_smp_trailer/master.m3u8"}
+            },
+            {
+              "slug": "lt-smp-s3-launch-trailer",
+              "title": "LT SMP S3 Launch Trailer",
+              "date": "2021 Dec",
+              "thumbnail": "thumbnail-lt_smp_s3.webp",
+              "video": {"type": "youtube", "url": "https://youtu.be/cVNjydmCgAw"}
+            }
+          ],
+          "collections": [
+            {
+              "slug": "other-projects",
+              "title": "Other Projects",
+              "items": [
+                {
+                  "slug": "tzedakahthon",
+                  "title": "We donated to streamers for TzedakaTHON and it was MADNESS",
+                  "thumbnail": "thumbnail-tzedakahthon_donations.webp",
+                  "video": {"type": "youtube", "url": "https://youtu.be/jbJdxJRpNXg"}
+                },
+                {
+                  "slug": "ukraine-relief",
+                  "title": "We 1v1'd for Ukraine Relief",
+                  "thumbnail": "thumbnail-1v1_for_charity.webp",
+                  "video": {"type": "youtube", "url": "https://youtu.be/MlyeegdykZ0"}
+                },
+                {
+                  "slug": "valorant-montage",
+                  "title": "I Snuck Into a DIAMOND Lobby | Valorant Montage",
+                  "thumbnail": "thumbnail-silver_versus_diamond.webp",
+                  "video": {"type": "youtube", "url": "https://youtu.be/ErWbuR0HcZ4"}
+                },
+                {
+                  "slug": "multiversus",
+                  "title": "I hosted a Multiversus Tournament (CASH PRIZE)",
+                  "thumbnail": "thumbnail-multiversus.webp",
+                  "video": {"type": "youtube", "url": "https://youtu.be/95aTxXO_Bjw"}
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "studio-q",
+      "kind": "experience",
+      "title": "Video Staff",
+      "label": "Professional experience",
+      "organization": "Studio Q | Alma Mater Society",
+      "logo": "logo-studio_q.webp",
+      "location": "Kingston, Ontario, Canada",
+      "workMode": "On-Site",
+      "employment": "Contract Part-time",
+      "start": "August 2023",
+      "end": "April 2024",
+      "description": "Managed multiple video projects from shoot to post-production, collaborating with clients and teammates to deliver high-quality videos on time. I handled editing, color correction, and sound design, ensuring each project aligned with client needs and creative goals."
+    }
+  ],
+  "imageAlts": {
+    "logo-lost_tribe.webp": "Lost Tribe logo with white lettering and an orange meteor inside a blue ring.",
+    "logo-sirdanieliii.webp": "Sir Daniel III avatar showing a red-haired illustrated character with green eyes and a red hat.",
+    "logo-studio_q.webp": "Studio Q logo formed from angular yellow, orange, red and blue shapes.",
+    "logo-westmount.webp": "Westmount logo showing a teal and white wolf head against black.",
+    "logo-westmount_music.webp": "Westmount Music logo with overlapping colourful shapes against a black and white background.",
+    "thumbnail-1v1_for_charity-alternate.webp": "A charity gaming thumbnail with two people, a cartoon gun and the words LOSER HAS TO DONATE.",
+    "thumbnail-1v1_for_charity.webp": "A charity gaming thumbnail with two people, a cartoon gun, a Lost Tribe logo and the words THIS IS FOR CHARITY.",
+    "thumbnail-echos_of_my_silence.webp": "A performer draped in black stands between painted letters on a dark theatre stage.",
+    "thumbnail-lt_smp.webp": "Lost Tribe SMP title card with a blue-ringed meteor logo and blue and orange lettering on black.",
+    "thumbnail-lt_smp_alternate.webp": "A Minecraft clock tower stands above a landscape beneath a warm pink sky.",
+    "thumbnail-lt_smp_s3.webp": "LT SMP Season 3 title card with a meteor logo and the date DEC 23 2021.",
+    "thumbnail-move_in_vlog.webp": "A dorm-room thumbnail with a cartoon figure holding a camera, question marks and the words MOVE-IN DAY.",
+    "thumbnail-multiversus.webp": "A Multiversus Tournament thumbnail combining a reacting person with Superman and other game characters.",
+    "thumbnail-room_review.webp": "A dorm-room thumbnail with a cartoon figure holding a camera, the Queen's University logo and TOUR + REVIEW text.",
+    "thumbnail-silver_versus_diamond.webp": "A Valorant thumbnail with a game character, a reacting person, a rank icon and the words ACTUALLY SILVER?",
+    "thumbnail-springfest_2022.webp": "Springfest 2022 concert title card with a flower illustration, Westmount Music logo and THE CONCERT CUT text.",
+    "thumbnail-springfest_2023.webp": "Springfest 2023 concert title card with pink and orange lettering over a landscape and THE CONCERT CUT text.",
+    "thumbnail-springfest_2024.webp": "Springfest 2024 concert title card with white and pink lettering over a mountain landscape and THE CONCERT CUT text.",
+    "thumbnail-tzedakahthon_donations.webp": "A donation-stream thumbnail showing two people, dollar signs and the words Lost Tribe Donated."
+  }
+}

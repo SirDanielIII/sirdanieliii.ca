@@ -3,17 +3,16 @@ import SidePhotoSection from './SidePhotoSection';
 import {Title, Desc} from '../../css/home/AboutServerSection.styles';
 
 interface AboutServerSectionProps {
-    src: string;
     align?: 'left' | 'right';
 }
 
 const AboutServerSection: React.FC<AboutServerSectionProps> = ({
-                                                                   src,
                                                                    align = 'left',
                                                                }) => (
     <SidePhotoSection
-        imgSrc={src}
-        imgAlt="SD_NAS server"
+        imgSrc="/preview-SD_NAS.webp"
+        photoUrl="/scripts/server_photo.php"
+        imgAlt="A black PC tower with a blue power light beside a window, lit by colourful lights"
         align={align}
         photoMaxWidth={520}
         photoAspectRatio="3 / 2"

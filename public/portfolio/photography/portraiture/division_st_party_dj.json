@@ -1,0 +1,31 @@
+{
+  "filename": "division_st_party_dj.jpg",
+  "preview_filename": "previews/preview-division_st_party_dj.webp",
+  "title": "Division Street DJ",
+  "description": "One of the better house parties I've gone to. (GOATED DJ 🐐).",
+  "alt": "A DJ stands behind a laptop between two speakers under purple, pink and blue party lights.",
+  "weighting": 120,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 23091386
+    },
+    "image": {
+      "width": 4160,
+      "height": 6240
+    },
+    "capture": {
+      "date_taken": "2024-10-27T00:26:13",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 1.4,
+      "exposure_time_seconds": 0.016666666666666666,
+      "iso_speed": 500,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 23.0,
+      "max_aperture_apex": 1.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 35.0
+    }
+  }
+}

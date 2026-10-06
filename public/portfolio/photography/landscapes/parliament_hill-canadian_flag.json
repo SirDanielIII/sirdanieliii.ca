@@ -1,0 +1,31 @@
+{
+  "filename": "parliament_hill-canadian_flag.jpg",
+  "preview_filename": "previews/preview-parliament_hill-canadian_flag.webp",
+  "title": "Parliament Hill - Canadian Flag",
+  "description": "I can feel the Canadian nationalism flowing through me. 🍁",
+  "alt": "A Canadian flag flies above the decorative ironwork of a green copper roof.",
+  "weighting": 30,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 14554073
+    },
+    "image": {
+      "width": 4038,
+      "height": 6056
+    },
+    "capture": {
+      "date_taken": "2026-08-07T19:25:04-04:00",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 2.8,
+      "exposure_time_seconds": 0.00025,
+      "iso_speed": 800,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 140.0,
+      "max_aperture_apex": 3.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 210.0
+    }
+  }
+}

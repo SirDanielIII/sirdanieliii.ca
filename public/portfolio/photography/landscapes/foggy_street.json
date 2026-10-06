@@ -1,0 +1,31 @@
+{
+  "filename": "foggy_street.jpg",
+  "preview_filename": "previews/preview-foggy_street.webp",
+  "title": "Foggy Street",
+  "description": "I think I took this picture while drunk. (Had to walk home from a friend's Birthday party).",
+  "alt": "Streetlights illuminate a curving road and bare trees in thick night-time fog.",
+  "weighting": 90,
+  "metadata": {
+    "file": {
+      "type": "JPEG",
+      "size_bytes": 25061015
+    },
+    "image": {
+      "width": 4160,
+      "height": 6240
+    },
+    "capture": {
+      "date_taken": "2023-12-25T01:38:15",
+      "camera": "FUJIFILM X-T4",
+      "f_stop": 1.4,
+      "exposure_time_seconds": 10.0,
+      "iso_speed": 640,
+      "exposure_bias_ev": 0.0,
+      "focal_length_mm": 33.0,
+      "max_aperture_apex": 1.0,
+      "metering_mode": "Pattern",
+      "flash_mode": "No flash",
+      "focal_length_35mm": 50.0
+    }
+  }
+}
