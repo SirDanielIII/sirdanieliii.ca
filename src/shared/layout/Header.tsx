@@ -86,7 +86,7 @@ const Header: React.FC<HeaderProps> = ({toggleTheme, profileImage}) => {
             }}>
             <HeaderContent>
                 <LogoLink to="/">
-                    <LogoImg src={profileImage} alt="Profile"/>
+                    <LogoImg src={profileImage} alt="Sir Daniel III avatar: an illustrated red-haired character in a red hat"/>
                     <LogoText>SIR DANIEL III</LogoText>
                 </LogoLink>
                 <Nav ref={desktopNavigation} aria-label="Main navigation">

@@ -135,7 +135,7 @@ function record(string $directory, string $filename, string $baseUrl, string $ca
     $previewPath = null;
     if ($preview !== null) {
         try {
-            $expected = 'previews/' . pathinfo($filename, PATHINFO_FILENAME) . '.webp';
+            $expected = 'previews/preview-' . pathinfo($filename, PATHINFO_FILENAME) . '.webp';
             if ($preview !== $expected && $preview !== 'preview-' . pathinfo($filename, PATHINFO_FILENAME) . '.webp') {
                 throw new \RuntimeException('Invalid photography preview filename.');
             }

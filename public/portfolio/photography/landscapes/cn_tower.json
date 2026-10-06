@@ -1,9 +1,9 @@
 {
   "filename": "cn_tower.jpg",
-  "preview_filename": "previews/cn_tower.webp",
+  "preview_filename": "previews/preview-cn_tower.webp",
   "title": "CN Tower",
   "description": "",
-  "alt": "The CN Tower rises into a clear blue sky, seen from below.",
+  "alt": "The CN Tower observation deck and antenna rise against a clear blue sky.",
   "weighting": 0,
   "metadata": {
     "file": {

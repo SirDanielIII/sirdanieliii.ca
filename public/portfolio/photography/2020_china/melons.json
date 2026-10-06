@@ -1,9 +1,9 @@
 {
   "filename": "melons.jpg",
-  "preview_filename": "previews/melons.webp",
+  "preview_filename": "previews/preview-melons.webp",
   "title": "Fruit in the canopy",
   "description": "",
-  "alt": "Three round yellow fruits hang together among sunlit green leaves.",
+  "alt": "Three round yellow fruits hang in a vertical cluster among green leaves.",
   "weighting": 0,
   "metadata": {
     "file": {

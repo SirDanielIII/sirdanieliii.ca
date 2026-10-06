@@ -13,6 +13,7 @@ final class Catalog
 {
     public array $errors = [];
     private array $slugs = [];
+    private array $imageAlts = [];
 
     public function __construct(private string $root, private string $urlPrefix) {}
 
@@ -114,7 +115,7 @@ final class Catalog
         return [
             'src' => $this->urlPrefix . '/' . implode('/', array_map('rawurlencode', explode('/', (string) $value)))
                 . '?v=' . \Photography\assetVersion($path),
-            'alt' => $alt,
+            'alt' => $this->imageAlts[(string) $value] ?? $alt,
             'width' => $dimensions[0],
             'height' => $dimensions[1],
             'previewSrc' => $this->previewUrl((string) $value),
@@ -123,7 +124,8 @@ final class Catalog
 
     private function previewUrl(string $relative): ?string
     {
-        $preview = 'previews/' . $relative . '.webp';
+        $directory = dirname($relative);
+        $preview = 'previews/' . ($directory === '.' ? '' : $directory . '/') . 'preview-' . basename($relative) . '.webp';
         $candidate = $this->root . '/' . $preview;
         if (! is_file($candidate)) return null;
         $path = $this->resolve($preview, "preview of $relative");
@@ -140,6 +142,15 @@ final class Catalog
             $this->error("$context.url", 'expected a valid HTTPS URL');
         }
         return ['url' => $url, 'label' => $this->text($link['label'] ?? null, "$context.label", true)];
+    }
+
+    /** Per-file descriptions preserve the authored thumbnail/poster strings and directory discovery. */
+    private function readImageAlts(mixed $value, string $context): void
+    {
+        $this->imageAlts = [];
+        foreach ($this->object($value, $context) as $path => $alt) {
+            $this->imageAlts[$path] = $this->text($alt, "$context.$path", true);
+        }
     }
 
     private function video(mixed $value, string $context): ?array
@@ -226,6 +237,7 @@ final class Catalog
 
     public function videography(array $source): array
     {
+        $this->readImageAlts($source['imageAlts'] ?? [], 'videography.imageAlts');
         $sections = [];
         foreach ($this->list($source['sections'] ?? null, 'videography.sections') as $index => $value) {
             $at = "videography.sections[$index]";
@@ -239,6 +251,7 @@ final class Catalog
                 'description' => $this->text($section['description'] ?? null, "$at.description"),
             ];
             if ($kind === 'experience') {
+                $base['logo'] = $this->image($section['logo'] ?? null, "$at.logo", $base['title'] . ' logo');
                 foreach (['organization', 'location', 'workMode', 'employment', 'start', 'end'] as $field) {
                     $base[$field] = $this->text($section[$field] ?? null, "$at.$field", true);
                 }
@@ -258,6 +271,7 @@ final class Catalog
                     $collections[] = $this->videoCollection($this->object($value, $collectionAt), $collectionAt);
                 }
                 $groups[] = $this->videoCollection($group, $groupAt) + [
+                    'logo' => $this->image($group['logo'] ?? null, "$groupAt.logo", $group['title'] . ' logo'),
                     'description' => $this->text($group['description'] ?? null, "$groupAt.description"),
                     'link' => $this->externalLink($group['link'] ?? null, "$groupAt.link"),
                     'collections' => $collections,
@@ -321,6 +335,7 @@ final class Catalog
 
     public function shortFilms(array $source): array
     {
+        $this->readImageAlts($source['imageAlts'] ?? [], 'short-films.imageAlts');
         $collections = [];
         foreach ($this->list($source['collections'] ?? null, 'short-films.collections') as $index => $value) {
             $at = "short-films.collections[$index]";

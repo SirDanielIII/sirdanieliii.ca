@@ -46,7 +46,8 @@ def main():
                     or image_path.suffix.lower() not in SUPPORTED
                     or image_path.suffix.lower() == ".webp"):
                 continue
-            output = asset_root / "previews" / f"{relative}.webp"
+            relative_path = Path(relative)
+            output = asset_root / "previews" / relative_path.parent / f"preview-{relative_path.name}.webp"
             if output.is_file() and output.stat().st_mtime_ns >= image_path.stat().st_mtime_ns and "--force" not in sys.argv:
                 continue
             if output.parent.exists() and not output.parent.resolve().is_relative_to(asset_root):

@@ -113,7 +113,7 @@ export const merchItems: MerchItem[] = [
         priceNote: 'Therapy sold separately',
         badge: 'BESTSELLER',
         image: '/merch/emotional-support-rock.webp',
-        imageAlt: 'A grey rock with googly eyes on a lavender background.',
+        imageAlt: 'A rounded grey rock with two googly eyes on a lavender background.',
         dialog: {
             message: 'Your rock has read your message and chosen not to respond. It\'s already doing its job.',
         },
@@ -128,6 +128,7 @@ export const merchItems: MerchItem[] = [
         description: 'A detailed schedule of every upcoming upload on the @SirDanielIII YouTube channel.',
         price: 'FREE',
         image: '/merch/daniels-upload-schedule.png',
+        imageAlt: 'Sir Daniel III text beside a red-haired illustrated character in a colourful game landscape.',
         badge: 'POPULAR',
         buttonLabel: 'Download the schedule',
         action: 'file-not-found',
@@ -139,7 +140,7 @@ export const merchItems: MerchItem[] = [
         price: '12,500 V-Bucks',
         priceNote: 'Outside sold separately',
         image: '/merch/emergency-grass.webp',
-        imageAlt: 'A tiny square of fresh grass and soil on a warm yellow background.',
+        imageAlt: 'A square patch of bright green grass in a shallow tray on a tiled floor.',
         buttonLabel: 'Touch grass',
         dialog: {
             message: 'For the full experience, close this tab and step outside. However, thanks for the V-Bucks anyways.',
@@ -152,7 +153,7 @@ export const merchItems: MerchItem[] = [
         price: '$127.99',
         priceNote: 'Now with 30% more uptime',
         image: '/merch/server-air.webp',
-        imageAlt: 'An empty glass jar labelled SERVER AIR on a mint background.',
+        imageAlt: 'An empty glass jar with a metal lid and a SERVER AIR label on a pale green background.',
         dialog: {
             message: 'The air escaped during checkout. Please take a deep breath near your computer to receive your order.',
         },
@@ -164,6 +165,7 @@ export const merchItems: MerchItem[] = [
         price: '$20.00',
         priceNote: 'Price is in Canadian Dollars',
         image: '/merch/ten-dollar-canadian-bill.webp',
+        imageAlt: 'The front and back of a purple Canadian ten-dollar banknote displayed side by side.',
         buttonLabel: 'Click to confirm trade',
         dialog: {
             productName: 'PREMIUM CURRENCY EXCHANGE',

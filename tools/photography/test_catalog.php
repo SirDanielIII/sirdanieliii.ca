@@ -19,7 +19,7 @@ mkdir($root . '/portraiture/previews');
 mkdir($root . '/2026_japan_trip');
 $files = [
     '/portraiture/sample.jpg', '/portraiture/second.jpg', '/portraiture/sample.json', '/portraiture/second.json',
-    '/portraiture/previews/sample.webp', '/portraiture/previews/sample.json', '/2026_japan_trip/unfinished.jpg',
+    '/portraiture/previews/preview-sample.webp', '/portraiture/previews/sample.json', '/2026_japan_trip/unfinished.jpg',
 ];
 register_shutdown_function(static function () use ($root, $files): void {
     foreach ($files as $file) {
@@ -31,11 +31,11 @@ $configuration = [
     'portraiture' => ['title' => 'Portraiture', 'status' => 'published'],
     '2026_japan_trip' => ['title' => 'Japan Trip', 'status' => 'coming-soon'],
 ];
-foreach (['/portraiture/sample.jpg', '/portraiture/second.jpg', '/portraiture/previews/sample.webp', '/2026_japan_trip/unfinished.jpg'] as $file) {
+foreach (['/portraiture/sample.jpg', '/portraiture/second.jpg', '/portraiture/previews/preview-sample.webp', '/2026_japan_trip/unfinished.jpg'] as $file) {
     file_put_contents($root . $file, 'fixture');
 }
 $data = [
-    'filename' => 'sample.jpg', 'preview_filename' => 'previews/sample.webp',
+    'filename' => 'sample.jpg', 'preview_filename' => 'previews/preview-sample.webp',
     'title' => 'Sample', 'alt' => 'A descriptive photograph', 'description' => 'Description', 'weighting' => 9,
     'metadata' => ['image' => ['width' => 640, 'height' => 480], 'capture' => ['camera' => 'Canon EOS R5', 'max_aperture_apex' => 3, 'gps' => 'private']],
     'source' => ['internal' => 'not public'],
@@ -47,7 +47,7 @@ file_put_contents($root . '/portraiture/previews/sample.json', '{}');
 $gallery = Photography\loadGallery($root, $configuration);
 check(count($gallery['photos']) === 2, 'Previews and coming-soon photos must not become gallery records.');
 check($gallery['photos'][0]['filename'] === 'sample.jpg', 'Higher weighting sorts first.');
-check($gallery['photos'][0]['preview_filename'] === 'previews/sample.webp', 'Valid preview is explicit.');
+check($gallery['photos'][0]['preview_filename'] === 'previews/preview-sample.webp', 'Valid preview is explicit.');
 check(Photography\record($root . '/portraiture', 'sample.jpg', '/portfolio/photography/portraiture/', 'portraiture', 'Portraiture') === $gallery['photos'][0], 'Standalone and gallery records must normalize the same sidecar identically.');
 check(! isset($gallery['photos'][0]['source']) && ! isset($gallery['photos'][0]['metadata']['capture']['gps']), 'Authoring fingerprints and unneeded metadata are private.');
 check($gallery['photos'][0]['metadata']['capture']['f_stop'] === null, 'Missing metadata is null.');
@@ -64,7 +64,7 @@ $invalid = Photography\metadata(['image' => ['width' => 1e100, 'height' => -1], 
 check($invalid['image']['width'] === null && $invalid['image']['height'] === null && $invalid['capture']['f_stop'] === null, 'Malformed metadata cannot create invalid dimensions or values.');
 
 $oldPreview = $gallery['photos'][0]['preview_src'];
-touch($root . '/portraiture/previews/sample.webp', time() + 10);
+touch($root . '/portraiture/previews/preview-sample.webp', time() + 10);
 clearstatcache();
 check(Photography\loadGallery($root, $configuration)['photos'][0]['preview_src'] !== $oldPreview, 'Preview edits update asset versions.');
 $data['preview_filename'] = null;
@@ -74,11 +74,11 @@ $data['preview_filename'] = '../../outside.webp';
 file_put_contents($sidecar, json_encode($data));
 check(Photography\loadGallery($root, $configuration)['photos'][0]['preview_src'] === null, 'Traversal paths must fall back safely.');
 
-$data['preview_filename'] = 'previews/sample.webp';
+$data['preview_filename'] = 'previews/preview-sample.webp';
 $data['description'] = 'An edited description';
 file_put_contents($sidecar, json_encode($data));
 check(Photography\loadGallery($root, $configuration)['photos'][0]['description'] === 'An edited description', 'Editorial changes appear without generating a cache.');
-unlink($root . '/portraiture/previews/sample.webp');
+unlink($root . '/portraiture/previews/preview-sample.webp');
 check(Photography\loadGallery($root, $configuration)['photos'][0]['preview_src'] === null, 'Removed previews fall back to originals.');
 file_put_contents($sidecar, '{malformed JSON');
 $gallery = Photography\loadGallery($root, $configuration);

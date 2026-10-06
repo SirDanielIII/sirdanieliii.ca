@@ -1,17 +1,19 @@
 import {useMemo} from 'react';
-import {CollectionIntro, Eyebrow} from '../../css/portfolio/PortfolioPage.styles';
-import {ComingSoonFilm, FeaturedFilmFrame, FilmCollectionFrame, FilmEntryFrame, WatchButton} from '../../css/portfolio/PortfolioMedia.styles';
-import {useJson} from '../../shared/media/useJson';
-import ContentStatus from './ContentStatus';
-import {filmEntries, type Film, type ShortFilmsContent} from './media';
-import {useMediaViewer, type OpenGallery, type OpenVideo} from './useMediaViewer';
-import ExternalLink from './ExternalLink';
-import VideoThumbnail from './VideoThumbnail';
+import {CollectionIntro, Eyebrow} from '../../../css/portfolio/shared/PortfolioTypography.styles';
+import {ComingSoonFilm, FeaturedFilmFrame, FilmCollectionFrame, FilmEntryFrame, FilmSectionDivider} from '../../../css/portfolio/films/Films.styles';
+import {WatchButton} from '../../../css/portfolio/media/Media.styles';
+import {useJson} from '../../../shared/media/useJson';
+import ContentStatus from '../shared/ContentStatus';
+import {filmEntries, type Film, type ShortFilmsContent} from '../media/media';
+import {useMediaViewer, type OpenGallery, type OpenVideo} from '../media/useMediaViewer';
+import ExternalLink from '../shared/ExternalLink';
+import VideoThumbnail from '../media/VideoThumbnail';
 import FilmGallery from './FilmGallery';
-import MediaViewer from './MediaViewer';
+import MediaViewer from '../media/MediaViewer';
+import TableOfContents from '../shared/TableOfContents';
 
 function FeaturedFilm({film, onOpen}: {film: Film; onOpen: OpenVideo}) {
-    return <FeaturedFilmFrame aria-labelledby="featured-film-title">
+    return <FeaturedFilmFrame id="featured-film" aria-labelledby="featured-film-title">
         <div className="feature-image"><VideoThumbnail work={film} onOpen={onOpen} eager />
             <span className="feature-marker">{film.status === 'coming-soon' ? 'Featured film · Coming soon' : 'Featured film'}</span></div>
         <div className="feature-caption">
@@ -63,7 +65,16 @@ function ShortFilmsContent({shortFilms}: {shortFilms: ShortFilmsContent}) {
     return <>
         <CollectionIntro><Eyebrow>03 / Short films</Eyebrow><h1>A story.<br /><em>A world of its own.</em></h1>
             <p>Turn down the lights. Stay for a story.</p></CollectionIntro>
+        <TableOfContents label="Short film sections" layout="films" items={[
+            ...(featured ? [{id: 'featured-film', label: `Featured: ${featured.title}`}] : []),
+            ...shortFilms.collections.map(collection => ({
+                id: collection.slug,
+                label: collection.title,
+                children: collection.films.map(film => ({id: `film-${film.slug}`, label: film.title})),
+            })),
+        ]} />
         {featured && <FeaturedFilm film={featured} onOpen={viewer.openVideo} />}
+        {featured && shortFilms.collections[0]?.presentation === 'series' && <FilmSectionDivider />}
         {shortFilms.collections.map(collection => <FilmCollectionFrame key={collection.slug} id={collection.slug}
             data-presentation={collection.presentation} aria-labelledby={`${collection.slug}-title`}>
             <header>

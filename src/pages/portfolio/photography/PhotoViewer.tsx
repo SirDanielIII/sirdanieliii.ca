@@ -1,8 +1,8 @@
 import {Fragment} from 'react';
-import {Lightbox} from '../../css/portfolio/PortfolioPage.styles';
+import {Lightbox} from '../../../css/portfolio/shared/Lightbox.styles';
 import {metadataRows, type Photo} from './photography';
-import ViewerImage from '../../shared/media/ViewerImage';
-import {useModalDialog} from '../../shared/media/useModalDialog';
+import ViewerImage from '../../../shared/media/ViewerImage';
+import {useModalDialog} from '../../../shared/media/useModalDialog';
 
 export default function PhotoViewer({items, index, opener, onNavigate, onClose}: {
     items: Photo[];

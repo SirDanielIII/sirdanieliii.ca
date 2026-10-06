@@ -1,22 +1,21 @@
 {
   "portfolio": {
     "name": "Daniel Zhuo",
-    "about": "I'm Daniel, and this is my world through a lens. From portraits and quiet landscapes to client projects and questionable short films, I like finding stories worth keeping — and having some fun along the way.",
+    "about": [
+      "Ever since baby me saw a camera, it was over. He's a film kid now.",
+      "My video editing journey began in Grade 7, and I've made plenty of questionable creative decisions ever since. A lot of what I make is inspired by the early YouTube I grew up with. A little chaotic, a little unserious, but always made with care. These days, I bounce between client work, random side quests, and short films with friends. Hopefully you'll find something here you like. \uD83D\uDE04"
+    ],
     "email": "sirdanieldathird@gmail.com"
   },
   "portfolioSpotlight": {
     "primary": {
-      "image": "/portfolio/spotlight-street.webp",
-      "alt": "Brick buildings and rain-soaked paving along a quiet city street.",
-      "width": 1024,
-      "height": 1536,
-      "position": "50% 50%"
+      "image": "photography/landscapes/previews/preview-parliament_hill-east_block_1.webp",
+      "alt": "A Canadian flag flies above the green copper roof, stone walls and arched windows of Parliament Hill's East Block.",
+      "position": "50% 20%"
     },
     "secondary": {
-      "image": "/portfolio/spotlight-portrait.webp",
-      "alt": "A person with short dark hair in soft outdoor light.",
-      "width": 1024,
-      "height": 1536,
+      "image": "/portfolio/preview-one_man_crew.webp",
+      "alt": "A hand holds a camera rig with an external monitor while filming a person walking along a sunny residential street.",
       "position": "50% 32%"
     }
   },
@@ -25,30 +24,27 @@
       "id": "photography",
       "title": "Photography",
       "label": "Still moments",
-      "description": "People, places, and the details in between.",
-      "image": "/portfolio/collection-photography.webp",
-      "width": 1448,
-      "height": 1086,
+      "description": "People, places, and things that looked cool.",
+      "image": "photography/landscapes/previews/preview-parliament_hill-east_block_2.webp",
+      "alt": "Historic stone buildings on Parliament Hill border a broad green lawn under pink and blue evening clouds.",
       "position": "50% 50%"
     },
     {
       "id": "videography",
       "title": "Videography",
       "label": "Life in motion",
-      "description": "Vlogs, reviews, trailers, and creative edits.",
-      "image": "/portfolio/collection-videography.webp",
-      "width": 1448,
-      "height": 1086,
+      "description": "Projects with a focus on post-production work.",
+      "image": "video/thumbnail-echos_of_my_silence.webp",
+      "alt": "A performer draped in black stands between painted letters on a dark theatre stage.",
       "position": "50% 50%"
     },
     {
       "id": "short-films",
-      "title": "Short films",
-      "label": "A little cinema",
-      "description": "Small stories. A different world in every frame.",
-      "image": "/portfolio/collection-short-films.webp",
-      "width": 1448,
-      "height": 1086,
+      "title": "Short Films",
+      "label": "Absolute Cinema",
+      "description": "Anything for the shot. 😜",
+      "image": "/portfolio/the_green_screen_set.jpg",
+      "alt": "A person poses on a green-screen set surrounded by lights, stands, cables and a camera.",
       "position": "50% 50%"
     }
   ]

@@ -10,6 +10,7 @@ export interface HomeSection {
     to: string;
     /** Import a src/assets image above, or use a public URL such as /images/projects.webp. */
     image: string;
+    imageAlt: string;
     /** Adjust the crop without editing the component, e.g. '50% 35%' or 'left center'. */
     imagePosition?: string;
     /** Match the corresponding navigation colour from the site's theme. */
@@ -26,6 +27,7 @@ export const homeSections: HomeSection[] = [
         description: 'A collection of coding projects I have made.',
         to: '/projects/',
         image: projectsImage,
+        imageAlt: 'A blue-gloved hand holds an Intel processor in front of the camera.',
         imagePosition: '50% 50%',
         accent: 'highlight2',
     },
@@ -35,6 +37,7 @@ export const homeSections: HomeSection[] = [
         description: 'Photography, videography, and short films.',
         to: '/portfolio/',
         image: portfolioImage,
+        imageAlt: 'Railway tracks run between trees and electrical transmission towers beneath a cloudy sky.',
         imagePosition: '50% 55%',
         accent: 'highlight3',
     },
@@ -44,6 +47,7 @@ export const homeSections: HomeSection[] = [
         description: 'The best merch store to ever graze upon the Earth.',
         to: '/merch/',
         image: merchImage,
+        imageAlt: 'Two people wearing face protection hold replica rifles and pose together outdoors.',
         imagePosition: '50% 50%',
         accent: 'highlight4',
     },
@@ -53,6 +57,7 @@ export const homeSections: HomeSection[] = [
         description: 'Recipes, docs, and other loosely organized things.',
         to: '/guides/',
         image: guidesImage,
+        imageAlt: 'Braised meat cooks in a steaming wok on a stovetop.',
         imagePosition: '50% 50%',
         accent: 'highlight5',
     },

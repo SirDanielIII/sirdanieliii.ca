@@ -1,9 +1,9 @@
 {
   "filename": "toronto_skyline.jpg",
-  "preview_filename": "previews/toronto_skyline.webp",
+  "preview_filename": "previews/preview-toronto_skyline.webp",
   "title": "Toronto after dark",
   "description": "",
-  "alt": "The illuminated CN Tower and Toronto skyline reflect in still water at night.",
+  "alt": "The illuminated CN Tower and Toronto skyline rise above their reflections in dark water.",
   "weighting": 0,
   "metadata": {
     "file": {

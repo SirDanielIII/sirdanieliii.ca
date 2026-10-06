@@ -22,6 +22,7 @@ export interface ProjectData {
     tags: string[];
     lastUpdated?: string;
     thumbnail?: string;
+    thumbnailAlt?: string;
     showThumbnailBackground?: boolean;
     actions?: ProjectActions;
     colors: {

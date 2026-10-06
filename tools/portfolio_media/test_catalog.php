@@ -67,11 +67,18 @@ function expectFailure(string $name, callable $mutation, string $expected): void
 try {
     assetFixtures($videoSource, "$temporary/public/portfolio/video");
     assetFixtures($filmSource, "$temporary/public/portfolio/short_film");
+    $thumbnailFilename = $filmSource['collections'][1]['films'][0]['thumbnail'];
+    imageFixture("$temporary/public/portfolio/short_film/previews/preview-$thumbnailFilename.webp");
+    $screenshotFilename = 'screenshots/shelter/z-first.png';
+    imageFixture("$temporary/public/portfolio/short_film/previews/screenshots/shelter/preview-z-first.png.webp");
+    $filmSource['imageAlts'][$screenshotFilename] = 'A distinct description of this particular screenshot.';
     writeSource($videoSource, $filmSource);
     $data = PortfolioMedia\loadCatalog("$temporary/public");
     $sections = $data['videography']['sections'];
     $collections = $data['short-films']['collections'];
     check(array_column($sections, 'slug') === ['youtube-channel', 'springfest', 'commissions', 'studio-q'], 'section order changed');
+    check(str_starts_with($sections[3]['logo']['src'], '/portfolio/video/logo-studio_q.webp?v=')
+        && $sections[3]['logo']['alt'] === $videoSource['imageAlts']['logo-studio_q.webp'], 'experience logo or its authored alt text was lost');
     check(array_column($sections[0]['items'], 'slug') === ['room-review', 'move-in-vlog'], 'channel order changed');
     check(array_column($sections[1]['items'], 'slug') === ['springfest-2022', 'springfest-2023', 'springfest-2024'], 'Springfest order changed');
     check(array_column($sections[2]['groups'], 'slug') === ['echos-of-my-silence', 'lost-tribe'], 'commission order changed');
@@ -92,6 +99,16 @@ try {
         if ($file->getExtension() === 'png') $expectedImages[] = $file->getFilename();
     }
     $screenshots = $collections[1]['films'][2]['screenshots'];
+    check($collections[1]['films'][0]['thumbnail']['alt'] === $filmSource['imageAlts'][$thumbnailFilename], 'authored thumbnail alt text was not applied');
+    check(str_contains($collections[1]['films'][0]['thumbnail']['previewSrc'], '/previews/preview-'), 'prefixed film preview was not discovered');
+    $shelterImages = $collections[1]['films'][1]['screenshots'];
+    $specificScreenshot = array_values(array_filter($shelterImages, static fn(array $image): bool => str_contains($image['src'], '/z-first.png')))[0];
+    check($specificScreenshot['alt'] === $filmSource['imageAlts'][$screenshotFilename], 'discovered screenshot needs its own authored alt text');
+    check(str_contains($specificScreenshot['previewSrc'], '/previews/screenshots/shelter/preview-z-first.png.webp'), 'nested prefixed screenshot preview was not discovered');
+    $videoThumbnail = $videoSource['sections'][0]['items'][0]['thumbnail'];
+    check($sections[0]['items'][0]['thumbnail']['alt'] === $videoSource['imageAlts'][$videoThumbnail], 'video artwork descriptions must not use generic title text');
+    $videoLogo = $videoSource['sections'][0]['logo'];
+    check($sections[0]['logo']['alt'] === $videoSource['imageAlts'][$videoLogo], 'logo descriptions must be preserved');
     check(array_map(static fn(array $image): string => basename((string) parse_url($image['src'], PHP_URL_PATH)), $screenshots) === $expectedImages, 'directory discovery was sorted or unrelated files were included');
     check(count($collections[1]['films'][1]['screenshots']) === 2, 'Shelter screenshot directory was not compiled');
     check($collections[1]['films'][1]['posters'] === [], 'Shelter must support screenshots without posters');
@@ -130,6 +147,7 @@ try {
     expectFailure('legacy path', static function (&$v, &$f) { $f['collections'][1]['films'][0]['thumbnail'] = '/public/images/noir.png'; }, 'legacy /public/images/ assets are disallowed');
     expectFailure('legacy browser path', static function (&$v, &$f) { $f['collections'][1]['films'][0]['thumbnail'] = '/images/noir.png'; }, 'legacy /public/images/ assets are disallowed');
     expectFailure('invalid image field', static function (&$v, &$f) { $f['collections'][1]['films'][0]['thumbnail'] = ['unexpected']; }, 'a nonempty string is required');
+    expectFailure('invalid image alt', static function (&$v, &$f) { $f['imageAlts']['example.png'] = []; }, 'short-films.imageAlts.example.png: a nonempty string is required');
     expectFailure('mixed screenshot definitions', static function (&$v, &$f) { $f['collections'][1]['films'][2]['screenshots'] = []; }, 'use screenshots OR screenshotsDirectory');
     writeSource($videoSource, $filmSource);
     file_put_contents("$temporary/public/portfolio/short_film/short-films.json", '{bad json');

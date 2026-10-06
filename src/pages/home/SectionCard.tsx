@@ -16,7 +16,7 @@ const SectionCard = ({section, eager = false}: SectionCardProps) => {
             {failedImage !== section.image && (
                 <Background
                     src={section.image}
-                    alt=""
+                    alt={section.imageAlt}
                     $position={section.imagePosition}
                     loading="eager"
                     fetchPriority={eager ? 'high' : 'auto'}

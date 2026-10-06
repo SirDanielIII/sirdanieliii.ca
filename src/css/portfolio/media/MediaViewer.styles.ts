@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import {Lightbox} from './PortfolioPage.styles';
+import {Lightbox} from '../shared/Lightbox.styles';
 
 export const GalleryDialog = styled(Lightbox)`
     &[open] {

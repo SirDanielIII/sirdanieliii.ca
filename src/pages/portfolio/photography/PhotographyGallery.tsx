@@ -1,5 +1,6 @@
 import {useState} from 'react';
-import {GalleryMessage, PhotoCard, PhotoGrid} from '../../css/portfolio/PortfolioPage.styles';
+import {GalleryMessage} from '../../../css/portfolio/shared/PortfolioTypography.styles';
+import {PhotoCard, PhotoGrid} from '../../../css/portfolio/photography/Photography.styles';
 import {gallerySource, photoAspectRatio, type Photo, type PhotographyCategory} from './photography';
 
 function GalleryItem({photo, eager, onOpen}: {photo: Photo; eager: boolean; onOpen: (opener: HTMLButtonElement) => void}) {

@@ -1,9 +1,9 @@
 {
   "filename": "dog.jpg",
-  "preview_filename": "previews/dog.webp",
+  "preview_filename": "previews/preview-dog.webp",
   "title": "A quiet companion",
   "description": "",
-  "alt": "A brown dog sits on dry grass beneath leafless trees.",
+  "alt": "A brown dog sits on dry grass beneath bare trees beside a green fence.",
   "weighting": 0,
   "metadata": {
     "file": {

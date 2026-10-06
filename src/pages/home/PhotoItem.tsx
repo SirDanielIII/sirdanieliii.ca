@@ -1,7 +1,7 @@
 import {useState} from 'react';
 import {Thumb, PhotoButton} from '../../css/home/PhotoItem.styles';
-import PhotoViewer from '../portfolio/PhotoViewer';
-import type {Photo} from '../portfolio/photography';
+import PhotoViewer from '../portfolio/photography/PhotoViewer';
+import type {Photo} from '../portfolio/photography/photography';
 import {useJson} from '../../shared/media/useJson';
 
 export default function PhotoItem({src, alt, photoUrl}: {src: string; alt: string; photoUrl: string}) {

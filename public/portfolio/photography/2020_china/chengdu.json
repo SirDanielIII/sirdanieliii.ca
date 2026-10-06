@@ -1,9 +1,9 @@
 {
   "filename": "chengdu.jpg",
-  "preview_filename": "previews/chengdu.webp",
+  "preview_filename": "previews/preview-chengdu.webp",
   "title": "Chengdu",
   "description": "",
-  "alt": "Apartment buildings and city towers rise above a neighbourhood in Chengdu.",
+  "alt": "Low-rise apartments and taller residential towers fill a city neighbourhood in Chengdu.",
   "weighting": 0,
   "metadata": {
     "file": {

@@ -1,6 +1,6 @@
-import {FilmGalleryFrame} from '../../css/portfolio/PortfolioMedia.styles';
-import {filmImages, type Film} from './media';
-import type {OpenGallery} from './useMediaViewer';
+import {FilmGalleryFrame} from '../../../css/portfolio/films/Films.styles';
+import {filmImages, type Film} from '../media/media';
+import type {OpenGallery} from '../media/useMediaViewer';
 
 export default function FilmGallery({film, onOpen}: {film: Film; onOpen: OpenGallery}) {
     if (!film.posters.length && !film.screenshots.length) return null;

@@ -1,5 +1,5 @@
 import {useState} from 'react';
-import {VideoPoster} from '../../css/portfolio/PortfolioMedia.styles';
+import {VideoPoster} from '../../../css/portfolio/media/Media.styles';
 import type {WatchableWork} from './media';
 import type {OpenVideo} from './useMediaViewer';
 

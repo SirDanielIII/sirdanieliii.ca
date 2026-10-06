@@ -1,4 +1,4 @@
-import {useJson} from '../../shared/media/useJson';
+import {useJson} from '../../../shared/media/useJson';
 
 export interface PhotoMetadata {
     file: {type: string | null; size_bytes: number | null};

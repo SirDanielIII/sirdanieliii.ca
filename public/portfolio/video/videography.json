@@ -34,7 +34,7 @@
       "title": "Volunteer Work — Springfest",
       "label": "Volunteer Work",
       "collectionTitle": "Westmount Springfest (2022-2024)",
-      "logo": "logo-westmount_music.webp",
+      "logo": "logo-westmount.webp",
       "description": "Aided Mr. Nixon in documenting/filming the Westmount Music Springfest concerts.",
       "link": {
         "url": "https://www.youtube.com/watch?v=b0F89YexFCE&list=PLjds7zsYU2zClKmBoHqF9KmZ4-clrsv3D&pp=sAgC",
@@ -85,6 +85,7 @@
         {
           "slug": "lost-tribe",
           "title": "Lost Tribe (2022-2023)",
+          "logo": "logo-lost_tribe.webp",
           "items": [
             {
               "slug": "lt-smp-launch-trailer",
@@ -142,6 +143,7 @@
       "title": "Video Staff",
       "label": "Professional experience",
       "organization": "Studio Q | Alma Mater Society",
+      "logo": "logo-studio_q.webp",
       "location": "Kingston, Ontario, Canada",
       "workMode": "On-Site",
       "employment": "Contract Part-time",
@@ -149,5 +151,26 @@
       "end": "April 2024",
       "description": "Managed multiple video projects from shoot to post-production, collaborating with clients and teammates to deliver high-quality videos on time. I handled editing, color correction, and sound design, ensuring each project aligned with client needs and creative goals."
     }
-  ]
+  ],
+  "imageAlts": {
+    "logo-lost_tribe.webp": "Lost Tribe logo with white lettering and an orange meteor inside a blue ring.",
+    "logo-sirdanieliii.webp": "Sir Daniel III avatar showing a red-haired illustrated character with green eyes and a red hat.",
+    "logo-studio_q.webp": "Studio Q logo formed from angular yellow, orange, red and blue shapes.",
+    "logo-westmount.webp": "Westmount logo showing a teal and white wolf head against black.",
+    "logo-westmount_music.webp": "Westmount Music logo with overlapping colourful shapes against a black and white background.",
+    "thumbnail-1v1_for_charity-alternate.webp": "A charity gaming thumbnail with two people, a cartoon gun and the words LOSER HAS TO DONATE.",
+    "thumbnail-1v1_for_charity.webp": "A charity gaming thumbnail with two people, a cartoon gun, a Lost Tribe logo and the words THIS IS FOR CHARITY.",
+    "thumbnail-echos_of_my_silence.webp": "A performer draped in black stands between painted letters on a dark theatre stage.",
+    "thumbnail-lt_smp.webp": "Lost Tribe SMP title card with a blue-ringed meteor logo and blue and orange lettering on black.",
+    "thumbnail-lt_smp_alternate.webp": "A Minecraft clock tower stands above a landscape beneath a warm pink sky.",
+    "thumbnail-lt_smp_s3.webp": "LT SMP Season 3 title card with a meteor logo and the date DEC 23 2021.",
+    "thumbnail-move_in_vlog.webp": "A dorm-room thumbnail with a cartoon figure holding a camera, question marks and the words MOVE-IN DAY.",
+    "thumbnail-multiversus.webp": "A Multiversus Tournament thumbnail combining a reacting person with Superman and other game characters.",
+    "thumbnail-room_review.webp": "A dorm-room thumbnail with a cartoon figure holding a camera, the Queen's University logo and TOUR + REVIEW text.",
+    "thumbnail-silver_versus_diamond.webp": "A Valorant thumbnail with a game character, a reacting person, a rank icon and the words ACTUALLY SILVER?",
+    "thumbnail-springfest_2022.webp": "Springfest 2022 concert title card with a flower illustration, Westmount Music logo and THE CONCERT CUT text.",
+    "thumbnail-springfest_2023.webp": "Springfest 2023 concert title card with pink and orange lettering over a landscape and THE CONCERT CUT text.",
+    "thumbnail-springfest_2024.webp": "Springfest 2024 concert title card with white and pink lettering over a mountain landscape and THE CONCERT CUT text.",
+    "thumbnail-tzedakahthon_donations.webp": "A donation-stream thumbnail showing two people, dollar signs and the words Lost Tribe Donated."
+  }
 }

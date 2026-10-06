@@ -65,12 +65,12 @@ class GeneratorTests(unittest.TestCase):
         # Regenerating an older sidecar removes unneeded fields without losing editorial work.
         data.update(source={"size_bytes": 123, "mtime_ns": 456}, schema_version=1)
         sidecar.write_text(json.dumps(data), encoding="utf-8")
-        preview = self.category / "previews/sample.webp"
+        preview = self.category / "previews/preview-sample.webp"
         Image.new("RGB", (64, 48)).save(preview)
         generate.generate(self.photo)
         data = self.sidecar()
         self.assertEqual([data[key] for key in generate.CURATED], ["Curated title", "My description", "A useful description", 9])
-        self.assertEqual(data["preview_filename"], "previews/sample.webp")
+        self.assertEqual(data["preview_filename"], "previews/preview-sample.webp")
         self.assertNotIn("source", data)
         self.assertNotIn("schema_version", data)
         preview.unlink()
@@ -99,7 +99,7 @@ class GeneratorTests(unittest.TestCase):
         self.assertIsNone(self.sidecar()["metadata"]["image"]["width"])
 
     def test_previews_and_outside_paths_are_not_originals(self):
-        preview = self.category / "previews/sample.webp"
+        preview = self.category / "previews/preview-sample.webp"
         Image.new("RGB", (64, 48)).save(preview)
         with self.assertRaises(ValueError):
             generate.original_path(preview, {"portraiture": {}})
@@ -124,7 +124,7 @@ class GeneratorTests(unittest.TestCase):
             generate.original_path(self.photo, {'portraiture': {}})
 
     def test_batch_discovery_only_lists_direct_originals(self):
-        Image.new('RGB', (64, 48)).save(self.category / 'previews/sample.webp')
+        Image.new('RGB', (64, 48)).save(self.category / 'previews/preview-sample.webp')
         self.assertEqual(generate.originals({'portraiture': {}}), [self.photo])
 
     def test_invalid_configured_category_is_rejected_before_listing(self):
@@ -134,10 +134,10 @@ class GeneratorTests(unittest.TestCase):
     def test_preview_generation_preserves_original_and_is_idempotent(self):
         original = self.photo.read_bytes()
         generate.generate(self.photo, create_previews=True)
-        preview = self.category / 'previews/sample.webp'
+        preview = self.category / 'previews/preview-sample.webp'
         with Image.open(preview) as image:
             self.assertEqual(image.size, (640, 480))
-        self.assertEqual(self.sidecar()['preview_filename'], 'previews/sample.webp')
+        self.assertEqual(self.sidecar()['preview_filename'], 'previews/preview-sample.webp')
         timestamp = preview.stat().st_mtime_ns
         generate.generate(self.photo, create_previews=True)
         self.assertEqual(preview.stat().st_mtime_ns, timestamp)
@@ -148,7 +148,7 @@ class GeneratorTests(unittest.TestCase):
         exif[274] = 6
         Image.new('RGB', (2400, 1200)).save(self.photo, exif=exif)
         generate.generate(self.photo, create_previews=True)
-        with Image.open(self.category / 'previews/sample.webp') as image:
+        with Image.open(self.category / 'previews/preview-sample.webp') as image:
             self.assertEqual(image.size, (960, 1920))
             self.assertNotIn(274, image.getexif())
 

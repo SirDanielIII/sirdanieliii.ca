@@ -201,12 +201,12 @@ def generate(path, *, overwrite_curated=False, preview_path=None, create_preview
             preview = path.parent / authored
         else:
             standalone = path.parent / ("preview-" + path.stem + ".webp")
-            preview = standalone if standalone.is_file() else path.parent / "previews" / (path.stem + ".webp")
+            preview = standalone if standalone.is_file() else path.parent / "previews" / ("preview-" + path.stem + ".webp")
     preview = preview.absolute()
     parent = path.parent.resolve()
-    allowed = {parent / "previews" / (path.stem + ".webp"), parent / ("preview-" + path.stem + ".webp")}
+    allowed = {parent / "previews" / ("preview-" + path.stem + ".webp"), parent / ("preview-" + path.stem + ".webp")}
     if preview not in allowed or preview.is_symlink() or preview.parent.is_symlink():
-        raise ValueError("Use previews/<original stem>.webp or preview-<original stem>.webp beside the original.")
+        raise ValueError("Use previews/preview-<original stem>.webp or preview-<original stem>.webp beside the original.")
     if create_previews and (not preview.is_file() or preview.stat().st_mtime_ns < path.stat().st_mtime_ns):
         preview.parent.mkdir(parents=True, exist_ok=True)
         with Image.open(path) as original:

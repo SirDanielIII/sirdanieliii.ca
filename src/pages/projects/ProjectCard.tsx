@@ -96,7 +96,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({project}) => {
                 {project.thumbnail ? (
                     <ThumbnailImg
                         src={projectAssetUrl(project.folder, project.thumbnail)}
-                        alt={`${project.title} project artwork`}
+                        alt={project.thumbnailAlt ?? `${project.title} project artwork`}
                         loading="lazy"
                     />
                 ) : (

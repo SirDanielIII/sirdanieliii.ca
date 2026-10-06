@@ -1,4 +1,4 @@
-import {GalleryMessage} from '../../css/portfolio/PortfolioPage.styles';
+import {GalleryMessage} from '../../../css/portfolio/shared/PortfolioTypography.styles';
 
 export default function ContentStatus({status, retry}: {status: 'loading' | 'ready' | 'error'; retry: () => void}) {
     return <GalleryMessage role="status">

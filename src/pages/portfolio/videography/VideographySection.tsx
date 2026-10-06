@@ -1,13 +1,15 @@
 import {useMemo} from 'react';
-import {CollectionIntro, Eyebrow} from '../../css/portfolio/PortfolioPage.styles';
-import {CommissionGroup, ExperienceEntry, MediaSection, SectionIndex, VideoEntryFrame, WatchButton, WorkGrid} from '../../css/portfolio/PortfolioMedia.styles';
-import {useJson} from '../../shared/media/useJson';
-import ContentStatus from './ContentStatus';
-import {videographyEntries, type ExternalProjectLink, type ProfessionalExperience, type VideographyContent, type VideoWork, type VideoWorkSection} from './media';
-import ExternalLink from './ExternalLink';
-import VideoThumbnail from './VideoThumbnail';
-import MediaViewer from './MediaViewer';
-import {useMediaViewer, type OpenVideo} from './useMediaViewer';
+import {CollectionIntro, Eyebrow} from '../../../css/portfolio/shared/PortfolioTypography.styles';
+import {CommissionGroup, ExperienceEntry, VideoEntryFrame, WorkGrid} from '../../../css/portfolio/videography/Videography.styles';
+import {MediaSection, WatchButton} from '../../../css/portfolio/media/Media.styles';
+import TableOfContents from '../shared/TableOfContents';
+import {useJson} from '../../../shared/media/useJson';
+import ContentStatus from '../shared/ContentStatus';
+import {videographyEntries, type ExternalProjectLink, type ProfessionalExperience, type VideographyContent, type VideoWork, type VideoWorkSection} from '../media/media';
+import ExternalLink from '../shared/ExternalLink';
+import VideoThumbnail from '../media/VideoThumbnail';
+import MediaViewer from '../media/MediaViewer';
+import {useMediaViewer, type OpenVideo} from '../media/useMediaViewer';
 
 function VideoEntry({work, onOpen, layout, heading: Heading = 'h3', eager = false, description, link, label}: {
     work: VideoWork;
@@ -38,7 +40,7 @@ function VideoEntry({work, onOpen, layout, heading: Heading = 'h3', eager = fals
 function CreativeSection({section, onOpen, first}: {section: VideoWorkSection; onOpen: OpenVideo; first: boolean}) {
     return <MediaSection id={section.slug} aria-labelledby={`${section.slug}-title`}>
         <header>
-            {section.logo && <img src={section.logo.previewSrc ?? section.logo.src} alt="" width={section.logo.width} height={section.logo.height} loading="lazy" decoding="async" />}
+            {section.logo && <img src={section.logo.previewSrc ?? section.logo.src} alt={section.logo.alt} width={section.logo.width} height={section.logo.height} loading="lazy" decoding="async" />}
             <div><Eyebrow>{section.label}</Eyebrow><h2 id={`${section.slug}-title`}>{section.title}</h2></div>
         </header>
         {section.description && <p className="section-description">{section.description}</p>}
@@ -50,7 +52,10 @@ function CreativeSection({section, onOpen, first}: {section: VideoWorkSection; o
         {section.groups.map(group => {
             const singleFeature = group.items.length === 1 && group.items[0].presentation === 'feature';
             return <CommissionGroup key={group.slug} aria-label={group.title}>
-                {!singleFeature && <header><h3>{group.title}</h3>{group.description && <p>{group.description}</p>}
+                {!singleFeature && <header><div className="group-heading">
+                    {group.logo && <img src={group.logo.src} alt={group.logo.alt} width={group.logo.width} height={group.logo.height} loading="lazy" decoding="async" />}
+                    <h3>{group.title}</h3>
+                </div>{group.description && <p>{group.description}</p>}
                     {group.link && <ExternalLink href={group.link.url}>{group.link.label}</ExternalLink>}</header>}
                 <WorkGrid>
                     {group.items.map(work => <VideoEntry key={work.slug} work={work} onOpen={onOpen} layout="commission"
@@ -70,11 +75,16 @@ function CreativeSection({section, onOpen, first}: {section: VideoWorkSection; o
 
 function Experience({entry}: {entry: ProfessionalExperience}) {
     return <ExperienceEntry id={entry.slug} aria-labelledby={`${entry.slug}-title`}>
-        <div><Eyebrow>{entry.label}</Eyebrow><p className="experience-dates">{entry.start} — {entry.end}</p></div>
-        <div>
-            <h2 id={`${entry.slug}-title`}>{entry.title}</h2><h3>{entry.organization}</h3>
-            <div className="experience-meta"><p>{entry.location}</p><p>{entry.workMode}</p><p>{entry.employment}</p></div>
-            <p className="experience-copy">{entry.description}</p>
+        <Eyebrow>{entry.label}</Eyebrow>
+        <div className="experience-position">
+            {entry.logo && <img className="experience-logo" src={entry.logo.src} alt={entry.logo.alt} width={entry.logo.width} height={entry.logo.height} loading="lazy" decoding="async" />}
+            <div className="experience-details">
+                <h2 id={`${entry.slug}-title`}>{entry.title}</h2>
+                <p>{entry.organization} · {entry.employment}</p>
+                <p className="experience-meta">{entry.start} — {entry.end}</p>
+                <p className="experience-meta">{entry.location} · {entry.workMode}</p>
+                <p className="experience-copy">{entry.description}</p>
+            </div>
         </div>
     </ExperienceEntry>;
 }
@@ -90,9 +100,9 @@ function VideographyContent({videography}: {videography: VideographyContent}) {
     return <>
         <CollectionIntro><Eyebrow>02 / Videography</Eyebrow><h1>Always <em>in motion.</em></h1>
             <p>Everyday adventures, live performances, and stories made for others.<br />A selection from behind the camera and on the timeline.</p></CollectionIntro>
-        <SectionIndex aria-label="Videography sections">{videography.sections.map((section, index) => <a key={section.slug} href={`#${section.slug}`}>
-            <span aria-hidden="true">{String(index + 1).padStart(2, '0')}</span>{section.kind === 'experience' ? section.label : section.title}
-        </a>)}</SectionIndex>
+        <TableOfContents label="Videography sections" items={videography.sections.map(section => ({
+            id: section.slug, label: section.kind === 'experience' ? section.label : section.title,
+        }))} />
         {videography.sections.map((section, index) => section.kind === 'experience'
             ? <Experience key={section.slug} entry={section} />
             : <CreativeSection key={section.slug} section={section} onOpen={viewer.openVideo} first={index === 0} />)}

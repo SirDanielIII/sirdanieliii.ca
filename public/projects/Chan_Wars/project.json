@@ -11,6 +11,7 @@
     "github": "https://github.com/SirDanielIII/Chan_Wars"
   },
   "thumbnail": "icon.png",
+  "thumbnailAlt": "A smiling person's portrait inside an orange circle, used as the Chan Wars icon.",
   "showThumbnailBackground": false,
   "version": "1.0.0",
   "lastUpdated": "2025-04-29",

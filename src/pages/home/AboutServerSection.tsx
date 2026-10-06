@@ -12,7 +12,7 @@ const AboutServerSection: React.FC<AboutServerSectionProps> = ({
     <SidePhotoSection
         imgSrc="/preview-SD_NAS.webp"
         photoUrl="/scripts/server_photo.php"
-        imgAlt="SD_NAS server"
+        imgAlt="A black PC tower with a blue power light beside a window, lit by colourful lights"
         align={align}
         photoMaxWidth={520}
         photoAspectRatio="3 / 2"

@@ -1,9 +1,9 @@
 import {useRef} from 'react';
-import {GalleryDialog, VideoDialog} from '../../css/portfolio/MediaViewer.styles';
-import {useModalDialog} from '../../shared/media/useModalDialog';
-import ViewerImage from '../../shared/media/ViewerImage';
+import {GalleryDialog, VideoDialog} from '../../../css/portfolio/media/MediaViewer.styles';
+import {useModalDialog} from '../../../shared/media/useModalDialog';
+import ViewerImage from '../../../shared/media/ViewerImage';
 import PortfolioVideoPlayer from './PortfolioVideoPlayer';
-import ExternalLink from './ExternalLink';
+import ExternalLink from '../shared/ExternalLink';
 import type {ViewerSelection} from './useMediaViewer';
 
 function GalleryViewer({selection, onNavigate, onClose}: {

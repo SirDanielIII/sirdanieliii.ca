@@ -82,7 +82,7 @@ export default function ViewerImage({image, noun = 'image', onDismiss}: {
             const delta = Math.max(-300, Math.min(300, event.deltaY * unit));
             zoomAt(event.clientX, event.clientY, Math.exp(-delta * 0.002));
         };
-        // React's delegated wheel listeners are passive; zoom must suppress scrolling.
+        // React's delegated wheel listeners are passive; image zoom must suppress scrolling.
         element.addEventListener('wheel', onWheel, {passive: false});
         return () => { element.removeEventListener('wheel', onWheel); };
     }, [zoomAt]);

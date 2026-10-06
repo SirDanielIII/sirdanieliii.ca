@@ -1,9 +1,9 @@
 {
   "filename": "epiphany.jpg",
-  "preview_filename": "previews/epiphany.webp",
+  "preview_filename": "previews/preview-epiphany.webp",
   "title": "Epiphany",
   "description": "",
-  "alt": "A person in a white shirt poses beside a column on a city street at dusk.",
+  "alt": "A person in a white shirt leans beside a stone column on a city street at dusk.",
   "weighting": 0,
   "metadata": {
     "file": {

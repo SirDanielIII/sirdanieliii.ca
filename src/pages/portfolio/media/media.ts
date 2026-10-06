@@ -41,6 +41,7 @@ export interface VideoCollection {
 }
 
 export interface VideoGroup extends VideoCollection {
+    logo: MediaImage | null;
     description: string;
     link: ExternalProjectLink | null;
     collections: VideoCollection[];
@@ -60,6 +61,7 @@ export interface VideoWorkSection {
 }
 
 export interface ProfessionalExperience {
+    logo: MediaImage | null;
     kind: 'experience';
     slug: string;
     title: string;

@@ -1,9 +1,9 @@
 {
   "filename": "foggy_street.jpg",
-  "preview_filename": "previews/foggy_street.webp",
+  "preview_filename": "previews/preview-foggy_street.webp",
   "title": "A street in the fog",
   "description": "",
-  "alt": "Streetlights illuminate a curving road and bare trees on a foggy night.",
+  "alt": "Streetlights illuminate a curving road and bare trees in thick night-time fog.",
   "weighting": 0,
   "metadata": {
     "file": {

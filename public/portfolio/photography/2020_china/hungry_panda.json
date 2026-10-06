@@ -1,9 +1,9 @@
 {
   "filename": "hungry_panda.jpg",
-  "preview_filename": "previews/hungry_panda.webp",
+  "preview_filename": "previews/preview-hungry_panda.webp",
   "title": "Bamboo lunch",
   "description": "",
-  "alt": "A giant panda sits among bamboo stalks with leaves gathered in its paws.",
+  "alt": "A giant panda sits among bamboo stalks, holding leafy branches against its chest.",
   "weighting": 0,
   "metadata": {
     "file": {

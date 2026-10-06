@@ -1,6 +1,7 @@
 import {useMemo, useState} from 'react';
 import {Link, useLocation, useNavigate, useSearchParams} from 'react-router';
-import {CollectionIntro, Eyebrow, Filters, GalleryMessage} from '../../css/portfolio/PortfolioPage.styles';
+import {CollectionIntro, Eyebrow, GalleryMessage} from '../../../css/portfolio/shared/PortfolioTypography.styles';
+import {Filters} from '../../../css/portfolio/photography/Photography.styles';
 import {usePhotography} from './photography';
 import PhotographyGallery from './PhotographyGallery';
 import PhotoViewer from './PhotoViewer';
@@ -51,8 +52,8 @@ export default function PhotographySection() {
     return <>
         <CollectionIntro>
             <Eyebrow>01 / Photography</Eyebrow>
-            <h1>Life, <em>in stills.</em></h1>
-            <p>A favourite face. A familiar place. Something you might have walked past.<br />A collection of moments, one frame at a time.</p>
+            <h1>Point <em>& click.</em> 📸</h1>
+            <p>I started taking photography a bit more seriously in Grade 8, starting with my Dad's Nikon D70s. Since then, I’ve photographed friends, events, landscapes, client work, and plenty of random things I thought looked cool. Not much has changed, really. I just have nicer gear now. (I love FujiFilm).</p>
         </CollectionIntro>
         <Filters aria-label="Photography categories">
             <Link to={categoryUrl('')} aria-current={!activeCategory ? 'page' : undefined} aria-controls="photo-gallery">All work</Link>

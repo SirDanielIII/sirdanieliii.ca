@@ -3,15 +3,19 @@ import {createContext, useContext} from 'react';
 interface OverviewImage {
     image: string;
     alt?: string;
-    width: number;
-    height: number;
     position: string;
 }
 
 export interface PortfolioContent {
-    portfolio: {name: string; about: string; email: string};
+    portfolio: {name: string; about: [string, string]; email: string};
     portfolioSpotlight: {primary: OverviewImage & {alt: string}; secondary: OverviewImage & {alt: string}};
     collections: (OverviewImage & {id: 'photography' | 'videography' | 'short-films'; title: string; label: string; description: string})[];
+}
+
+/** Resolve relative image paths beside portfolio.json, independent of the page route. */
+export function portfolioImageSource(image: string): string {
+    const source = image.trim();
+    return /^(?:\/|[a-z][a-z\d+.-]*:)/i.test(source) ? source : `/portfolio/${source}`;
 }
 
 function isObject(value: unknown): value is Record<string, unknown> {
@@ -21,8 +25,6 @@ function isObject(value: unknown): value is Record<string, unknown> {
 function isOverviewImage(value: unknown): value is OverviewImage {
     return isObject(value)
         && typeof value.image === 'string' && value.image.trim() !== ''
-        && typeof value.width === 'number' && Number.isInteger(value.width) && value.width > 0
-        && typeof value.height === 'number' && Number.isInteger(value.height) && value.height > 0
         && typeof value.position === 'string' && value.position.trim() !== ''
         && (value.alt === undefined || typeof value.alt === 'string');
 }
@@ -37,7 +39,9 @@ function isCollection(value: unknown): value is PortfolioContent['collections'][
 export function isPortfolioContent(value: unknown): value is PortfolioContent {
     if (!isObject(value) || !isObject(value.portfolio) || !isObject(value.portfolioSpotlight)) return false;
     const {portfolio, portfolioSpotlight, collections} = value;
-    return typeof portfolio.name === 'string' && typeof portfolio.about === 'string' && typeof portfolio.email === 'string'
+    return typeof portfolio.name === 'string'
+        && Array.isArray(portfolio.about) && portfolio.about.length === 2 && portfolio.about.every(paragraph => typeof paragraph === 'string')
+        && typeof portfolio.email === 'string'
         && isOverviewImage(portfolioSpotlight.primary) && typeof portfolioSpotlight.primary.alt === 'string'
         && isOverviewImage(portfolioSpotlight.secondary) && typeof portfolioSpotlight.secondary.alt === 'string'
         && Array.isArray(collections) && collections.every(isCollection)
