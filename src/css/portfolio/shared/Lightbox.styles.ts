@@ -66,7 +66,7 @@ export const Lightbox = styled.dialog`
         height: 100%;
         min-height: 0;
         overflow: hidden;
-        touch-action: none;
+        touch-action: pan-y pinch-zoom;
     }
     .viewer-image-viewport:focus-visible {
         outline: 2px solid var(--portfolio-focus, ${({theme}) => theme.portfolio.photography.focus});
@@ -81,6 +81,7 @@ export const Lightbox = styled.dialog`
         user-select: none;
     }
     .viewer-zoomable[data-zoomed='true'] img { cursor: grab; }
+    .viewer-zoomable[data-zoomed='true'] .viewer-image-viewport { touch-action: none; }
     .viewer-zoomable[data-zoomed='true'] img:active { cursor: grabbing; }
     /* ViewerImage renders the loading and error states. */
     /*noinspection CssUnusedSymbol*/

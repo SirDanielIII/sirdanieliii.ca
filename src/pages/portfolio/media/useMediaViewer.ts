@@ -1,12 +1,13 @@
 import {useMemo, useState} from 'react';
 import {useLocation, useNavigate, useSearchParams} from 'react-router';
-import {filmImages, type Film, type GalleryImage, type MediaViewerEntry, type WatchableWork} from './media';
+import {filmImages, type Film, type GalleryImage, type MediaViewerEntry, type VideoSource, type WatchableWork} from './media';
 
 export type ViewerSelection =
-    | {kind: 'video'; entry: MediaViewerEntry; opener: HTMLButtonElement | null}
+    | {kind: 'video'; entry: MediaViewerEntry; video: VideoSource; isTrailer: boolean; opener: HTMLButtonElement | null}
     | {kind: 'gallery'; film: Film; images: GalleryImage[]; index: number; opener: HTMLButtonElement | null};
 
 export type OpenVideo = (work: WatchableWork, opener: HTMLButtonElement) => void;
+export type OpenTrailer = (film: Film, opener: HTMLButtonElement) => void;
 export type OpenGallery = (film: Film, index: number, opener: HTMLButtonElement) => void;
 
 export function useMediaViewer(entries: MediaViewerEntry[]) {
@@ -16,11 +17,15 @@ export function useMediaViewer(entries: MediaViewerEntry[]) {
     const navigate = useNavigate();
     const viewerState = location.state as {portfolioMediaViewer?: boolean} | null;
     const requestedVideo = params.get('watch');
+    const requestedTrailer = params.get('trailer');
     const requestedGallery = params.get('gallery');
-    const entry = entries.find(item => item.work.slug === (requestedVideo ?? requestedGallery));
+    const entry = entries.find(item => item.work.slug === (requestedVideo ?? requestedTrailer ?? requestedGallery));
     const images = useMemo(() => requestedGallery && entry && 'year' in entry.work ? filmImages(entry.work) : [], [entry, requestedGallery]);
     let selection: ViewerSelection | null = null;
-    if (requestedVideo && entry?.work.video) selection = {kind: 'video', entry, opener};
+    if (requestedVideo && entry?.work.video) selection = {kind: 'video', entry, video: entry.work.video, isTrailer: false, opener};
+    else if (requestedTrailer && entry && 'trailer' in entry.work && entry.work.trailer) {
+        selection = {kind: 'video', entry, video: entry.work.trailer, isTrailer: true, opener};
+    }
     else if (requestedGallery && entry && 'year' in entry.work) {
         const requestedIndex = Number(params.get('image') ?? 0);
         const index = Number.isInteger(requestedIndex) && requestedIndex >= 0 && requestedIndex < images.length ? requestedIndex : 0;
@@ -32,21 +37,32 @@ export function useMediaViewer(entries: MediaViewerEntry[]) {
     const open = (next: URLSearchParams, button: HTMLButtonElement) => {
         setOpener(button);
         // One history entry per session, just like Photography; retain in-page anchors.
-        const alreadyOpen = Boolean(requestedVideo ?? requestedGallery);
+        const alreadyOpen = Boolean(requestedVideo ?? requestedTrailer ?? requestedGallery);
         update(next, alreadyOpen, alreadyOpen ? viewerState : {portfolioMediaViewer: true});
     };
     const openVideo: OpenVideo = (work, opener) => {
         if (!work.video) return;
         const next = new URLSearchParams(params);
+        next.delete('trailer');
         next.delete('gallery');
         next.delete('image');
         next.set('watch', work.slug);
+        open(next, opener);
+    };
+    const openTrailer: OpenTrailer = (film, opener) => {
+        if (!film.trailer) return;
+        const next = new URLSearchParams(params);
+        next.delete('watch');
+        next.delete('gallery');
+        next.delete('image');
+        next.set('trailer', film.slug);
         open(next, opener);
     };
     const openGallery: OpenGallery = (film, index, opener) => {
         if (!filmImages(film)[index]) return;
         const next = new URLSearchParams(params);
         next.delete('watch');
+        next.delete('trailer');
         next.set('gallery', film.slug);
         next.set('image', String(index));
         open(next, opener);
@@ -54,6 +70,7 @@ export function useMediaViewer(entries: MediaViewerEntry[]) {
     return {
         selection,
         openVideo,
+        openTrailer,
         openGallery,
         onClose: () => {
             if (viewerState?.portfolioMediaViewer) {
@@ -61,6 +78,7 @@ export function useMediaViewer(entries: MediaViewerEntry[]) {
             } else {
                 const next = new URLSearchParams(params);
                 next.delete('watch');
+                next.delete('trailer');
                 next.delete('gallery');
                 next.delete('image');
                 update(next, true, null);

@@ -19,7 +19,7 @@ export const CollectionIntro = styled.div`
     }
     p {
         color: var(--portfolio-muted);
-        max-width: 42rem;
+        max-width: 62rem;
         margin-bottom: 1rem;
     }
     p:last-child {

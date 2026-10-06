@@ -69,8 +69,13 @@ try {
     assetFixtures($filmSource, "$temporary/public/portfolio/short_film");
     $thumbnailFilename = $filmSource['collections'][1]['films'][0]['thumbnail'];
     imageFixture("$temporary/public/portfolio/short_film/previews/preview-$thumbnailFilename.webp");
-    $screenshotFilename = 'screenshots/shelter/z-first.png';
-    imageFixture("$temporary/public/portfolio/short_film/previews/screenshots/shelter/preview-z-first.png.webp");
+    $posterFilename = $filmSource['collections'][1]['films'][0]['posters'][0];
+    imageFixture("$temporary/public/portfolio/short_film/previews/preview-$posterFilename.webp");
+    $videoThumbnailFilename = $videoSource['sections'][0]['items'][0]['thumbnail'];
+    imageFixture("$temporary/public/portfolio/video/previews/preview-$videoThumbnailFilename.webp");
+    $screenshotFilename = 'shelter/z-first.png';
+    imageFixture("$temporary/public/portfolio/short_film/previews/shelter/preview-z-first.png.webp");
+    imageFixture("$temporary/public/portfolio/short_film/previews/shelter/preview-a-second.webp");
     $filmSource['imageAlts'][$screenshotFilename] = 'A distinct description of this particular screenshot.';
     writeSource($videoSource, $filmSource);
     $data = PortfolioMedia\loadCatalog("$temporary/public");
@@ -85,26 +90,38 @@ try {
     check(array_column($sections[2]['groups'][1]['items'], 'date') === ['2023 Dec', '2021 Dec'], 'trailer order or supplied dates changed');
     check(array_column($sections[2]['groups'][1]['collections'][0]['items'], 'slug') === ['tzedakahthon', 'ukraine-relief', 'valorant-montage', 'multiversus'], 'other projects order changed');
     check(array_column($collections, 'slug') === ['street-drugs', 'filmography'], 'film collection order changed');
-    check(array_column($collections[0]['films'], 'slug') === ['street_drugs', 'street_drugs_3'], 'STREET DRUGS order changed');
+    check(array_column($collections[0]['films'], 'slug') === ['street_drugs', 'street_drugs_3', 'street_drugs_2'], 'STREET DRUGS order changed');
     check($collections[0]['presentation'] === 'series' && $collections[1]['presentation'] === 'filmography', 'series layout or default filmography layout was lost');
     check(array_column($collections[1]['films'], 'slug') === ['k_town_noir', 'shelter', 'the_bachelorette_party'], 'filmography order changed');
     check($data['short-films']['featuredFilm'] === 'k_town_noir' && is_string($data['short-films']['featuredFilm']), 'featured film must remain a slug reference');
     check(count(array_filter(array_merge(...array_column($collections, 'films')), static fn(array $film): bool => $film['slug'] === 'k_town_noir')) === 1, 'featured metadata was duplicated');
-    check($collections[0]['films'][1]['video'] === null && $collections[0]['films'][1]['thumbnail'] === null, 'coming soon requires absent media');
+    $upcoming = $collections[0]['films'][1];
+    $planned = $collections[0]['films'][2];
+    check($upcoming['video'] === null && $upcoming['thumbnail'] !== null, 'upcoming films must retain available artwork');
+    check($upcoming['trailer'] === ['type' => 'hls', 'url' => '/media/street_drugs_3_teaser/master.m3u8'], 'trailer must use the same source normalization as a film');
+    check($upcoming['synopsis'] === $filmSource['collections'][0]['films'][1]['synopsis'] && $upcoming['funFact'] !== '', 'upcoming copy was lost');
+    check($upcoming['year'] === '2027 (estimated)' && $planned['year'] === 'TBD', 'display years were lost');
+    check($planned['status'] === '' && $planned['synopsis'] === $filmSource['collections'][0]['films'][2]['synopsis'], 'film without a status must preserve its synopsis');
+    check($planned['video'] === null && $planned['trailer'] === null && $planned['thumbnail'] === null, 'planned films must support absent media');
+    check(count(array_filter(array_merge(...array_column($collections, 'films')), static fn(array $film): bool => $film['trailer'] !== null)) === 1, 'only STREET DRUGS 3 has a trailer');
     check($collections[1]['films'][0]['video']['url'] === '/media/k_town_noir/master.m3u8', 'same-site HLS must use the public media path');
     check(str_starts_with($collections[1]['films'][0]['thumbnail']['src'], '/portfolio/short_film/K-Town%20Noir%20%282024%29-'), 'public image URLs must be encoded');
     check($sections[0]['items'][0]['video']['embedUrl'] === 'https://www.youtube-nocookie.com/embed/Qs6sIiztsIQ?autoplay=1&rel=0', 'YouTube URL normalization failed');
     $expectedImages = [];
-    foreach (new FilesystemIterator("$temporary/public/portfolio/short_film/screenshots/the_bachelorette_party", FilesystemIterator::SKIP_DOTS) as $file) {
+    foreach (new FilesystemIterator("$temporary/public/portfolio/short_film/the_bachelorette_party", FilesystemIterator::SKIP_DOTS) as $file) {
         if ($file->getExtension() === 'png') $expectedImages[] = $file->getFilename();
     }
     $screenshots = $collections[1]['films'][2]['screenshots'];
     check($collections[1]['films'][0]['thumbnail']['alt'] === $filmSource['imageAlts'][$thumbnailFilename], 'authored thumbnail alt text was not applied');
-    check(str_contains($collections[1]['films'][0]['thumbnail']['previewSrc'], '/previews/preview-'), 'prefixed film preview was not discovered');
+    check($collections[1]['films'][0]['thumbnail']['previewSrc'] === null, 'film thumbnails must ignore preview files');
+    check($sections[0]['items'][0]['thumbnail']['previewSrc'] === null, 'video thumbnails must ignore preview files');
+    check(str_contains($collections[1]['films'][0]['posters'][0]['previewSrc'], '/previews/preview-'), 'poster previews must still be discovered');
     $shelterImages = $collections[1]['films'][1]['screenshots'];
     $specificScreenshot = array_values(array_filter($shelterImages, static fn(array $image): bool => str_contains($image['src'], '/z-first.png')))[0];
     check($specificScreenshot['alt'] === $filmSource['imageAlts'][$screenshotFilename], 'discovered screenshot needs its own authored alt text');
-    check(str_contains($specificScreenshot['previewSrc'], '/previews/screenshots/shelter/preview-z-first.png.webp'), 'nested prefixed screenshot preview was not discovered');
+    check(str_contains($specificScreenshot['previewSrc'], '/previews/shelter/preview-z-first.png.webp'), 'nested prefixed screenshot preview was not discovered');
+    $webpScreenshot = array_values(array_filter($shelterImages, static fn(array $image): bool => str_contains($image['src'], '/a-second.png')))[0];
+    check(str_contains($webpScreenshot['previewSrc'], '/previews/shelter/preview-a-second.webp'), 'manually named WebP still preview was not discovered');
     $videoThumbnail = $videoSource['sections'][0]['items'][0]['thumbnail'];
     check($sections[0]['items'][0]['thumbnail']['alt'] === $videoSource['imageAlts'][$videoThumbnail], 'video artwork descriptions must not use generic title text');
     $videoLogo = $videoSource['sections'][0]['logo'];
@@ -128,6 +145,22 @@ try {
     check($without['short-films']['collections'][1]['films'][1]['video'] === null, 'optional media must normalize to null');
     check($without['short-films']['collections'][1]['films'][1]['posters'] === [], 'optional galleries must normalize to arrays');
 
+    // Labels never determine media availability, including a film with both sources.
+    $displayOnly = $filmSource;
+    $displayOnly['collections'][0]['films'][0]['status'] = 'coming soon';
+    $displayOnly['collections'][0]['films'][0]['trailer'] = ['type' => 'youtube', 'url' => 'https://youtu.be/Qs6sIiztsIQ'];
+    unset($displayOnly['collections'][0]['films'][1]['status']);
+    writeSource($videoSource, $displayOnly);
+    $independent = PortfolioMedia\loadCatalog("$temporary/public")['short-films']['collections'][0]['films'];
+    check($independent[0]['video'] === $collections[0]['films'][0]['video'], 'display status must not remove full-film playback');
+    check($independent[0]['trailer']['type'] === 'youtube' && isset($independent[0]['trailer']['embedUrl']), 'YouTube trailers must normalize alongside full films');
+    check($independent[1]['status'] === '' && $independent[1]['trailer'] === $upcoming['trailer'], 'missing status must not remove a trailer');
+
+    expectFailure('empty year label', static function (&$v, &$f) { $f['collections'][0]['films'][1]['year'] = ' '; }, 'year: a nonempty string is required');
+    expectFailure('invalid numeric year', static function (&$v, &$f) { $f['collections'][0]['films'][1]['year'] = 42; }, 'expected a four-digit year');
+    expectFailure('invalid status text', static function (&$v, &$f) { $f['collections'][0]['films'][1]['status'] = []; }, 'status: expected a string or null');
+    expectFailure('invalid trailer', static function (&$v, &$f) { $f['collections'][0]['films'][1]['trailer']['url'] = '/media/trailer.mp4'; }, 'trailer: HLS requires');
+
     expectFailure('missing slug', static function (&$v, &$f) { unset($f['collections'][1]['films'][0]['slug']); }, 'slug: a nonempty string is required');
     expectFailure('duplicate slug', static function (&$v, &$f) { $f['collections'][1]['films'][1]['slug'] = 'k_town_noir'; }, 'duplicate slug');
     expectFailure('bad reference', static function (&$v, &$f) { $f['featuredFilm'] = 'missing'; }, 'must reference exactly one canonical film');
@@ -136,7 +169,7 @@ try {
     expectFailure('invalid section kind', static function (&$v, &$f) { $v['sections'][0]['kind'] = 'generic'; }, 'expected channel, series, commissions or experience');
     expectFailure('missing thumbnail', static function (&$v, &$f) { $v['sections'][0]['items'][0]['thumbnail'] = 'missing.webp'; }, 'videography.sections[0].items[0].thumbnail: missing or invalid asset');
     expectFailure('missing poster', static function (&$v, &$f) { $f['collections'][1]['films'][0]['posters'] = ['missing.png']; }, 'posters[0]: missing or invalid asset');
-    expectFailure('missing directory', static function (&$v, &$f) { $f['collections'][1]['films'][2]['screenshotsDirectory'] = 'screenshots/missing'; }, 'screenshotsDirectory: missing or invalid directory');
+    expectFailure('missing directory', static function (&$v, &$f) { $f['collections'][1]['films'][2]['screenshotsDirectory'] = 'missing'; }, 'screenshotsDirectory: missing or invalid directory');
     expectFailure('unsupported provider', static function (&$v, &$f) { $v['sections'][0]['items'][0]['video']['type'] = 'vimeo'; }, 'unsupported video provider');
     expectFailure('malformed video', static function (&$v, &$f) { $v['sections'][0]['items'][0]['video'] = 'None'; }, 'video: expected a JSON object');
     expectFailure('invalid YouTube host', static function (&$v, &$f) { $v['sections'][0]['items'][0]['video']['url'] = 'https://youtube.com.example.org/watch?v=Qs6sIiztsIQ'; }, 'invalid YouTube URL');

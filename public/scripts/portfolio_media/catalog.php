@@ -98,7 +98,7 @@ final class Catalog
         return $path;
     }
 
-    private function image(mixed $value, string $context, string $alt): ?array
+    private function image(mixed $value, string $context, string $alt, bool $detectPreview = true): ?array
     {
         if ($value === null) return null;
         $path = $this->resolve($value, $context);
@@ -118,19 +118,22 @@ final class Catalog
             'alt' => $this->imageAlts[(string) $value] ?? $alt,
             'width' => $dimensions[0],
             'height' => $dimensions[1],
-            'previewSrc' => $this->previewUrl((string) $value),
+            'previewSrc' => $detectPreview ? $this->previewUrl((string) $value) : null,
         ];
     }
 
     private function previewUrl(string $relative): ?string
     {
         $directory = dirname($relative);
-        $preview = 'previews/' . ($directory === '.' ? '' : $directory . '/') . 'preview-' . basename($relative) . '.webp';
-        $candidate = $this->root . '/' . $preview;
-        if (! is_file($candidate)) return null;
-        $path = $this->resolve($preview, "preview of $relative");
-        return $path === null ? null : $this->urlPrefix . '/' . implode('/', array_map('rawurlencode', explode('/', $preview)))
-            . '?v=' . \Photography\assetVersion($path);
+        $prefix = 'previews/' . ($directory === '.' ? '' : $directory . '/') . 'preview-';
+        foreach ([basename($relative) . '.webp', pathinfo($relative, PATHINFO_FILENAME) . '.webp'] as $filename) {
+            $preview = $prefix . $filename;
+            if (! is_file($this->root . '/' . $preview)) continue;
+            $path = $this->resolve($preview, "preview of $relative");
+            return $path === null ? null : $this->urlPrefix . '/' . implode('/', array_map('rawurlencode', explode('/', $preview)))
+                . '?v=' . \Photography\assetVersion($path);
+        }
+        return null;
     }
 
     private function externalLink(mixed $value, string $context): ?array
@@ -202,7 +205,7 @@ final class Catalog
         return [
             'slug' => $this->slug($item['slug'] ?? null, $context),
             'title' => $title,
-            'thumbnail' => $this->image($item['thumbnail'] ?? null, "$context.thumbnail", "Still from $title"),
+            'thumbnail' => $this->image($item['thumbnail'] ?? null, "$context.thumbnail", "Still from $title", false),
             'video' => $this->video($item['video'] ?? null, "$context.video"),
         ];
     }
@@ -303,11 +306,10 @@ final class Catalog
     {
         $base = $this->work($film, $at);
         $type = $film['type'] ?? null;
-        $status = $film['status'] ?? 'released';
         $year = $film['year'] ?? null;
         if (! in_array($type, ['Short Film', 'Documentary'], true)) $this->error("$at.type", 'expected Short Film or Documentary');
-        if (! in_array($status, ['released', 'coming-soon'], true)) $this->error("$at.status", 'expected released or coming-soon');
-        if (! is_int($year) || $year < 1888 || $year > 2200) $this->error("$at.year", 'expected a four-digit year');
+        if (is_string($year)) $year = $this->text($year, "$at.year", true);
+        elseif (! is_int($year) || $year < 1888 || $year > 2200) $this->error("$at.year", 'expected a four-digit year or nonempty display text');
         $screenshots = $film['screenshots'] ?? [];
         if (isset($film['screenshotsDirectory'])) {
             if (array_key_exists('screenshots', $film)) $this->error($at, 'use screenshots OR screenshotsDirectory, not both');
@@ -325,7 +327,8 @@ final class Catalog
         return $base + [
             'year' => $year,
             'type' => $type,
-            'status' => $status,
+            'status' => $this->text($film['status'] ?? null, "$at.status"),
+            'trailer' => $this->video($film['trailer'] ?? null, "$at.trailer"),
             'synopsis' => $this->text($film['synopsis'] ?? null, "$at.synopsis"),
             'funFact' => $this->text($film['funFact'] ?? null, "$at.funFact"),
             'posters' => $this->galleryImages($film['posters'] ?? [], "$at.posters", $base['title'], 'Poster'),

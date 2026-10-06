@@ -23,8 +23,6 @@ export const GalleryDialog = styled(Lightbox)`
         font-size: 0.85rem;
         color: var(--portfolio-muted);
     }
-    .viewer-image { touch-action: pan-y pinch-zoom; }
-    .viewer-image > .viewer-image { width: 100%; height: 100%; }
     .viewer-navigation { flex: 0 0 12rem; }
 `;
 

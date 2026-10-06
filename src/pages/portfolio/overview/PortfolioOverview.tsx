@@ -42,7 +42,7 @@ const PortfolioOverview = () => {
                     style={{objectPosition: portfolioSpotlight.secondary.position}}
                     decoding="async"
                 />
-                <span className="image-note">Proof I touch grass (sometimes).</span>
+                <span className="image-note">Portfolio v2026.0</span>
                 <span className="frame-number" aria-hidden="true">
                     01 — 03
                 </span>

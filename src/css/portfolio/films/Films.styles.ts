@@ -28,7 +28,7 @@ export const FeaturedFilmFrame = styled.section`
     }
     h2 { font-size: clamp(2.75rem, 6vw, 5rem); line-height: 1.1; letter-spacing: -0.045em; margin: 0.6rem 0; }
     .feature-synopsis { color: var(--portfolio-muted); font-size: 1rem; }
-    .feature-actions { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; margin-top: 1rem; }
+    .feature-actions { display: flex; flex-wrap: wrap; gap: 0.5rem 1.5rem; align-items: center; margin-top: 0.75rem; }
     .feature-actions a {
         ${mediaAction}
         color: var(--portfolio-muted);
@@ -41,28 +41,33 @@ export const FeaturedFilmFrame = styled.section`
 
 export const FilmEntryFrame = styled.article`
     display: grid;
-    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
     align-items: start;
-    gap: 1.75rem 2.75rem;
+    gap: 1.5rem 2.5rem;
     padding: var(--portfolio-divider-space) 0;
     scroll-margin-top: 7rem;
     .film-copy { min-width: 0; overflow-wrap: anywhere; }
+    .film-heading { grid-column: 1 / -1; }
+    .film-media { min-width: 0; }
+    &[data-has-media='false'] .film-media:empty { display: none; }
+    &[data-has-media='false'] .film-copy { grid-column: 1 / -1; }
     .film-index { display: block; color: var(--portfolio-muted); font-size: 0.7rem; letter-spacing: 0.15em; margin-bottom: 0.75rem; }
-    h3 { font-size: clamp(2rem, 3.5vw, 2.75rem); line-height: 1.12; letter-spacing: -0.025em; margin: 0.75rem 0 1rem; }
-    .film-synopsis { color: var(--portfolio-muted); font-size: 0.95rem; }
+    h3 { font-size: clamp(2rem, 3.5vw, 2.75rem); line-height: 1.12; letter-spacing: -0.025em; margin: 0.5rem 0 0; }
+    .film-label { color: var(--portfolio-accent); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; margin: 0 0 0.4rem; }
+    .film-synopsis { color: var(--portfolio-muted); font-size: 1rem; line-height: 1.75; max-width: 65ch; margin: 0; }
     .production-note {
-        font-size: 0.82rem;
+        font-size: 0.9rem;
         color: var(--portfolio-muted);
-        padding-left: 1rem;
-        border-left: 2px solid var(--portfolio-line);
         margin-top: 1.25rem;
     }
-    .production-note span { display: block; color: var(--portfolio-accent); font-size: 0.7rem; margin-bottom: 0.25rem; }
-    .film-actions { display: flex; align-items: center; gap: 0.5rem 1.5rem; flex-wrap: wrap; margin-top: 1rem; }
-    .gallery-button { color: var(--portfolio-muted); min-height: 44px; font-size: 0.85rem; border: 0; border-bottom: 1px solid var(--portfolio-line); }
+    .production-note p { margin: 0; max-width: 65ch; }
+    .film-actions { display: flex; align-items: center; gap: 0.5rem 1rem; flex-wrap: wrap; margin-top: 0.75rem; }
+    .film-actions > button { white-space: nowrap; }
+    .gallery-button { ${mediaAction} color: var(--portfolio-muted); border-bottom-color: var(--portfolio-line); }
     .gallery-button:hover { color: var(--portfolio-accent); border-color: var(--portfolio-accent); }
-    @media (max-width: 850px) { gap: 1.5rem 2rem; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); }
-    @media (max-width: 700px) { grid-template-columns: minmax(0, 1fr); }
+    @media (max-width: 850px) {
+        grid-template-columns: minmax(0, 1fr);
+    }
 `;
 
 export const FilmGalleryFrame = styled.div`
@@ -70,7 +75,7 @@ export const FilmGalleryFrame = styled.div`
     display: flex;
     align-items: start;
     gap: 1.5rem 2rem;
-    .gallery-label { color: var(--portfolio-muted); font-size: 0.7rem; letter-spacing: 0.08em; margin-bottom: 0.6rem; }
+    .gallery-label { color: var(--portfolio-muted); font-size: 0.85rem; font-weight: 500; letter-spacing: 0.06em; margin: 0 0 0.75rem; }
     .poster-set { flex: 0 1 auto; min-width: 0; }
     .poster-images { display: flex; flex-wrap: wrap; gap: 0.75rem; }
     .still-set { flex: 1 1 0; min-width: 0; }
@@ -111,30 +116,13 @@ export const FilmGalleryFrame = styled.div`
     }
 `;
 
-export const ComingSoonFilm = styled.article`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 2rem;
-    padding: var(--portfolio-divider-space) 0;
-    scroll-margin-top: 7rem;
-    h3 { font-size: clamp(2rem, 4vw, 3rem); margin-bottom: 0.5rem; letter-spacing: -0.025em; }
-    .coming-soon-status {
-        color: var(--portfolio-accent);
-        font-size: 0.7rem;
-        letter-spacing: 0.18em;
-        white-space: nowrap;
-        padding: 0.7rem 0;
-    }
-    @media (max-width: 600px) { flex-direction: column; align-items: start; gap: 1rem; }
-`;
-
 export const FilmCollectionFrame = styled(MediaSection)`
     > header { justify-content: space-between; flex-wrap: wrap; margin-bottom: 0; }
+    > header h2 { font-size: clamp(2.1rem, 3.75vw, 3rem); font-weight: 700; }
     /* ExternalLink renders this class in the collection header. */
     /*noinspection CssUnusedSymbol*/
     > header .text-link { font-size: 0.85rem; }
-    /* A single divider between siblings; the next collection/contact owns its own top rule. */
+    /* Separate sibling entries without adding a rule above the first film. */
     .film-entries > article + article { border-top: 1px solid var(--portfolio-line); }
     .film-entries > article:last-child { padding-bottom: 0; }
     &[data-presentation='series'] {
@@ -145,7 +133,6 @@ export const FilmCollectionFrame = styled(MediaSection)`
         /* FilmEntry in ShortFilmsSection renders the index. */
         /*noinspection CssUnusedSymbol*/
         .film-index { display: none; }
-        ${ComingSoonFilm} h3 { font-size: clamp(1.5rem, 3vw, 2.1rem); }
     }
     @media (max-width: 700px) {
         &[data-presentation='series'] { padding: 1.5rem 1.25rem; }

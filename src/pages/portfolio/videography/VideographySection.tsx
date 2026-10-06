@@ -98,8 +98,15 @@ function VideographyContent({videography}: {videography: VideographyContent}) {
     const viewerEntries = useMemo(() => videographyEntries(videography), [videography]);
     const viewer = useMediaViewer(viewerEntries);
     return <>
-        <CollectionIntro><Eyebrow>02 / Videography</Eyebrow><h1>Always <em>in motion.</em></h1>
-            <p>Everyday adventures, live performances, and stories made for others.<br />A selection from behind the camera and on the timeline.</p></CollectionIntro>
+        <CollectionIntro>
+            <Eyebrow>02 / Videography</Eyebrow>
+            <h1>Roll the <em>tape.</em> 🎬</h1>
+            <p>
+                I started video editing in Grade 7 on Windows Movie Maker, using my mom's prehistoric Windows 7 laptop, an HP G60-550CA with a Core 2 Duo. It overheated so easily that I had to prop it up on a textbook just to keep it usable. At one point, the hard drive died, and I even had to hunt down an unofficial graphics driver for Windows 10 because its Intel Media Accelerator graphics predated Intel HD Graphics. But, that's a story for another time.<br /><br />
+
+                Between that laptop and my NVIDIA Shield Tablet K1, I made a bunch of home videos with my little brother and friends using Windows Movie Maker. Once I got to high school, my dad helped me buy a proper PC. From there, I discovered Adobe Premiere Pro, and now I've become a wizard. 🧙
+            </p>
+        </CollectionIntro>
         <TableOfContents label="Videography sections" items={videography.sections.map(section => ({
             id: section.slug, label: section.kind === 'experience' ? section.label : section.title,
         }))} />

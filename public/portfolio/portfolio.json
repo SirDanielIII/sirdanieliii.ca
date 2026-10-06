@@ -14,7 +14,7 @@
       "position": "50% 20%"
     },
     "secondary": {
-      "image": "/portfolio/preview-one_man_crew.webp",
+      "image": "/portfolio/one_man_crew.webp",
       "alt": "A hand holds a camera rig with an external monitor while filming a person walking along a sunny residential street.",
       "position": "50% 32%"
     }
@@ -43,7 +43,7 @@
       "title": "Short Films",
       "label": "Absolute Cinema",
       "description": "Anything for the shot. 😜",
-      "image": "/portfolio/the_green_screen_set.jpg",
+      "image": "/portfolio/the_green_screen_set.webp",
       "alt": "A person poses on a green-screen set surrounded by lights, stands, cables and a camera.",
       "position": "50% 50%"
     }

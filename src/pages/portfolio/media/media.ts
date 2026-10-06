@@ -80,9 +80,10 @@ export interface VideographyContent {
 }
 
 export interface Film extends PortfolioWork {
-    year: number;
+    year: number | string;
     type: 'Short Film' | 'Documentary';
-    status: 'released' | 'coming-soon';
+    status: string;
+    trailer: VideoSource | null;
     synopsis: string;
     funFact: string;
     posters: GalleryImage[];

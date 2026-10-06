@@ -3,9 +3,9 @@
   "collections": [
     {
       "slug": "street-drugs",
-      "title": "STREET DRUGS",
+      "title": "STREET DRUGS SAGA",
       "presentation": "series",
-      "label": "An independent world",
+      "label": "\"IT'S NOT FAIR\"",
       "link": {"url": "https://ivanlikes.men/", "label": "Explore STREET DRUGS"},
       "films": [
         {
@@ -15,23 +15,35 @@
           "type": "Short Film",
           "video": {"type": "hls", "url": "https://sirdanieliii.ca/media/street_drugs/master.m3u8"},
           "thumbnail": "UofW STREET DRUGS Broadcast Thumbnail.jpg",
+          "screenshotsDirectory": "street_drugs",
           "posters": ["Reasons to Watch Us.png"],
-          "synopsis": "Fortnite Battle pass.",
+          "synopsis": "BREAKING NEWS! Scientists at the University of Weedmount have discovered a brand new type of substance that will change the medical industry forever! Join Two Guys News, hosted by Bob and his co-anchor, Gareth Dingleberry, as they attempt to cover this new groundbreaking story.",
           "funFact": "This was an assignment for FILM 392."
         },
         {
           "slug": "street_drugs_3",
           "title": "STREET DRUGS 3",
-          "year": 2027,
+          "year": "Est. 2027",
           "type": "Short Film",
-          "status": "coming-soon"
+          "trailer": {"type": "hls", "url": "https://sirdanieliii.ca/media/street_drugs_3_teaser/master.m3u8"},
+          "thumbnail": "2026-05-11 STREET DRUGS 3 (Rough Cut V2)-00.00.08.710.png",
+          "screenshotsDirectory": "street_drugs_3",
+          "synopsis": "Following the events of STREET DRUGS, Gareth Dingleberry awakens alone in the middle of a field and quickly rushes back to Two Guys News headquarters. Desperate to spread the word about the STREET DRUGS crisis, Gareth is baffled to discover that nobody else remembers it ever happening. Labelled as insane, he is forced into therapy, where he must confront the possibility that the crisis—and perhaps his own memories—may not be what they seem.",
+          "funFact": "Currently in post-production. Aiming for a 2027 release date."
+        },
+        {
+          "slug": "street_drugs_2",
+          "title": "STREET DRUGS 2",
+          "year": "TBD",
+          "type": "Short Film",
+          "synopsis": "N/A"
         }
       ]
     },
     {
       "slug": "filmography",
-      "title": "The filmography",
-      "label": "Short films & documentary",
+      "title": "Filmography",
+      "label": "Short Films & Documentary",
       "films": [
         {
           "slug": "k_town_noir",
@@ -51,7 +63,7 @@
           "type": "Documentary",
           "video": {"type": "hls", "url": "https://sirdanieliii.ca/media/shelter/master.m3u8"},
           "thumbnail": "Shelter (Documentary) [2024-10-28 Final Render]-00.06.05.414.png",
-          "screenshotsDirectory": "screenshots/shelter",
+          "screenshotsDirectory": "shelter",
           "synopsis": "Realtor Jason Eade faces issues as a Canadian landlord.",
           "funFact": "TBD."
         },
@@ -63,7 +75,7 @@
           "video": {"type": "hls", "url": "https://sirdanieliii.ca/media/the_bachelorette_party/master.m3u8"},
           "thumbnail": "The Bachelorette Party (The Definitive Cut).00_01_10_39422.Still007.png",
           "posters": ["The Bachelorette Party Poster (K25).png", "The Bachelorette Party Poster (BTS) (K25).png"],
-          "screenshotsDirectory": "screenshots/the_bachelorette_party",
+          "screenshotsDirectory": "the_bachelorette_party",
           "synopsis": "On the eve of her wedding, Aleeza and her bridesmaids gather for a night of drinks, laughter, and a classic game of dares—the King’s Game. But when Kyoko discovers a mysterious cross in their Airbnb, a dark curiosity awakens within the group. Faced with impossible choices and mounting terror, Aleeza must confront the horrifying reality that some games are never meant to be played.",
           "funFact": "This was an assignment for FILM 250, and got into the Kingston Film Festival!"
         }
@@ -74,16 +86,16 @@
     "DSCF7341 Spike Douglas.jpg": "A black-and-white head-and-shoulders portrait of a person wearing a suit and loosened tie.",
     "K-Town Noir (2024)-00.01.17.929.png": "A black-and-white film still of a person reclining on a sofa and drinking from a bottle.",
     "Reasons to Watch Us.png": "A yellow and blue STREET DRUGS poster headed Symptoms of Watching Us, with a portrait and three numbered panels.",
-    "screenshots/k_town_noir/K-Town Noir (2024)-00.01.21.371.png": "A black-and-white film still of a person in a suit drinking from a bottle outside at night.",
-    "screenshots/k_town_noir/K-Town Noir (2024)-00.01.56.065.png": "A black-and-white film still of a person entering a hallway beneath an EXIT sign.",
-    "screenshots/k_town_noir/K-Town Noir (2024)-00.02.00.087.png": "A black-and-white film still of a person in a suit and tie walking down a hallway.",
-    "screenshots/k_town_noir/K-Town Noir (2024)-00.04.26.232.jpeg": "A black-and-white overhead film still of two people seated at a small round table beneath a hanging lamp.",
-    "screenshots/shelter/Shelter (Documentary) [2024-10-28 Final Render]-00.01.35.202.png": "A person holds a phone to their ear on a residential street, with a parked car and houses behind them.",
-    "screenshots/the_bachelorette_party/the_bachelorette_party_1.png": "Hands raise red plastic cups for a toast in front of party decorations.",
-    "screenshots/the_bachelorette_party/the_bachelorette_party_2.png": "A person wearing glasses holds up a wooden stick while a cross is blurred in the foreground.",
-    "screenshots/the_bachelorette_party/the_bachelorette_party_3.png": "Two people sit across from each other at a table with red cups and playing cards.",
-    "screenshots/the_bachelorette_party/the_bachelorette_party_4.png": "A person wearing glasses holds a wooden cross upright at a table.",
-    "screenshots/the_bachelorette_party/the_bachelorette_party_5.png": "Stained-glass windows illuminate the altar and pews of a dim church.",
+    "k_town_noir/K-Town Noir (2024)-00.01.21.371.png": "A black-and-white film still of a person in a suit drinking from a bottle outside at night.",
+    "k_town_noir/K-Town Noir (2024)-00.01.56.065.png": "A black-and-white film still of a person entering a hallway beneath an EXIT sign.",
+    "k_town_noir/K-Town Noir (2024)-00.02.00.087.png": "A black-and-white film still of a person in a suit and tie walking down a hallway.",
+    "k_town_noir/K-Town Noir (2024)-00.04.26.232.jpeg": "A black-and-white overhead film still of two people seated at a small round table beneath a hanging lamp.",
+    "shelter/Shelter (Documentary) [2024-10-28 Final Render]-00.01.35.202.png": "A person holds a phone to their ear on a residential street, with a parked car and houses behind them.",
+    "the_bachelorette_party/the_bachelorette_party_1.png": "Hands raise red plastic cups for a toast in front of party decorations.",
+    "the_bachelorette_party/the_bachelorette_party_2.png": "A person wearing glasses holds up a wooden stick while a cross is blurred in the foreground.",
+    "the_bachelorette_party/the_bachelorette_party_3.png": "Two people sit across from each other at a table with red cups and playing cards.",
+    "the_bachelorette_party/the_bachelorette_party_4.png": "A person wearing glasses holds a wooden cross upright at a table.",
+    "the_bachelorette_party/the_bachelorette_party_5.png": "Stained-glass windows illuminate the altar and pews of a dim church.",
     "Shelter (Documentary) [2024-10-28 Final Render]-00.06.05.414.png": "A smiling person in a pale shirt sits for an interview beside a small table and headphones.",
     "The Bachelorette Party (The Definitive Cut).00_01_10_39422.Still007.png": "A smiling person wearing glasses holds up a red cup while speaking to another person at a table.",
     "The Bachelorette Party Poster (BTS) (K25).png": "A dark red poster for The Bachelorette Party with three layered faces and a Kingston Canadian Film Festival laurel.",

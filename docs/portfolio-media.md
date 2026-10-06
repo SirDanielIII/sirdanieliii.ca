@@ -18,7 +18,7 @@ python -m pip install -r tools/photography/requirements.txt
 python tools/portfolio_media/previews.py
 ```
 
-Non-WebP artwork gets a maximum 1600px WebP at quality 82 under `previews/`, retaining the full composition and EXIF orientation. Originals are untouched. Existing WebP artwork is used directly; missing previews fall back to originals. Unchanged previews are reused; add `--force` to regenerate them. Preview generation never rewrites source JSON or compiles website code.
+Non-WebP posters, stills and logos get a maximum 1600px WebP at quality 82 under `previews/`, retaining the full composition and EXIF orientation. Originals are untouched. Thumbnails always use their original files: preview generation and runtime detection skip thumbnails. Existing WebP artwork is used directly; missing previews fall back to originals. Unchanged previews are reused; add `--force` to regenerate them. Preview generation never rewrites source JSON or compiles website code.
 
 Build/deploy once for website code changes with `npm run build`. Copy the complete `dist/`, including public PHP scripts, JSON and assets. Later content changes need only the edited JSON/assets; synchronize local source before future deployments. `npm run dev` serves live source content through PHP with no generation step. Production requires PHP 8. Source video/film JSON is tracked; artwork is backed up and deployed separately.
 
@@ -85,28 +85,32 @@ Add its artwork under `public/portfolio/short_film/`, then insert a film object 
   "synopsis": "A brief synopsis.",
   "funFact": "An optional production note.",
   "posters": ["new-film-poster.png"],
-  "screenshotsDirectory": "screenshots/new_film"
+  "screenshotsDirectory": "new_film"
 }
 ```
 
-Required fields: `slug`, `title`, numeric `year`, and `type` (`Short Film` or `Documentary`). `status` defaults to `released`. Video, thumbnail, synopsis, production note and gallery fields are optional. For an upcoming film, use `status: "coming-soon"` and omit unavailable media. Do not use strings such as `"None"` as placeholders.
+Required fields: `slug`, `title`, `year` (a four-digit number or nonempty display text such as `"2027 (estimated)"` or `"TBD"`), and `type` (`Short Film` or `Documentary`). The page displays no availability/status labels; no planned flag is needed. Omit unavailable media: the presence of `video`, `trailer`, thumbnail and gallery fields determines which features appear. Synopsis and production notes remain visible for upcoming films. `trailer` uses the same `{ "type": "hls" | "youtube", "url": "..." }` format as `video`; `?trailer=FILM_SLUG` opens it directly. Watch Trailer, Watch Film and View Gallery share an action row directly under the player, wrapping on narrow screens. The main artwork opens the full film when available, otherwise its trailer, including in the featured presentation. With neither source, it remains a static image. Video, trailer, thumbnail, synopsis, production note and gallery fields are optional. Do not use strings such as `"None"` as media placeholders.
 
 Collections have `slug`, `title`, optional `label` and external `link`, and an ordered `films` array. The current collection sequence is STREET DRUGS → filmography. The normal film sequence is K-Town Noir → Shelter → The Bachelorette Party.
 
-Set a collection's `presentation` to `series` to keep related films together in one visually unified section, including upcoming entries. STREET DRUGS and STREET DRUGS 3 share this treatment. The default `filmography` presentation uses editorial rows with one divider between entries. This only changes presentation; the authored film order remains the same.
+Set a collection's `presentation` to `series` to keep related films together in one visually unified section, including upcoming entries. STREET DRUGS and STREET DRUGS 3 share this treatment. The default `filmography` presentation uses editorial rows. Collection titles are slightly larger and bold; dividers separate collections, sections and sibling films within a collection. Synopsis and Production Note headings share the same accent color, typography and spacing. This only changes presentation; the authored film order remains the same.
+
+Film entries place the title above a player/actions and synopsis row. The synopsis has a readable line length; production notes sit directly beneath the synopsis in the same column, with artwork below the main row. Below 850px the main row stacks. This hierarchy draws on the separate viewing actions, synopsis, metadata and artwork sections in [A24?s Past Lives page](https://a24films.com/films/past-lives) and [Criterion?s Following page](https://www.criterion.com/films/28030-following).
 
 ## Posters and screenshots
 
 `posters` is an ordered array of filenames. Use either:
 
 - `screenshots`: an explicitly ordered filename/path array, **or**
-- `screenshotsDirectory`: a relative directory such as `screenshots/the_bachelorette_party`.
+- `screenshotsDirectory`: a relative directory such as `the_bachelorette_party`.
 
 Directory discovery includes direct JPEG, PNG, WebP, AVIF, GIF and BMP files, retaining **filesystem enumeration order without sorting**. That order is filesystem-dependent; use the explicit `screenshots` array when an editorial sequence matters. Discovery never searches legacy images, unrelated directories, or Photography sidecars.
 
-Shelter discovers `screenshots/shelter`; The Bachelorette Party discovers `screenshots/the_bachelorette_party`. Adding another supported image to either directory updates its gallery automatically.
+Shelter discovers `shelter`; The Bachelorette Party discovers `the_bachelorette_party`. Adding another supported image to either directory updates its gallery automatically.
 
-The gallery order is the thumbnail, then authored posters, then screenshots. Portrait posters retain their complete artwork. The gallery has previous/next, arrow keys, Escape, focus return and horizontal touch swipes. It shares the modal lifecycle, image loading/retry component, colors and navigation icons with Photography; Photography keeps its metadata sidebar and URL/history behavior.
+Film image folders sit directly under `public/portfolio/short_film/`, without an intermediate screenshots folder. Preview paths mirror them: `shelter/image.png` uses `previews/shelter/preview-image.png.webp`, with `preview-image.webp` also supported for manually exported previews. Poster and still previews are detected automatically; their gallery viewers load the original images.
+
+The gallery order is the thumbnail, then authored posters, then screenshots. Portrait posters retain their complete artwork. The gallery and Photography share `ViewerImage` for original loading/retry, cursor-centered wheel zoom, double-click zoom, keyboard zoom/reset and bounded panning; `useImageViewer` for dialog dismissal and keyboard navigation; and `ViewerNavigation` for accessible controls. At fit, horizontal swipes and left/right keys navigate; while zoomed, drags and arrow keys pan. Clicking outside the image, Close or Escape dismisses the viewer and restores focus and scroll. Photography retains its metadata sidecar; film galleries keep their header/footer without a sidecar. Each section retains its existing URL/history behavior.
 
 ## Viewer layout and keeping your place
 
@@ -130,6 +134,7 @@ No subtitle files were supplied. YouTube/native video controls support their ava
 ```sh
 php tools/portfolio_media/test_catalog.php
 python tools/portfolio_media/test_runtime.py
+python tools/portfolio_media/test_previews.py
 php tools/photography/test_catalog.php
 python tools/photography/test_generate.py
 npm run lint
@@ -137,6 +142,8 @@ npm run build
 ```
 
 Media checks use isolated fixture assets, leaving portfolio originals untouched. They cover exact supplied order, reordering, canonical featured references, URL encoding, screenshot discovery, coming-soon/optional media, duplicate/missing slugs, invalid types/providers/URLs, malformed JSON, missing thumbnails/posters/directories, path traversal and legacy assets. Invalid content produces a retryable error in that collection; PHP logs identify the source/entry/field. Correct the JSON and refresh to recover.
+
+Run the shared viewer browser regression checks against `npm run dev` with `node tools/portfolio/test_viewers.mjs /path/to/chrome-devtools.js [page-id]`. They cover both layouts at desktop and mobile widths, zoom, panning, navigation, swipe guards, retry, dismissal, focus and history.
 
 Browser review should include desktop/tablet/mobile, both themes, reduced motion, galleries, keyboard/focus, native HLS and hls.js playback, and zero player/manifest requests before clicking. Stream availability is controlled by the existing server, not the runtime content validator.
 

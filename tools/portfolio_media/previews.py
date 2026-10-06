@@ -12,7 +12,7 @@ SUPPORTED = {".jpg", ".jpeg", ".png", ".webp", ".avif", ".gif", ".bmp"}
 def references(value, asset_root):
     if isinstance(value, dict):
         for key, child in value.items():
-            if key in {"thumbnail", "logo"} and isinstance(child, str):
+            if key == "logo" and isinstance(child, str):
                 yield child
             elif key in {"posters", "screenshots"} and isinstance(child, list):
                 yield from (item for item in child if isinstance(item, str))

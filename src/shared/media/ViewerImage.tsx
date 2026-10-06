@@ -14,10 +14,11 @@ interface ImageView {
 }
 
 /** Full originals only. No EXIF/sidecar requests; the surrounding viewer supplies its copy. */
-export default function ViewerImage({image, noun = 'image', onDismiss}: {
+export default function ViewerImage({image, noun = 'image', onDismiss, onNavigate}: {
     image: ViewerImageSource;
     noun?: string;
-    onDismiss?: () => void;
+    onDismiss: () => void;
+    onNavigate?: (offset: number) => void;
 }) {
     const [status, setStatus] = useState<'loading' | 'ready' | 'error'>('loading');
     const [attempt, setAttempt] = useState(0);
@@ -27,6 +28,7 @@ export default function ViewerImage({image, noun = 'image', onDismiss}: {
     const viewport = useRef<HTMLDivElement>(null);
     const drag = useRef<{x: number; y: number; offsetX: number; offsetY: number} | null>(null);
     const dragged = useRef(false);
+    const swipe = useRef<{x: number; y: number} | null>(null);
 
     useEffect(() => {
         const element = viewport.current;
@@ -98,12 +100,12 @@ export default function ViewerImage({image, noun = 'image', onDismiss}: {
                 aria-hidden={status === 'loading' ? true : undefined}
                 decoding="async"
                 fetchPriority="high"
-                draggable={onDismiss ? false : undefined}
-                style={onDismiss && fit ? {
+                draggable={false}
+                style={fit ? {
                     width, height,
                     transform: `translate(-50%, -50%) translate(${String(currentView.x)}px, ${String(currentView.y)}px) scale(${String(currentView.zoom)})`,
                 } : undefined}
-                onDoubleClick={onDismiss ? event => {
+                onDoubleClick={event => {
                     if (dragged.current || status !== 'ready') return;
                     if (currentView.zoom > 1) {
                         drag.current = null;
@@ -111,14 +113,14 @@ export default function ViewerImage({image, noun = 'image', onDismiss}: {
                     } else {
                         zoomAt(event.clientX, event.clientY, 1.5);
                     }
-                } : undefined}
-                onPointerDown={onDismiss ? event => {
+                }}
+                onPointerDown={event => {
                     dragged.current = false;
                     if (event.button !== 0 || status !== 'ready' || currentView.zoom === 1) return;
                     drag.current = {x: event.clientX, y: event.clientY, offsetX: currentView.x, offsetY: currentView.y};
                     event.currentTarget.setPointerCapture(event.pointerId);
-                } : undefined}
-                onPointerMove={onDismiss ? event => {
+                }}
+                onPointerMove={event => {
                     const start = drag.current;
                     if (!start) return;
                     const dx = event.clientX - start.x;
@@ -127,7 +129,7 @@ export default function ViewerImage({image, noun = 'image', onDismiss}: {
                     if (dragged.current) {
                         setView(previous => clampView({...previous, x: start.offsetX + dx, y: start.offsetY + dy}));
                     }
-                } : undefined}
+                }}
                 onPointerUp={() => { drag.current = null; }}
                 onPointerCancel={() => { drag.current = null; dragged.current = true; }}
                 onLostPointerCapture={() => { drag.current = null; }}
@@ -155,10 +157,30 @@ export default function ViewerImage({image, noun = 'image', onDismiss}: {
             </div>}
     </>;
     return (
-        <div className={`viewer-image${onDismiss ? ' viewer-zoomable' : ''}`} aria-busy={status === 'loading'} data-zoomed={currentView.zoom > 1}>
-            {onDismiss ?
+        <div className="viewer-image viewer-zoomable" aria-busy={status === 'loading'} data-zoomed={currentView.zoom > 1}>
                 <div className="viewer-image-viewport" ref={viewport} tabIndex={status === 'ready' ? 0 : undefined}
-                    role="region" aria-label="Photograph; double-click to toggle fit and 150% zoom, scroll to zoom, drag while zoomed to pan. Use plus and minus to zoom, or zero to fit."
+                    role="region" aria-label={`${noun === 'photograph' ? 'Photograph' : 'Image'}; double-click to toggle fit and 150% zoom, scroll to zoom, drag while zoomed to pan. Use plus and minus to zoom, or zero to fit.`}
+                    onPointerDown={event => {
+                        if (event.target === event.currentTarget) dragged.current = false;
+                    }}
+                    onTouchStart={event => {
+                        dragged.current = false;
+                        const touch = event.touches[0];
+                        swipe.current = currentView.zoom === 1 && event.touches.length === 1 ? {x: touch.clientX, y: touch.clientY} : null;
+                    }}
+                    onTouchCancel={() => { swipe.current = null; dragged.current = true; }}
+                    onTouchEnd={event => {
+                        const start = swipe.current;
+                        swipe.current = null;
+                        if (!start || currentView.zoom > 1 || event.touches.length) return;
+                        const touch = event.changedTouches[0];
+                        const dx = touch.clientX - start.x;
+                        const dy = touch.clientY - start.y;
+                        if (Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.5) {
+                            dragged.current = true;
+                            onNavigate?.(dx < 0 ? 1 : -1);
+                        }
+                    }}
                     onKeyDown={event => {
                         if (event.altKey || event.ctrlKey || event.metaKey) return;
                         if (['+', '=', '-'].includes(event.key)) {
@@ -184,11 +206,10 @@ export default function ViewerImage({image, noun = 'image', onDismiss}: {
                         }
                     }}
                     onClick={event => {
-                        if (event.target === event.currentTarget) onDismiss();
+                        if (event.target === event.currentTarget && !dragged.current) onDismiss();
                     }}>
                     {picture}
                 </div>
-            : picture}
         </div>
     );
 }
