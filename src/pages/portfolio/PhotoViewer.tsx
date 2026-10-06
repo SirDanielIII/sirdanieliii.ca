@@ -20,6 +20,9 @@ export default function PhotoViewer({items, index, opener, onNavigate, onClose}:
     return (
         <Lightbox
             {...modal}
+            onClick={event => {
+                if (event.target === event.currentTarget) event.currentTarget.close();
+            }}
             aria-labelledby="photo-viewer-title"
             onKeyDown={event => {
                 // Leave arrow keys available for scrolling the metadata panel and browser shortcuts.
@@ -30,7 +33,7 @@ export default function PhotoViewer({items, index, opener, onNavigate, onClose}:
                 }
             }}
         >
-            <ViewerImage key={selected.id} image={selected} noun="photograph" />
+            <ViewerImage key={selected.id} image={selected} noun="photograph" onDismiss={() => { modal.ref.current?.close(); }} />
             {/* All information and controls live beside the image; the sidebar scrolls independently. */}
             <aside className="viewer-sidebar" aria-label="Photograph information" tabIndex={0}>
                 <div className="viewer-controls">

@@ -544,6 +544,33 @@ export const Lightbox = styled.dialog`
     .viewer-image img[data-loading='true'] {
         visibility: hidden;
     }
+    .viewer-zoomable {
+        overflow: hidden;
+    }
+    .viewer-image-viewport {
+        position: relative;
+        display: grid;
+        place-items: center;
+        width: 100%;
+        height: 100%;
+        min-height: 0;
+        overflow: hidden;
+        touch-action: none;
+    }
+    .viewer-image-viewport:focus-visible {
+        outline: 2px solid var(--portfolio-focus, ${({theme}) => theme.portfolio.photography.focus});
+        outline-offset: -2px;
+    }
+    .viewer-image-viewport img {
+        left: 50%;
+        top: 50%;
+        max-width: none;
+        max-height: none;
+        cursor: default;
+        user-select: none;
+    }
+    .viewer-zoomable[data-zoomed='true'] img { cursor: grab; }
+    .viewer-zoomable[data-zoomed='true'] img:active { cursor: grabbing; }
     /* ViewerImage renders the loading and error states. */
     /*noinspection CssUnusedSymbol*/
     .viewer-placeholder {
